@@ -55,7 +55,7 @@ public class BetterClient {
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         config = new Configuration(event.getSuggestedConfigurationFile());
-        for(IFeature feature : enableFeatures){
+        for (IFeature feature : enableFeatures) {
             feature.getConfigEntrys();
         }
         logger = event.getModLog();

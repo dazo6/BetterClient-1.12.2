@@ -23,11 +23,6 @@ public class ShulkerBoxViewer implements IFeature {
     public static IConfigEntry<Boolean> isOrganizing;
 
     @Override
-    public void init(FMLInitializationEvent event) {
-        net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(ShulkerBoxViewerEventHandler.instance);
-    }
-
-    @Override
     public String getID() {
         return ID;
     }
@@ -39,7 +34,7 @@ public class ShulkerBoxViewer implements IFeature {
 
     @Override
     public String getVersion() {
-        return null;
+        return VERSION;
     }
 
     @Override
@@ -61,6 +56,11 @@ public class ShulkerBoxViewer implements IFeature {
 
     @Override
     public void preInit(FMLPreInitializationEvent event) {
+
+    }
+
+    @Override
+    public void init(FMLInitializationEvent event) {
 
     }
 

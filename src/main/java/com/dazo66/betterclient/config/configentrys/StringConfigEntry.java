@@ -7,6 +7,9 @@ import net.minecraftforge.common.config.Property;
 
 import javax.annotation.Nullable;
 
+/**
+ * @author Dazo66
+ */
 public class StringConfigEntry implements IConfigEntry<String> {
 
 
