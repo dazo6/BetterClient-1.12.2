@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+FMLCorePlugin: com.dazo66.betterclient.coremod.CoreModBase
+FMLCorePluginContainsFMLMod: true
+FMLAT: betterclient_at.cfg

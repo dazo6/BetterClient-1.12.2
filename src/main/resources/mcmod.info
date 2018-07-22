@@ -1,0 +1,16 @@
+[
+{
+  "modid": "betterclient",
+  "name": "BetterClient",
+  "description": "Make your client better.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Dazo66"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
