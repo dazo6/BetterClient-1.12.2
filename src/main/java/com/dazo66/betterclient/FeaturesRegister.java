@@ -50,6 +50,9 @@ public class FeaturesRegister {
     }
 
     public static void configEntryInit(IFeature feature) {
+        if (feature.getConfigEntrys() == null) {
+            return;
+        }
         for (IConfigEntry configEntry : feature.getConfigEntrys()) {
             configEntry.getValue();
         }

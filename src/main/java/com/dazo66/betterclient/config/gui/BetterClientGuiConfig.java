@@ -1,8 +1,8 @@
 package com.dazo66.betterclient.config.gui;
 
 import com.dazo66.betterclient.BetterClient;
-import com.dazo66.betterclient.FeaturesRegister;
 import com.dazo66.betterclient.FeaturesBase.IFeature;
+import com.dazo66.betterclient.FeaturesRegister;
 import com.dazo66.betterclient.config.configentrys.BooleanConfigEntry;
 import com.dazo66.betterclient.config.configentrys.IConfigEntry;
 import net.minecraft.client.gui.GuiScreen;
@@ -28,7 +28,11 @@ public class BetterClientGuiConfig extends GuiConfig {
             List<IConfigElement> list1 = new ArrayList<>();
             BooleanConfigEntry isEnable = new BooleanConfigEntry("enable", true, feature, "This feature is enable to load or not.");
             list1.add(new ConfigElement(isEnable.getProperty()));
-            for (IConfigEntry configEntry : feature.getConfigEntrys()) {
+            List<IConfigEntry> entries = feature.getConfigEntrys();
+            if (entries == null) {
+                entries = new ArrayList<>();
+            }
+            for (IConfigEntry configEntry : entries) {
                 list1.add(new ConfigElement(configEntry.getProperty()));
             }
             list.add(new DummyConfigElement.DummyCategoryElement(feature.getName(), feature.getName() + feature.getVersion(), list1));

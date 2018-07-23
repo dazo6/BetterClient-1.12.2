@@ -3,6 +3,7 @@ package com.dazo66.betterclient;
 import com.dazo66.betterclient.FeaturesBase.IFeature;
 import com.dazo66.betterclient.coremod.IRegisterTransformer;
 import com.dazo66.betterclient.coremod.MainTransformer;
+import com.dazo66.fastcrafting.FastCrafting;
 import com.dazo66.shulkerboxshower.ShulkerBoxViewer;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Mod;
@@ -37,6 +38,7 @@ public class BetterClient {
 
     public static void registerFeatures() {
         FeaturesRegister.register(new ShulkerBoxViewer());
+        FeaturesRegister.register(new FastCrafting());
     }
 
     public static void registerTransformerClass(MainTransformer mainTransformer) {
