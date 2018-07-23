@@ -9,7 +9,8 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Dazo66
@@ -45,8 +46,8 @@ public class ShulkerBoxViewer extends AbstractFeature {
     }
 
     @Override
-    public LinkedList<IConfigEntry> getConfigEntrys() {
-        LinkedList<IConfigEntry> list = new LinkedList<>();
+    public List<IConfigEntry> getConfigEntrys() {
+        ArrayList<IConfigEntry> list = new ArrayList<>();
         list.add(isOrganizing = new BooleanConfigEntry("Organized the items", false, this, "Organizing the items or not"));
         return list;
     }

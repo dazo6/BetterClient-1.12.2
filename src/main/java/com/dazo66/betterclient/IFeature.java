@@ -4,7 +4,6 @@ import com.dazo66.betterclient.config.configentrys.IConfigEntry;
 import com.dazo66.betterclient.coremod.IRegisterTransformer;
 import net.minecraftforge.fml.common.event.*;
 
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -24,7 +23,7 @@ public interface IFeature {
 
     Class eventHandlerClass();
 
-    LinkedList<IConfigEntry> getConfigEntrys();
+    List<IConfigEntry> getConfigEntrys();
 
     void preInit(FMLPreInitializationEvent event);
 
