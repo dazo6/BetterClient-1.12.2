@@ -3,15 +3,13 @@ package com.dazo66.betterclient;
 import com.dazo66.betterclient.coremod.IRegisterTransformer;
 import com.dazo66.betterclient.coremod.MainTransformer;
 import com.dazo66.shulkerboxshower.ShulkerBoxViewer;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.*;
 import org.apache.logging.log4j.Logger;
 
+import java.io.File;
 import java.util.Set;
 
 /**
@@ -27,9 +25,18 @@ public class BetterClient {
     @Mod.Instance
     public static BetterClient betterClient = new BetterClient();
     public static Logger logger;
-    public static Configuration config;
+    public static Configuration config = new Configuration(new File("config\\" + MODID + ".cfg"));
+    ;
     public static Set<IFeature> enableFeatures = FeaturesRegister.enableFeatures;
     public static Set<IFeature> disableFeatures = FeaturesRegister.disableFeatures;
+
+    static {
+        config.load();
+    }
+
+    public static void registerFeatures() {
+        FeaturesRegister.register(new ShulkerBoxViewer());
+    }
 
     public static void registerTransformerClass(MainTransformer mainTransformer) {
         for (IFeature feature : enableFeatures) {
@@ -48,18 +55,11 @@ public class BetterClient {
         }
     }
 
-    public static void registerFeatures() {
-        FeaturesRegister.register(new ShulkerBoxViewer());
-    }
-
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-        config = new Configuration(event.getSuggestedConfigurationFile());
-        for (IFeature feature : enableFeatures) {
-            feature.getConfigEntrys();
-        }
         logger = event.getModLog();
         for (IFeature feature : enableFeatures) {
+            FeaturesRegister.configEntryInit(feature);
             feature.preInit(event);
         }
     }
@@ -67,10 +67,10 @@ public class BetterClient {
     @EventHandler
     public void init(FMLInitializationEvent event) {
         for (IFeature feature : enableFeatures) {
-            if (feature.eventHandlerClass() == null) {
-                continue;
+            boolean regResult = FeaturesRegister.registerHandleClass(feature);
+            if (!regResult) {
+                logger.error("Registor %s handle class was failed", feature.eventHandlerClass().getSimpleName());
             }
-            MinecraftForge.EVENT_BUS.register(feature.eventHandlerClass());
             feature.init(event);
         }
     }
@@ -82,4 +82,39 @@ public class BetterClient {
         }
     }
 
+
+    @EventHandler
+    public void serverStarting(FMLServerStartingEvent event) {
+        for (IFeature feature : enableFeatures) {
+            feature.serverStarting(event);
+        }
+    }
+
+    @EventHandler
+    public void serverStarted(FMLServerStartedEvent event) {
+        for (IFeature feature : enableFeatures) {
+            feature.serverStarted(event);
+        }
+    }
+
+    @EventHandler
+    public void serverAbortToStart(FMLServerAboutToStartEvent event) {
+        for (IFeature feature : enableFeatures) {
+            feature.serverAboutToStart(event);
+        }
+    }
+
+    @EventHandler
+    public void serverStoped(FMLServerStoppedEvent event) {
+        for (IFeature feature : enableFeatures) {
+            feature.serverStoped(event);
+        }
+    }
+
+    @EventHandler
+    public void serverStoping(FMLServerStoppingEvent event) {
+        for (IFeature feature : enableFeatures) {
+            feature.serverStoping(event);
+        }
+    }
 }

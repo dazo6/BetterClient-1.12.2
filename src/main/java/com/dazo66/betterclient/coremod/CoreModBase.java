@@ -1,5 +1,6 @@
 package com.dazo66.betterclient.coremod;
 
+import com.dazo66.betterclient.BetterClient;
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
 
 import javax.annotation.Nullable;
@@ -10,7 +11,7 @@ import java.util.Map;
  */
 
 @IFMLLoadingPlugin.MCVersion("")
-//@IFMLLoadingPlugin.SortingIndex(10000)
+@IFMLLoadingPlugin.SortingIndex(10000)
 public class CoreModBase implements IFMLLoadingPlugin {
 
     @Override

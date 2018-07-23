@@ -2,11 +2,9 @@ package com.dazo66.betterclient;
 
 import com.dazo66.betterclient.config.configentrys.IConfigEntry;
 import com.dazo66.betterclient.coremod.IRegisterTransformer;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.*;
 
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -20,11 +18,13 @@ public interface IFeature {
 
     String getVersion();
 
+    String getAuthor();
+
     List<Class<? extends IRegisterTransformer>> transformerClass();
 
     Class eventHandlerClass();
 
-    List<IConfigEntry> getConfigEntrys();
+    LinkedList<IConfigEntry> getConfigEntrys();
 
     void preInit(FMLPreInitializationEvent event);
 
@@ -33,5 +33,15 @@ public interface IFeature {
     void postInit(FMLPostInitializationEvent event);
 
     void loadComplete(FMLLoadCompleteEvent event);
+
+    void serverStarted(FMLServerStartedEvent event);
+
+    void serverStarting(FMLServerStartingEvent event);
+
+    void serverAboutToStart(FMLServerAboutToStartEvent event);
+
+    void serverStoping(FMLServerStoppingEvent event);
+
+    void serverStoped(FMLServerStoppedEvent event);
 
 }

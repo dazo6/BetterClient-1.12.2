@@ -1,25 +1,22 @@
 package com.dazo66.shulkerboxshower;
 
-import com.dazo66.betterclient.IFeature;
+import com.dazo66.betterclient.AbstractFeature;
 import com.dazo66.betterclient.config.configentrys.BooleanConfigEntry;
 import com.dazo66.betterclient.config.configentrys.IConfigEntry;
-import com.dazo66.betterclient.coremod.IRegisterTransformer;
 import com.dazo66.shulkerboxshower.eventhandler.ShulkerBoxViewerEventHandler;
+import net.minecraft.client.resources.I18n;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedList;
 
 /**
  * @author Dazo66
  */
-public class ShulkerBoxViewer implements IFeature {
+public class ShulkerBoxViewer extends AbstractFeature {
     public static final String VERSION = "1.5";
     private static final String ID = "shulkerboxviewer";
-    private static final String NAME = "ShulkerBoxViewer";
     public static IConfigEntry<Boolean> isOrganizing;
 
     @Override
@@ -29,7 +26,7 @@ public class ShulkerBoxViewer implements IFeature {
 
     @Override
     public String getName() {
-        return NAME;
+        return I18n.format("betterclient.shulkerboxviewer.name");
     }
 
     @Override
@@ -38,8 +35,8 @@ public class ShulkerBoxViewer implements IFeature {
     }
 
     @Override
-    public List<Class<? extends IRegisterTransformer>> transformerClass() {
-        return null;
+    public String getAuthor() {
+        return "Dazo66";
     }
 
     @Override
@@ -48,9 +45,9 @@ public class ShulkerBoxViewer implements IFeature {
     }
 
     @Override
-    public List<IConfigEntry> getConfigEntrys() {
-        ArrayList<IConfigEntry> list = new ArrayList<>();
-        list.add(isOrganizing = new BooleanConfigEntry("Organizing The Items", false, this));
+    public LinkedList<IConfigEntry> getConfigEntrys() {
+        LinkedList<IConfigEntry> list = new LinkedList<>();
+        list.add(isOrganizing = new BooleanConfigEntry("Organized the items", false, this, "Organizing the items or not"));
         return list;
     }
 
@@ -66,11 +63,6 @@ public class ShulkerBoxViewer implements IFeature {
 
     @Override
     public void postInit(FMLPostInitializationEvent event) {
-
-    }
-
-    @Override
-    public void loadComplete(FMLLoadCompleteEvent event) {
 
     }
 

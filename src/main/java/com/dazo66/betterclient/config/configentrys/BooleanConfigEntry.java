@@ -26,6 +26,7 @@ public class BooleanConfigEntry implements IConfigEntry<Boolean> {
         owner = ownerIn;
         comment = commentIn;
         property = getProperty();
+        getValue();
     }
 
     public BooleanConfigEntry(String keyIn, boolean defultValueIn, IFeature ownerIn) {
