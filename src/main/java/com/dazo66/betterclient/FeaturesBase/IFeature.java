@@ -1,4 +1,4 @@
-package com.dazo66.betterclient;
+package com.dazo66.betterclient.FeaturesBase;
 
 import com.dazo66.betterclient.config.configentrys.IConfigEntry;
 import com.dazo66.betterclient.coremod.IRegisterTransformer;

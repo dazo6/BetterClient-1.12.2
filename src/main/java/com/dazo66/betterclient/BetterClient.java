@@ -1,5 +1,6 @@
 package com.dazo66.betterclient;
 
+import com.dazo66.betterclient.FeaturesBase.IFeature;
 import com.dazo66.betterclient.coremod.IRegisterTransformer;
 import com.dazo66.betterclient.coremod.MainTransformer;
 import com.dazo66.shulkerboxshower.ShulkerBoxViewer;

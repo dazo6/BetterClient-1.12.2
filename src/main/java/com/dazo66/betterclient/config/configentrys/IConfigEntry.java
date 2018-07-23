@@ -1,6 +1,6 @@
 package com.dazo66.betterclient.config.configentrys;
 
-import com.dazo66.betterclient.IFeature;
+import com.dazo66.betterclient.FeaturesBase.IFeature;
 import net.minecraftforge.common.config.Property;
 
 /**
