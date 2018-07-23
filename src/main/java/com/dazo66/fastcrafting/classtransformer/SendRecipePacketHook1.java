@@ -15,7 +15,7 @@ public class SendRecipePacketHook1 implements IRegisterTransformer {
 
     @Override
     public String getMcVersion() {
-        return "1.12";
+        return "[1.12,1.12.1)";
     }
 
     @Override

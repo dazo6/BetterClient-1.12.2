@@ -15,7 +15,7 @@ public class MineRecipe implements IRegisterTransformer {
 
     @Override
     public String getMcVersion() {
-        return "[1.12-1.12.2]";
+        return "[1.12,1.12.2]";
     }
 
     @Override

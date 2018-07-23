@@ -7,7 +7,6 @@ import com.dazo66.fastcrafting.classtransformer.MineRecipe;
 import com.dazo66.fastcrafting.classtransformer.SendRecipePacketHook0;
 import com.dazo66.fastcrafting.classtransformer.SendRecipePacketHook1;
 import com.dazo66.fastcrafting.eventhandler.FastCraftingingEventHandler;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -71,7 +70,7 @@ public class FastCrafting extends AbstractFeature {
     }
 
     @Override
-    public List<Class<? extends IRegisterTransformer>> transformerClass(){
+    public List<Class<? extends IRegisterTransformer>> transformerClass() {
         return Arrays.asList(MineRecipe.class, SendRecipePacketHook0.class, SendRecipePacketHook1.class);
     }
 }

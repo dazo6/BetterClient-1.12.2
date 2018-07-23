@@ -2,6 +2,7 @@ package com.dazo66.fastcrafting.classtransformer;
 
 import com.dazo66.betterclient.coremod.IRegisterTransformer;
 import com.dazo66.betterclient.coremod.MainTransformer;
+import net.minecraft.client.multiplayer.PlayerControllerMP;
 
 import java.util.Arrays;
 import java.util.List;
@@ -15,7 +16,7 @@ public class SendRecipePacketHook0 implements IRegisterTransformer {
 
     @Override
     public String getMcVersion() {
-        return "[1.12.1-1.12.2]";
+        return "[1.12.1,1.12.2]";
     }
 
     @Override

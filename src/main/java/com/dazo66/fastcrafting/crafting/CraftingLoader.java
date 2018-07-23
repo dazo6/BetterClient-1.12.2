@@ -37,9 +37,9 @@ public class CraftingLoader {
         RecipeBook recipebook = mc.player.getRecipeBook();
         boolean flag = false;
         for (IRecipe iRecipe : CraftingManager.REGISTRY) {
-            if (!recipebook.isUnlocked(iRecipe)) {
+            if (!recipebook.isUnlocked(iRecipe) && !iRecipe.isDynamic()) {
                 recipebook.unlock(iRecipe);
-                recipebook.markNew(iRecipe);
+                recipebook.markSeen(iRecipe);
                 flag = true;
             }
         }
@@ -60,7 +60,6 @@ public class CraftingLoader {
             for (IRecipe iRecipe : myRecipe) {
                 if (!recipebook.isUnlocked(iRecipe)) {
                     recipebook.unlock(iRecipe);
-                    recipebook.markNew(iRecipe);
                     flag = true;
                 }
             }
