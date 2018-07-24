@@ -27,7 +27,7 @@ public class ShulkerBoxViewer extends AbstractFeature {
 
     @Override
     public String getName() {
-        return I18n.format("betterclient.shulkerboxviewer.name");
+        return I18n.format("shulkerboxviewer.name");
     }
 
     @Override

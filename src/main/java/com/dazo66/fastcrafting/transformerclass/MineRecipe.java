@@ -1,4 +1,4 @@
-package com.dazo66.fastcrafting.classtransformer;
+package com.dazo66.fastcrafting.transformerclass;
 
 import com.dazo66.betterclient.coremod.IRegisterTransformer;
 import com.dazo66.fastcrafting.crafting.CraftingLoader;
@@ -10,6 +10,9 @@ import org.objectweb.asm.tree.*;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * @author Dazo66
+ */
 public class MineRecipe implements IRegisterTransformer {
     private final List<String> methodInfo = Arrays.asList("init", "()V");
 

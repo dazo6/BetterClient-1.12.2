@@ -1,4 +1,4 @@
-package com.dazo66.fastcrafting.classtransformer;
+package com.dazo66.fastcrafting.transformerclass;
 
 import com.dazo66.betterclient.coremod.IRegisterTransformer;
 import com.dazo66.betterclient.coremod.MainTransformer;
@@ -9,18 +9,18 @@ import java.util.List;
 /**
  * @author Dazo66
  */
-public class SendRecipePacketHook1 implements IRegisterTransformer {
+public class SendRecipePacketHook0 implements IRegisterTransformer {
 
-    private List<String> methodInfo = Arrays.asList("func_193945_a", "(Lnet/minecraft/item/crafting/IRecipe;Lnet/minecraft/client/gui/recipebook/RecipeList;)V");
+    private final List<String> methodInfo = Arrays.asList("func_194338_a", "a", "(ILakt;ZLaed;)V", "(ILnet/minecraft/item/crafting/IRecipe;ZLnet/minecraft/entity/player/EntityPlayer;)V");
 
     @Override
     public String getMcVersion() {
-        return "[1.12,1.12.1)";
+        return "[1.12.1,1.12.2]";
     }
 
     @Override
     public List<String> getClassName() {
-        return Arrays.asList("net/minecraft/client/gui/recipebook/GuiRecipeBook", "bnm");
+        return Arrays.asList("net.minecraft.client.multiplayer.PlayerControllerMP");
     }
 
     @Override
