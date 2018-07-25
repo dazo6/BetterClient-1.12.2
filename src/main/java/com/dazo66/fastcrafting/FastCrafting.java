@@ -1,12 +1,13 @@
 package com.dazo66.fastcrafting;
 
-import com.dazo66.betterclient.FeaturesBase.AbstractFeature;
+import com.dazo66.betterclient.featuresbase.AbstractFeature;
 import com.dazo66.betterclient.config.configentrys.IConfigEntry;
 import com.dazo66.betterclient.coremod.IRegisterTransformer;
+import com.dazo66.fastcrafting.eventhandler.FastCraftingingEventHandler;
 import com.dazo66.fastcrafting.transformerclass.MineRecipe;
 import com.dazo66.fastcrafting.transformerclass.SendRecipePacketHook0;
 import com.dazo66.fastcrafting.transformerclass.SendRecipePacketHook1;
-import com.dazo66.fastcrafting.eventhandler.FastCraftingingEventHandler;
+import net.minecraft.client.resources.I18n;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -31,7 +32,7 @@ public class FastCrafting extends AbstractFeature {
 
     @Override
     public String getName() {
-        return NAME;
+        return I18n.format("fastcrafting.name");
     }
 
     @Override

@@ -125,35 +125,6 @@ public class ConfigJson {
         }
         return true;
     }
-    //
-    //
-    //    public void setAuto(boolean auto) {
-    //        Minecraft mc = Minecraft.getMinecraft();
-    //        isAuto = auto;
-    //        String msg = "FastTradingMod-" + (auto ? "ON" : "OFF");
-    //        try {
-    //            mc.player.sendMessage(new TextComponentString(msg));
-    //        } catch (NullPointerException e) {
-    //            FastTrading.logger.info(msg);
-    //        }
-    //
-    //    }
-    //
-    //    @Override
-    //    public boolean equals(Object o) {
-    //        return o instanceof ConfigJson && (((ConfigJson) o).isAuto == isAuto && Arrays.equals(((ConfigJson) o).recipeList, recipeList));
-    //    }
-    //
-    //    @Override
-    //    public Object clone() {
-    //        Object clone = null;
-    //        try {
-    //            clone = super.clone();
-    //        } catch (CloneNotSupportedException e) {
-    //            e.printStackTrace();
-    //        }
-    //        return clone;
-    //    }
 
     public static class SimpleRecipe {
 
@@ -169,7 +140,7 @@ public class ConfigJson {
             sell = new SimpleItem(recipe.getItemToSell());
         }
 
-        public boolean hasSecondItemToBuy(){
+        public boolean hasSecondItemToBuy() {
             return !"minecraft:air".equals(buy2.itemID);
         }
 

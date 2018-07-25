@@ -1,14 +1,15 @@
 package com.dazo66.fasttrading;
 
-import com.dazo66.betterclient.FeaturesBase.AbstractFeature;
+import com.dazo66.betterclient.featuresbase.AbstractFeature;
 import com.dazo66.betterclient.config.configentrys.BooleanConfigEntry;
 import com.dazo66.betterclient.config.configentrys.IConfigEntry;
 import com.dazo66.betterclient.config.configentrys.StringArrayConfigEntry;
 import com.dazo66.betterclient.coremod.IRegisterTransformer;
 import com.dazo66.fasttrading.config.ConfigLoader;
-import com.dazo66.fasttrading.eventhandler.FastTradingEventHandler;
+import com.dazo66.fasttrading.event.FastTradingEventHandler;
 import com.dazo66.fasttrading.transformsclass.HookSetRecipeListEvent;
 import com.dazo66.fasttrading.util.KeyLoader;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.NpcMerchant;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -45,7 +46,7 @@ public class FastTrading extends AbstractFeature {
 
     @Override
     public String getName() {
-        return NAME;
+        return I18n.format("fasttrading.name");
     }
 
     @Override
@@ -65,8 +66,8 @@ public class FastTrading extends AbstractFeature {
 
     @Override
     public List<IConfigEntry> getConfigEntrys() {
-       isAuto = new BooleanConfigEntry("fasttrading.isAuto", true, this, "is auto to trade when merchant gui open.");
-       simpleRecipes = new StringArrayConfigEntry("fasttrading.autorecipelist", new String[0], this);
+        isAuto = new BooleanConfigEntry("fasttrading.isAuto", true, this, "is auto to trade when merchant gui open.");
+        simpleRecipes = new StringArrayConfigEntry("fasttrading.autorecipelist", new String[0], this);
         return Arrays.asList(isAuto, simpleRecipes);
     }
 

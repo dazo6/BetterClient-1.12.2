@@ -1,4 +1,4 @@
-package com.dazo66.betterclient.FeaturesBase;
+package com.dazo66.betterclient.featuresbase;
 
 import com.dazo66.betterclient.coremod.IRegisterTransformer;
 import com.google.common.base.Strings;

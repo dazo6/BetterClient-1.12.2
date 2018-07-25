@@ -11,10 +11,10 @@ import java.util.ArrayList;
  */
 public class ConfigLoader {
 
-    private StringArrayConfigEntry configEntry;
     public SimpleRecipeList recipeList = new SimpleRecipeList();
-    private Gson gson = new GsonBuilder().create();
     public ArrayList<ConfigJson.SimpleRecipe> oldList;
+    private StringArrayConfigEntry configEntry;
+    private Gson gson = new GsonBuilder().create();
 
     public ConfigLoader(StringArrayConfigEntry configEntryIn) {
         configEntry = configEntryIn;
@@ -22,7 +22,7 @@ public class ConfigLoader {
     }
 
     @SuppressWarnings("unchecked")
-    public void load(){
+    public void load() {
         String[] rawRecipes = configEntry.getValue();
         recipeList.clear();
         for (String rawRecipe : rawRecipes) {
@@ -43,20 +43,20 @@ public class ConfigLoader {
         }
         configEntry.setValue(strings);
     }
-//
-//    public void addRecipe(boolean isLock, MerchantRecipe recipe){
-//        ConfigJson.SimpleRecipe simpleRecipe = new ConfigJson.SimpleRecipe(isLock, recipe);
-//        recipeList.add(simpleRecipe);
-//        int size = recipeList.size();
-//        String[] strings = new String[size];
-//        for (int i = 0; i < size; i++) {
-//            strings[i] = gson.toJson(recipeList.get(i));
-//        }
-//        configEntry.setValue(strings);
-//
-//    }
-//
-//    public void removeRecipe(MerchantRecipe recipe) {
-//
-//    }
+    //
+    //    public void addRecipe(boolean isLock, MerchantRecipe recipe){
+    //        ConfigJson.SimpleRecipe simpleRecipe = new ConfigJson.SimpleRecipe(isLock, recipe);
+    //        recipeList.add(simpleRecipe);
+    //        int size = recipeList.size();
+    //        String[] strings = new String[size];
+    //        for (int i = 0; i < size; i++) {
+    //            strings[i] = gson.toJson(recipeList.get(i));
+    //        }
+    //        configEntry.setValue(strings);
+    //
+    //    }
+    //
+    //    public void removeRecipe(MerchantRecipe recipe) {
+    //
+    //    }
 }

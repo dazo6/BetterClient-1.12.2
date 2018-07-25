@@ -1,8 +1,8 @@
 package com.dazo66.betterclient;
 
-import com.dazo66.betterclient.FeaturesBase.IFeature;
 import com.dazo66.betterclient.coremod.IRegisterTransformer;
 import com.dazo66.betterclient.coremod.MainTransformer;
+import com.dazo66.betterclient.featuresbase.IFeature;
 import com.dazo66.fastcrafting.FastCrafting;
 import com.dazo66.fasttrading.FastTrading;
 import com.dazo66.shulkerboxshower.ShulkerBoxViewer;
@@ -29,14 +29,12 @@ public class BetterClient {
     public static BetterClient betterClient = new BetterClient();
     public static Logger logger;
     public static Configuration config = new Configuration(new File("config\\" + MODID + ".cfg"));
-    ;
     public static Set<IFeature> enableFeatures = FeaturesRegister.enableFeatures;
     public static Set<IFeature> disableFeatures = FeaturesRegister.disableFeatures;
 
-    static {
-        config.load();
-    }
-
+    /**
+     * feature register at here
+     */
     public static void registerFeatures() {
         FeaturesRegister.register(new ShulkerBoxViewer());
         FeaturesRegister.register(new FastCrafting());
@@ -81,6 +79,13 @@ public class BetterClient {
     }
 
     @EventHandler
+    public void loadComplete(FMLLoadCompleteEvent event) {
+        for (IFeature feature : enableFeatures) {
+            feature.loadComplete(event);
+        }
+    }
+
+    @EventHandler
     public void postInit(FMLPostInitializationEvent event) {
         for (IFeature feature : enableFeatures) {
             feature.postInit(event);
@@ -121,5 +126,9 @@ public class BetterClient {
         for (IFeature feature : enableFeatures) {
             feature.serverStoping(event);
         }
+    }
+
+    static {
+        config.load();
     }
 }

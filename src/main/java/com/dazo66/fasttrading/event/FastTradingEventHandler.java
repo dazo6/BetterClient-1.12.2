@@ -1,4 +1,4 @@
-package com.dazo66.fasttrading.eventhandler;
+package com.dazo66.fasttrading.event;
 
 import com.dazo66.fasttrading.FastTrading;
 import com.dazo66.fasttrading.client.gui.GuiMerchantOverride;

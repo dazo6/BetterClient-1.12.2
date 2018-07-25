@@ -21,6 +21,7 @@ import net.minecraft.world.World;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static com.dazo66.fasttrading.FastTrading.configLoader;
 
@@ -35,12 +36,7 @@ public class GuiMerchantOverride extends GuiMerchant {
     private int lastClickTime;
     private GuiButton lastClickButton;
     private ArrayList<GuiRecipeButton> recipeButtonList = new ArrayList<>();
-    private GuiIconButton onButton;
-    private GuiIconButton offButton;
-    private GuiIconButton plusButton;
-    private GuiIconButton subtractButton;
-    private GuiIconButton lockButton;
-    private GuiIconButton unlockButton;
+    private HashMap<String, GuiIconButton> buttonMap = new HashMap<>();
 
     public GuiMerchantOverride(InventoryPlayer inventoryPlayer, IMerchant iMerchant, World worldIn) {
         super(inventoryPlayer, iMerchant, worldIn);
@@ -53,6 +49,7 @@ public class GuiMerchantOverride extends GuiMerchant {
     public void initGui() {
         super.initGui();
         recipeButtonList.clear();
+        buttonMap.clear();
         addMerchantButton(merchantRecipeList);
         addFunctionButton();
     }
@@ -205,12 +202,12 @@ public class GuiMerchantOverride extends GuiMerchant {
     }
 
     private void addFunctionButton() {
-        onButton = null;
-        offButton = null;
-        plusButton = null;
-        subtractButton = null;
-        lockButton = null;
-        unlockButton = null;
+        GuiIconButton onButton = null;
+        GuiIconButton offButton = null;
+        GuiIconButton addButton = null;
+        GuiIconButton subtractButton = null;
+        GuiIconButton lockButton = null;
+        GuiIconButton unlockButton = null;
         ResourceLocation ON = new ResourceLocation(FastTrading.MODID, "textures/gui/on.png");
         ResourceLocation OFF = new ResourceLocation(FastTrading.MODID, "textures/gui/off.png");
         ResourceLocation PLUS = new ResourceLocation(FastTrading.MODID, "textures/gui/plus.png");
@@ -219,26 +216,32 @@ public class GuiMerchantOverride extends GuiMerchant {
         ResourceLocation UNLOCK = new ResourceLocation(FastTrading.MODID, "textures/gui/unlock.png");
         onButton = new GuiIconButton(250, guiLeft + 3, guiTop + 3, 10, 10, DazoUtils.tooltipI18n("fasttrading.tooltip.enablebutton"), ON);
         offButton = new GuiIconButton(251, guiLeft + 3, guiTop + 3, 10, 10, DazoUtils.tooltipI18n("fasttrading.tooltip.disablebutton"), OFF);
-        plusButton = new GuiIconButton(252, guiLeft + 14, guiTop + 3, 10, 10, DazoUtils.tooltipI18n("fasttrading.tooltip.addbutton"), PLUS);
+        addButton = new GuiIconButton(252, guiLeft + 14, guiTop + 3, 10, 10, DazoUtils.tooltipI18n("fasttrading.tooltip.addbutton"), PLUS);
         subtractButton = new GuiIconButton(253, guiLeft + 14, guiTop + 3, 10, 10, DazoUtils.tooltipI18n("fasttrading.tooltip.removebutton"), SUBTRACT);
         lockButton = new GuiIconButton(254, guiLeft + 25, guiTop + 3, 10, 10, DazoUtils.tooltipI18n("fasttrading.tooltip.lockbutton"), LOCK);
         unlockButton = new GuiIconButton(255, guiLeft + 25, guiTop + 3, 10, 10, DazoUtils.tooltipI18n("fasttrading.tooltip.unlockbutton"), UNLOCK);
         addButton(onButton);
         addButton(offButton);
-        addButton(plusButton);
+        addButton(addButton);
         addButton(subtractButton);
         addButton(lockButton);
         addButton(unlockButton);
         functionButtonUpdate();
+        buttonMap.put("onButton", onButton);
+        buttonMap.put("offButton", offButton);
+        buttonMap.put("addButton", addButton);
+        buttonMap.put("subtractButton", subtractButton);
+        buttonMap.put("lockButton", lockButton);
+        buttonMap.put("unlockButton", unlockButton);
     }
 
     private void functionButtonUpdate() {
         if (FastTrading.isAuto.getValue()) {
-            onButton.visible = false;
-            offButton.visible = true;
+            buttonMap.get("onButton").visible = false;
+            buttonMap.get("offButton").visible = true;
         } else {
-            onButton.visible = true;
-            offButton.visible = false;
+            buttonMap.get("onButton").visible = true;
+            buttonMap.get("offButton").visible = false;
         }
         if (null == merchantRecipeList || merchantRecipeList.isEmpty()) {
             return;
@@ -246,22 +249,22 @@ public class GuiMerchantOverride extends GuiMerchant {
         MerchantRecipe recipe = merchantRecipeList.get(selectedMerchantRecipe);
         ConfigJson.SimpleRecipe simpleRecipe = helper.map.get(recipe);
         if (null == simpleRecipe) {
-            plusButton.visible = true;
-            subtractButton.visible = false;
-            lockButton.visible = false;
-            unlockButton.visible = false;
+            buttonMap.get("addButton").visible = true;
+            buttonMap.get("subtractButton").visible = false;
+            buttonMap.get("lockButton").visible = false;
+            buttonMap.get("unlockButton").visible = false;
         } else {
-            plusButton.visible = false;
-            subtractButton.visible = true;
-            lockButton.visible = true;
-            unlockButton.visible = false;
+            buttonMap.get("addButton").visible = false;
+            buttonMap.get("subtractButton").visible = true;
+            buttonMap.get("lockButton").visible = true;
+            buttonMap.get("unlockButton").visible = false;
             if (simpleRecipe.lockPrice) {
                 if (ConfigJson.isRecipeEqual(recipe, simpleRecipe)) {
-                    unlockButton.visible = true;
-                    lockButton.visible = false;
+                    buttonMap.get("unlockButton").visible = true;
+                    buttonMap.get("lockButton").visible = false;
                 } else {
-                    unlockButton.visible = false;
-                    lockButton.visible = true;
+                    buttonMap.get("unlockButton").visible = false;
+                    buttonMap.get("lockButton").visible = true;
                 }
             }
         }
