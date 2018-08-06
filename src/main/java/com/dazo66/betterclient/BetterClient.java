@@ -5,6 +5,7 @@ import com.dazo66.betterclient.coremod.MainTransformer;
 import com.dazo66.betterclient.featuresbase.IFeature;
 import com.dazo66.fastcrafting.FastCrafting;
 import com.dazo66.fasttrading.FastTrading;
+import com.dazo66.prompt.Prompt;
 import com.dazo66.shulkerboxshower.ShulkerBoxViewer;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Mod;
@@ -32,6 +33,10 @@ public class BetterClient {
     public static Set<IFeature> enableFeatures = FeaturesRegister.enableFeatures;
     public static Set<IFeature> disableFeatures = FeaturesRegister.disableFeatures;
 
+    static {
+        config.load();
+    }
+
     /**
      * feature register at here
      */
@@ -39,6 +44,7 @@ public class BetterClient {
         FeaturesRegister.register(new ShulkerBoxViewer());
         FeaturesRegister.register(new FastCrafting());
         FeaturesRegister.register(new FastTrading());
+        FeaturesRegister.register(new Prompt());
     }
 
     public static void registerTransformerClass(MainTransformer mainTransformer) {
@@ -62,8 +68,8 @@ public class BetterClient {
     public void preInit(FMLPreInitializationEvent event) {
         logger = event.getModLog();
         for (IFeature feature : enableFeatures) {
-            FeaturesRegister.configEntryInit(feature);
             feature.preInit(event);
+            FeaturesRegister.configEntryInit(feature);
         }
     }
 
@@ -91,7 +97,6 @@ public class BetterClient {
             feature.postInit(event);
         }
     }
-
 
     @EventHandler
     public void serverStarting(FMLServerStartingEvent event) {
@@ -126,9 +131,5 @@ public class BetterClient {
         for (IFeature feature : enableFeatures) {
             feature.serverStoping(event);
         }
-    }
-
-    static {
-        config.load();
     }
 }

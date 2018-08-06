@@ -5,6 +5,7 @@ import com.dazo66.fasttrading.config.ConfigJson;
 import com.dazo66.fasttrading.util.ItemStackUtils;
 import com.dazo66.fasttrading.util.TradingHelper;
 import io.netty.buffer.Unpooled;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiMerchant;
 import net.minecraft.entity.IMerchant;
@@ -33,6 +34,7 @@ public class GuiMerchantOverride extends GuiMerchant {
     public TradingHelper helper;
     public MerchantRecipeList merchantRecipeList;
     private IMerchant iMerchant;
+    private Minecraft mc = Minecraft.getMinecraft();
     private int lastClickTime;
     private GuiButton lastClickButton;
     private ArrayList<GuiRecipeButton> recipeButtonList = new ArrayList<>();
@@ -43,12 +45,16 @@ public class GuiMerchantOverride extends GuiMerchant {
         helper = new TradingHelper(this);
         this.iMerchant = iMerchant;
         configLoader.load();
-        initGui();
+        resetButton();
     }
 
     @Override
     public void initGui() {
         super.initGui();
+        resetButton();
+    }
+
+    private void resetButton(){
         recipeButtonList.clear();
         buttonMap.clear();
         addMerchantButton(merchantRecipeList);
@@ -227,13 +233,13 @@ public class GuiMerchantOverride extends GuiMerchant {
         addButton(subtractButton);
         addButton(lockButton);
         addButton(unlockButton);
-        functionButtonUpdate();
         buttonMap.put("onButton", onButton);
         buttonMap.put("offButton", offButton);
         buttonMap.put("addButton", addButton);
         buttonMap.put("subtractButton", subtractButton);
         buttonMap.put("lockButton", lockButton);
         buttonMap.put("unlockButton", unlockButton);
+        functionButtonUpdate();
     }
 
     private void functionButtonUpdate() {

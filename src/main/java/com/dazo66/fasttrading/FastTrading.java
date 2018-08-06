@@ -1,10 +1,10 @@
 package com.dazo66.fasttrading;
 
-import com.dazo66.betterclient.featuresbase.AbstractFeature;
 import com.dazo66.betterclient.config.configentrys.BooleanConfigEntry;
 import com.dazo66.betterclient.config.configentrys.IConfigEntry;
 import com.dazo66.betterclient.config.configentrys.StringArrayConfigEntry;
 import com.dazo66.betterclient.coremod.IRegisterTransformer;
+import com.dazo66.betterclient.featuresbase.AbstractFeature;
 import com.dazo66.fasttrading.config.ConfigLoader;
 import com.dazo66.fasttrading.event.FastTradingEventHandler;
 import com.dazo66.fasttrading.transformsclass.HookSetRecipeListEvent;
@@ -16,9 +16,13 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * @author Dazo66
+ */
 public class FastTrading extends AbstractFeature {
     public static final String MODID = "fasttrading";
     public static final String NAME = "FastTrading";
@@ -66,9 +70,10 @@ public class FastTrading extends AbstractFeature {
 
     @Override
     public List<IConfigEntry> getConfigEntrys() {
-        isAuto = new BooleanConfigEntry("fasttrading.isAuto", true, this, "is auto to trade when merchant gui open.");
-        simpleRecipes = new StringArrayConfigEntry("fasttrading.autorecipelist", new String[0], this);
-        return Arrays.asList(isAuto, simpleRecipes);
+        ArrayList<IConfigEntry> list = new ArrayList<>();
+        list.add(isAuto);
+        list.add(simpleRecipes);
+        return list;
     }
 
     @Override
@@ -78,6 +83,8 @@ public class FastTrading extends AbstractFeature {
 
     @Override
     public void preInit(FMLPreInitializationEvent event) {
+        isAuto = new BooleanConfigEntry("fasttrading.isAuto", true, this, "is auto to trade when merchant gui open.");
+        simpleRecipes = new StringArrayConfigEntry("fasttrading.autorecipelist", new String[0], this);
         configLoader = new ConfigLoader(simpleRecipes);
         logger = event.getModLog();
     }
