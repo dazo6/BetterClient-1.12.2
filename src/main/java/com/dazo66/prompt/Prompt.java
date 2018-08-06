@@ -1,29 +1,25 @@
-package com.dazo66.fastcrafting;
+package com.dazo66.prompt;
 
+import com.dazo66.betterclient.config.configentrys.FloatConfigEntry;
 import com.dazo66.betterclient.config.configentrys.IConfigEntry;
-import com.dazo66.betterclient.coremod.IRegisterTransformer;
 import com.dazo66.betterclient.featuresbase.AbstractFeature;
-import com.dazo66.fastcrafting.eventhandler.FastCraftingingEventHandler;
-import com.dazo66.fastcrafting.transformerclass.MineRecipe;
-import com.dazo66.fastcrafting.transformerclass.SendRecipePacketHook0;
-import com.dazo66.fastcrafting.transformerclass.SendRecipePacketHook1;
-import net.minecraft.client.resources.I18n;
+import com.dazo66.prompt.eventhandler.PromptEventhandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author Dazo66
  */
-public class FastCrafting extends AbstractFeature {
+public class Prompt extends AbstractFeature {
 
-    public static final String MODID = "fastcrafting";
-    public static final String NAME = "TCFastCrafting";
-    public static final String MCVERSION = "[1.12,1.12.2]";
-    public static final String VERSION = "2.6";
+    public static final String MODID = "fasttrading";
+    public static final String NAME = "FastTrading";
+    public static final String VERSION = "2.0";
+    public static IConfigEntry<Float> warnHeal;
 
     @Override
     public String getID() {
@@ -32,7 +28,7 @@ public class FastCrafting extends AbstractFeature {
 
     @Override
     public String getName() {
-        return I18n.format("fastcrafting.name");
+        return NAME;
     }
 
     @Override
@@ -47,17 +43,19 @@ public class FastCrafting extends AbstractFeature {
 
     @Override
     public Class eventHandlerClass() {
-        return FastCraftingingEventHandler.class;
+        return PromptEventhandler.class;
     }
 
     @Override
     public List<IConfigEntry> getConfigEntrys() {
-        return null;
+        ArrayList<IConfigEntry> list = new ArrayList<>();
+        list.add(warnHeal);
+        return list;
     }
 
     @Override
     public void preInit(FMLPreInitializationEvent event) {
-
+        warnHeal = new FloatConfigEntry("warnHeal", 0.45f, this, "", 0f, 1f);
     }
 
     @Override
@@ -68,10 +66,5 @@ public class FastCrafting extends AbstractFeature {
     @Override
     public void postInit(FMLPostInitializationEvent event) {
 
-    }
-
-    @Override
-    public List<Class<? extends IRegisterTransformer>> transformerClass() {
-        return Arrays.asList(MineRecipe.class, SendRecipePacketHook0.class, SendRecipePacketHook1.class);
     }
 }

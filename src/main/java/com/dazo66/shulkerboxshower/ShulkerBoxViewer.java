@@ -1,8 +1,8 @@
 package com.dazo66.shulkerboxshower;
 
-import com.dazo66.betterclient.featuresbase.AbstractFeature;
 import com.dazo66.betterclient.config.configentrys.BooleanConfigEntry;
 import com.dazo66.betterclient.config.configentrys.IConfigEntry;
+import com.dazo66.betterclient.featuresbase.AbstractFeature;
 import com.dazo66.shulkerboxshower.eventhandler.ShulkerBoxViewerEventHandler;
 import net.minecraft.client.resources.I18n;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -48,13 +48,13 @@ public class ShulkerBoxViewer extends AbstractFeature {
     @Override
     public List<IConfigEntry> getConfigEntrys() {
         ArrayList<IConfigEntry> list = new ArrayList<>();
-        list.add(isOrganizing = new BooleanConfigEntry("Organized the items", false, this, "Organizing the items or not"));
+        list.add(isOrganizing);
         return list;
     }
 
     @Override
     public void preInit(FMLPreInitializationEvent event) {
-
+        isOrganizing = new BooleanConfigEntry("Organized the items", false, this, "Organizing the items or not");
     }
 
     @Override

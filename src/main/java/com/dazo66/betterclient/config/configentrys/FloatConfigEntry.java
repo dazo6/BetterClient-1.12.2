@@ -2,26 +2,28 @@ package com.dazo66.betterclient.config.configentrys;
 
 import com.dazo66.betterclient.BetterClient;
 import com.dazo66.betterclient.featuresbase.IFeature;
+import com.google.common.primitives.Floats;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
+import net.minecraftforge.fml.common.FMLLog;
 
 import javax.annotation.Nullable;
 
 /**
  * @author Dazo66
  */
-public class IntConfigEntry implements IConfigEntry<Integer> {
+public class FloatConfigEntry implements IConfigEntry<Float> {
 
     private Configuration config;
     private String key;
-    private int defaultValue;
+    private float defaultValue;
     private IFeature owner;
     private String comment;
-    private Integer min;
-    private Integer max;
+    private Float min;
+    private Float max;
     private Property property;
 
-    public IntConfigEntry(String keyIn, int defultValueIn, IFeature ownerIn, @Nullable String commentIn, @Nullable Integer minIn, @Nullable Integer maxIn) {
+    public FloatConfigEntry(String keyIn, float defultValueIn, IFeature ownerIn, @Nullable String commentIn, @Nullable Float minIn, @Nullable Float maxIn) {
         config = BetterClient.config;
         key = keyIn;
         defaultValue = defultValueIn;
@@ -32,7 +34,7 @@ public class IntConfigEntry implements IConfigEntry<Integer> {
         property = getProperty();
     }
 
-    public IntConfigEntry(String keyIn, int defultValueIn, IFeature ownerIn) {
+    public FloatConfigEntry(String keyIn, float defultValueIn, IFeature ownerIn) {
         this(keyIn, defultValueIn, ownerIn, null, null, null);
     }
 
@@ -42,7 +44,7 @@ public class IntConfigEntry implements IConfigEntry<Integer> {
     }
 
     @Override
-    public Integer getDefaultValue() {
+    public Float getDefaultValue() {
         return defaultValue;
     }
 
@@ -56,44 +58,44 @@ public class IntConfigEntry implements IConfigEntry<Integer> {
         return comment;
     }
 
-    public int getMin() {
+    public Float getMin() {
         return min;
     }
 
-    public int getMax() {
+    public Float getMax() {
         return max;
     }
 
 
     @Override
-    public Integer getValue() {
-        if (comment == null && (min == null || max == null)) {
-            return property.getInt(defaultValue);
+    public Float getValue() {
+        try
+        {
+            String s = getProperty().getString();
+            float parseFloat = Float.parseFloat(getProperty().getString());
+            if (min != null && max != null) {
+                return Floats.constrainToRange(parseFloat, min, max);
+            }
+            return parseFloat;
         }
-        int i = property.getInt(defaultValue);
-        return i < min ? min : (i > max ? max : i);
+        catch (Exception e)
+        {
+            FMLLog.log.error("Failed to get float for {}/{}", key, owner.getID(), e);
+        }
+        return defaultValue;
     }
 
     @Override
-    public void setValue(Integer i) {
-        property.setValue(i);
+    public void setValue(Float i) {
+        getProperty().setValue(i);
         config.save();
     }
 
     @Override
     public Property getProperty() {
-        if (property != null) {
-            return property;
-        }
-        Property prop = config.get(owner.getID(), key, defaultValue);
+        Property prop = config.get(owner.getID(), key, Float.toString(defaultValue), key);
         prop.setLanguageKey(key);
-        if (min != null && max != null) {
-            prop.setComment(comment + " [range: " + min + " ~ " + max + ", default: " + defaultValue + "]");
-            prop.setMinValue(min);
-            prop.setMaxValue(max);
-        }
         return prop;
     }
-
 
 }
