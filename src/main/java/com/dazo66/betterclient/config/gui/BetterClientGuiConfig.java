@@ -1,10 +1,10 @@
 package com.dazo66.betterclient.config.gui;
 
 import com.dazo66.betterclient.BetterClient;
-import com.dazo66.betterclient.featuresbase.IFeature;
 import com.dazo66.betterclient.FeaturesRegister;
 import com.dazo66.betterclient.config.configentrys.BooleanConfigEntry;
 import com.dazo66.betterclient.config.configentrys.IConfigEntry;
+import com.dazo66.betterclient.featuresbase.IFeature;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraftforge.common.config.ConfigElement;
 import net.minecraftforge.fml.client.config.DummyConfigElement;

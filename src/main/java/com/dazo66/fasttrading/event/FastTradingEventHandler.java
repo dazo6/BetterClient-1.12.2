@@ -2,7 +2,6 @@ package com.dazo66.fasttrading.event;
 
 import com.dazo66.fasttrading.FastTrading;
 import com.dazo66.fasttrading.client.gui.GuiMerchantOverride;
-import com.dazo66.fasttrading.event.SetMerchantListEvent;
 import com.dazo66.fasttrading.util.KeyLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiMerchant;

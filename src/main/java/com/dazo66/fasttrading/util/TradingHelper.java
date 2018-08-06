@@ -189,7 +189,7 @@ public class TradingHelper {
         int count = 0;
         for (int i = slots.size() - 1; i >= 3; i--) {
             ItemStack temp = slots.get(i).getStack();
-            if (DazoUtils.areItemEqualIgnoreCount(stack, temp)) {
+            if (ItemStackUtils.areItemEqualIgnoreCount(stack, temp)) {
                 if (temp.getMaxStackSize() > temp.getCount()) {
                     count = temp.getMaxStackSize() - temp.getCount() + count;
                     returnSlot.add(slots.get(i));

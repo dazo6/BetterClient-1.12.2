@@ -2,7 +2,7 @@ package com.dazo66.fasttrading.client.gui;
 
 import com.dazo66.fasttrading.FastTrading;
 import com.dazo66.fasttrading.config.ConfigJson;
-import com.dazo66.fasttrading.util.DazoUtils;
+import com.dazo66.fasttrading.util.ItemStackUtils;
 import com.dazo66.fasttrading.util.TradingHelper;
 import io.netty.buffer.Unpooled;
 import net.minecraft.client.gui.GuiButton;
@@ -43,6 +43,7 @@ public class GuiMerchantOverride extends GuiMerchant {
         helper = new TradingHelper(this);
         this.iMerchant = iMerchant;
         configLoader.load();
+        initGui();
     }
 
     @Override
@@ -214,12 +215,12 @@ public class GuiMerchantOverride extends GuiMerchant {
         ResourceLocation SUBTRACT = new ResourceLocation(FastTrading.MODID, "textures/gui/subtract.png");
         ResourceLocation LOCK = new ResourceLocation(FastTrading.MODID, "textures/gui/lock.png");
         ResourceLocation UNLOCK = new ResourceLocation(FastTrading.MODID, "textures/gui/unlock.png");
-        onButton = new GuiIconButton(250, guiLeft + 3, guiTop + 3, 10, 10, DazoUtils.tooltipI18n("fasttrading.tooltip.enablebutton"), ON);
-        offButton = new GuiIconButton(251, guiLeft + 3, guiTop + 3, 10, 10, DazoUtils.tooltipI18n("fasttrading.tooltip.disablebutton"), OFF);
-        addButton = new GuiIconButton(252, guiLeft + 14, guiTop + 3, 10, 10, DazoUtils.tooltipI18n("fasttrading.tooltip.addbutton"), PLUS);
-        subtractButton = new GuiIconButton(253, guiLeft + 14, guiTop + 3, 10, 10, DazoUtils.tooltipI18n("fasttrading.tooltip.removebutton"), SUBTRACT);
-        lockButton = new GuiIconButton(254, guiLeft + 25, guiTop + 3, 10, 10, DazoUtils.tooltipI18n("fasttrading.tooltip.lockbutton"), LOCK);
-        unlockButton = new GuiIconButton(255, guiLeft + 25, guiTop + 3, 10, 10, DazoUtils.tooltipI18n("fasttrading.tooltip.unlockbutton"), UNLOCK);
+        onButton = new GuiIconButton(250, guiLeft + 3, guiTop + 3, 10, 10, ItemStackUtils.tooltipI18n("fasttrading.tooltip.enablebutton"), ON);
+        offButton = new GuiIconButton(251, guiLeft + 3, guiTop + 3, 10, 10, ItemStackUtils.tooltipI18n("fasttrading.tooltip.disablebutton"), OFF);
+        addButton = new GuiIconButton(252, guiLeft + 14, guiTop + 3, 10, 10, ItemStackUtils.tooltipI18n("fasttrading.tooltip.addbutton"), PLUS);
+        subtractButton = new GuiIconButton(253, guiLeft + 14, guiTop + 3, 10, 10, ItemStackUtils.tooltipI18n("fasttrading.tooltip.removebutton"), SUBTRACT);
+        lockButton = new GuiIconButton(254, guiLeft + 25, guiTop + 3, 10, 10, ItemStackUtils.tooltipI18n("fasttrading.tooltip.lockbutton"), LOCK);
+        unlockButton = new GuiIconButton(255, guiLeft + 25, guiTop + 3, 10, 10, ItemStackUtils.tooltipI18n("fasttrading.tooltip.unlockbutton"), UNLOCK);
         addButton(onButton);
         addButton(offButton);
         addButton(addButton);

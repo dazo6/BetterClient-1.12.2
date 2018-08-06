@@ -51,6 +51,7 @@ public class ShulkerBoxViewerEventHandler {
     @SubscribeEvent
     public void afterDrawGui(GuiScreenEvent.DrawScreenEvent.Post event) {
         if (event.getGui() instanceof GuiContainer) {
+            drawer.gui = event.getGui();
             GuiContainer gui = (GuiContainer) event.getGui();
             Slot slotUnderMouse = gui.getSlotUnderMouse();
             ItemStack itemInHand = mc.player.inventory.getItemStack();

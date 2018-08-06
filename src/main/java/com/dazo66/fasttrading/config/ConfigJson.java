@@ -1,6 +1,6 @@
 package com.dazo66.fasttrading.config;
 
-import com.dazo66.fasttrading.util.DazoUtils;
+import com.dazo66.fasttrading.util.ItemStackUtils;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.JsonToNBT;
 import net.minecraft.nbt.NBTException;
@@ -46,13 +46,13 @@ public class ConfigJson {
         ItemStack buy11 = simpleRecipe.buy1.getItemStack();
         ItemStack buy22 = simpleRecipe.buy2.getItemStack();
         ItemStack sell1 = simpleRecipe.sell.getItemStack();
-        if (!DazoUtils.areItemEqualIgnoreCount(buy11, recipe.getItemToBuy())) {
+        if (!ItemStackUtils.areItemEqualIgnoreCount(buy11, recipe.getItemToBuy())) {
             return false;
-        } else if (!DazoUtils.areItemEqualIgnoreCount(sell1, recipe.getItemToSell())) {
+        } else if (!ItemStackUtils.areItemEqualIgnoreCount(sell1, recipe.getItemToSell())) {
             return false;
         }
         if (recipe.hasSecondItemToBuy()) {
-            if (!DazoUtils.areItemEqualIgnoreCount(buy22, recipe.getSecondItemToBuy())) {
+            if (!ItemStackUtils.areItemEqualIgnoreCount(buy22, recipe.getSecondItemToBuy())) {
                 return false;
             }
         }
@@ -66,15 +66,15 @@ public class ConfigJson {
         if (recipe2.lockPrice) {
             ItemStack recipeBuy1 = recipe1.buy1.getItemStack();
             ItemStack recipeSell = recipe1.sell.getItemStack();
-            if (!DazoUtils.areItemEqualIgnoreCount(buy11, recipeBuy1) || buy11.getCount() != recipeBuy1.getCount()) {
+            if (!ItemStackUtils.areItemEqualIgnoreCount(buy11, recipeBuy1) || buy11.getCount() != recipeBuy1.getCount()) {
                 return false;
-            } else if (!DazoUtils.areItemEqualIgnoreCount(sell1, recipeSell) || sell1.getCount() != recipeSell.getCount()) {
+            } else if (!ItemStackUtils.areItemEqualIgnoreCount(sell1, recipeSell) || sell1.getCount() != recipeSell.getCount()) {
                 return false;
             }
         }
         if (recipe1.hasSecondItemToBuy()) {
             ItemStack recipeBuy2 = recipe1.buy2.getItemStack();
-            if (!DazoUtils.areItemEqualIgnoreCount(buy22, recipeBuy2) || !(buy22.getCount() == recipeBuy2.getCount())) {
+            if (!ItemStackUtils.areItemEqualIgnoreCount(buy22, recipeBuy2) || !(buy22.getCount() == recipeBuy2.getCount())) {
                 return false;
             }
         }
@@ -94,13 +94,13 @@ public class ConfigJson {
         ItemStack buy11 = simpleRecipe.buy1.getItemStack();
         ItemStack buy22 = simpleRecipe.buy2.getItemStack();
         ItemStack sell1 = simpleRecipe.sell.getItemStack();
-        if (!DazoUtils.areItemEqualIgnoreCount(buy11, recipe.buy1.getItemStack())) {
+        if (!ItemStackUtils.areItemEqualIgnoreCount(buy11, recipe.buy1.getItemStack())) {
             return false;
-        } else if (!DazoUtils.areItemEqualIgnoreCount(sell1, recipe.sell.getItemStack())) {
+        } else if (!ItemStackUtils.areItemEqualIgnoreCount(sell1, recipe.sell.getItemStack())) {
             return false;
         }
         if (recipe.hasSecondItemToBuy()) {
-            if (!DazoUtils.areItemEqualIgnoreCount(buy22, recipe.buy2.getItemStack())) {
+            if (!ItemStackUtils.areItemEqualIgnoreCount(buy22, recipe.buy2.getItemStack())) {
                 return false;
             }
         }
@@ -112,14 +112,14 @@ public class ConfigJson {
         ItemStack buy22 = simpleRecipe.buy2.getItemStack();
         ItemStack sell1 = simpleRecipe.sell.getItemStack();
         if (simpleRecipe.lockPrice) {
-            if (!DazoUtils.areItemEqualIgnoreCount(buy11, recipe.getItemToBuy()) || buy11.getCount() != recipe.getItemToBuy().getCount()) {
+            if (!ItemStackUtils.areItemEqualIgnoreCount(buy11, recipe.getItemToBuy()) || buy11.getCount() != recipe.getItemToBuy().getCount()) {
                 return false;
-            } else if (!DazoUtils.areItemEqualIgnoreCount(sell1, recipe.getItemToSell()) || sell1.getCount() != recipe.getItemToSell().getCount()) {
+            } else if (!ItemStackUtils.areItemEqualIgnoreCount(sell1, recipe.getItemToSell()) || sell1.getCount() != recipe.getItemToSell().getCount()) {
                 return false;
             }
         }
         if (recipe.hasSecondItemToBuy()) {
-            if (!DazoUtils.areItemEqualIgnoreCount(buy22, recipe.getSecondItemToBuy()) || !(buy22.getCount() == recipe.getSecondItemToBuy().getCount())) {
+            if (!ItemStackUtils.areItemEqualIgnoreCount(buy22, recipe.getSecondItemToBuy()) || !(buy22.getCount() == recipe.getSecondItemToBuy().getCount())) {
                 return false;
             }
         }

@@ -10,7 +10,7 @@ import java.util.Iterator;
 /**
  * @author Dazo66
  */
-public class DazoUtils {
+public class ItemStackUtils {
 
     public static String[] tooltipI18n(String s, Object... args) {
         return I18n.format(s, args).replace("\\n", "##&&").split("##&&");

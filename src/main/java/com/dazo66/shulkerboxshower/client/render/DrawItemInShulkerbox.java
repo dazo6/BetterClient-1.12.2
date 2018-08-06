@@ -2,6 +2,7 @@ package com.dazo66.shulkerboxshower.client.render;
 
 import com.dazo66.shulkerboxshower.ShulkerBoxViewer;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
@@ -23,6 +24,7 @@ public class DrawItemInShulkerbox {
     private static final ResourceLocation GUI_TEXTURE = new ResourceLocation("textures/gui/container/shulker_box.png");
     public int x = 0;
     public int y = 0;
+    public GuiScreen gui;
     private Minecraft mc = Minecraft.getMinecraft();
 
     public void draw(GuiScreen gui, ItemStack itemStack) {
@@ -30,6 +32,8 @@ public class DrawItemInShulkerbox {
         if (!list.isEmpty()) {
             drawItemStack(gui, list, x + 4, y - 100);
         }
+
+        GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
     }
 
     public void draw(GuiScreen gui, ItemStack itemStack, ItemStack itemStack1, int x, int y) {
@@ -46,6 +50,8 @@ public class DrawItemInShulkerbox {
         if (!list1.isEmpty()) {
             drawItemStack(gui, list1, x + 7, y - 100);
         }
+
+
     }
 
     private List<ItemStack> arrangementItem(ItemStack itemStack) {
