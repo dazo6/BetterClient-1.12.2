@@ -3,7 +3,10 @@ package com.dazo66.prompt;
 import com.dazo66.betterclient.config.configentrys.FloatConfigEntry;
 import com.dazo66.betterclient.config.configentrys.IConfigEntry;
 import com.dazo66.betterclient.featuresbase.AbstractFeature;
+import com.dazo66.betterclient.util.BetterClientUtils;
 import com.dazo66.prompt.eventhandler.PromptEventhandler;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.util.SoundEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -65,6 +68,5 @@ public class Prompt extends AbstractFeature {
 
     @Override
     public void postInit(FMLPostInitializationEvent event) {
-
     }
 }

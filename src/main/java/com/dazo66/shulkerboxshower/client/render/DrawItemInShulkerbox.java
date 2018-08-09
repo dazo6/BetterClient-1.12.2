@@ -2,11 +2,9 @@ package com.dazo66.shulkerboxshower.client.render;
 
 import com.dazo66.shulkerboxshower.ShulkerBoxViewer;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.RenderItem;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -24,19 +22,18 @@ public class DrawItemInShulkerbox {
     private static final ResourceLocation GUI_TEXTURE = new ResourceLocation("textures/gui/container/shulker_box.png");
     public int x = 0;
     public int y = 0;
-    public GuiScreen gui;
     private Minecraft mc = Minecraft.getMinecraft();
 
     public void draw(GuiScreen gui, ItemStack itemStack) {
         List<ItemStack> list = arrangementItem(itemStack);
         if (!list.isEmpty()) {
-            drawItemStack(gui, list, x + 4, y - 100);
+            drawItemStack(list, x + 4, y - 100);
         }
 
         GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
     }
 
-    public void draw(GuiScreen gui, ItemStack itemStack, ItemStack itemStack1, int x, int y) {
+    public void draw(ItemStack itemStack, ItemStack itemStack1, int x, int y) {
         List<ItemStack> list = arrangementItem(itemStack);
         if (!list.isEmpty()) {
             int size = list.size();
@@ -44,11 +41,11 @@ public class DrawItemInShulkerbox {
             if (!ShulkerBoxViewer.isOrganizing.getValue()) {
                 i = 3;
             }
-            drawItemStack(gui, list, x + 7, y - 110 - 18 + 42 + i * 18);
+            drawItemStack(list, x + 7, y - 110 - 18 + 42 + i * 18);
         }
         List<ItemStack> list1 = arrangementItem(itemStack1);
         if (!list1.isEmpty()) {
-            drawItemStack(gui, list1, x + 7, y - 100);
+            drawItemStack(list1, x + 7, y - 100);
         }
 
 
@@ -86,7 +83,7 @@ public class DrawItemInShulkerbox {
         return list;
     }
 
-    private void drawItemStack(GuiScreen gui, List<ItemStack> list, int x, int y) {
+    private void drawItemStack(List<ItemStack> list, int x, int y) {
 
         GlStateManager.color(1F, 1F, 1F, 1f);
         GlStateManager.disableBlend();
@@ -100,9 +97,9 @@ public class DrawItemInShulkerbox {
         this.mc.getTextureManager().bindTexture(GUI_TEXTURE);
         GlStateManager.disableDepth();
         GlStateManager.disableLighting();
-        gui.drawTexturedModalRect(x - 8, y + 12 + i * 18, 0, 0, 176, 5);
-        gui.drawTexturedModalRect(x - 8, y + 12 + i * 18 + 5, 0, 16, 176, i1 * 18);
-        gui.drawTexturedModalRect(x - 8, y + 17 + i * 18 + i1 * 18, 0, 160, 176, 6);
+        drawTexturedModalRect(x - 8, y + 12 + i * 18, 10d, 0, 0, 176, 5);
+        drawTexturedModalRect(x - 8, y + 12 + i * 18 + 5, 10d, 0, 16, 176, i1 * 18);
+        drawTexturedModalRect(x - 8, y + 17 + i * 18 + i1 * 18, 10d, 0, 160, 176, 6);
         GlStateManager.enableDepth();
         GlStateManager.translate(0.0F, 0.0F, 32.0F);
         int size = list.size();
@@ -140,5 +137,19 @@ public class DrawItemInShulkerbox {
         String count1 = stack.getCount() == 1 ? "" : stack.getCount() / stack.getMaxStackSize() + "S" + more;
         itemRender.renderItemOverlayIntoGUI(font, stack, x, y, count);
         itemRender.zLevel = 0.0F;
+    }
+
+    public static void drawTexturedModalRect(int x, int y, double z, int textureX, int textureY, int width, int height)
+    {
+        float f = 0.00390625F;
+        float f1 = 0.00390625F;
+        Tessellator tessellator = Tessellator.getInstance();
+        BufferBuilder bufferbuilder = tessellator.getBuffer();
+        bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
+        bufferbuilder.pos((double)(x + 0), (double)(y + height), z).tex((double)((float)(textureX + 0) * 0.00390625F), (double)((float)(textureY + height) * 0.00390625F)).endVertex();
+        bufferbuilder.pos((double)(x + width), (double)(y + height), z).tex((double)((float)(textureX + width) * 0.00390625F), (double)((float)(textureY + height) * 0.00390625F)).endVertex();
+        bufferbuilder.pos((double)(x + width), (double)(y + 0), z).tex((double)((float)(textureX + width) * 0.00390625F), (double)((float)(textureY + 0) * 0.00390625F)).endVertex();
+        bufferbuilder.pos((double)(x + 0), (double)(y + 0), z).tex((double)((float)(textureX + 0) * 0.00390625F), (double)((float)(textureY + 0) * 0.00390625F)).endVertex();
+        tessellator.draw();
     }
 }

@@ -1,6 +1,5 @@
 package com.dazo66.fasttrading.client.audio;
 
-import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.PositionedSound;
 import net.minecraft.client.audio.SoundEventAccessor;
 import net.minecraft.client.audio.SoundHandler;
