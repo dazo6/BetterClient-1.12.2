@@ -4,11 +4,11 @@ import com.dazo66.shulkerboxshower.client.render.DrawItemInShulkerbox;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemShulkerBox;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.client.event.RenderTooltipEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
@@ -43,7 +43,7 @@ public class ShulkerBoxViewerEventHandler {
             if (list.size() < 2) {
                 return;
             }
-            String[] strings = I18n.translateToLocal("container.shulkerBox.more").split("%s");
+            String[] strings = I18n.format("container.shulkerBox.more").split("%s");
             if (list.get(1).contains(strings[0]) && list.get(1).contains(strings[1])) {
                 list.remove(1);
             }
