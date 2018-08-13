@@ -1,41 +1,37 @@
-package com.dazo66.prompt;
+package com.dazo66.prompt.subfunction.healthprompt;
 
+import com.dazo66.betterclient.config.configentrys.FloatConfigEntry;
 import com.dazo66.betterclient.config.configentrys.IConfigEntry;
 import com.dazo66.betterclient.functionsbase.AbstractFunction;
-import com.dazo66.betterclient.functionsbase.IFunction;
 import com.dazo66.betterclient.util.I18n;
-import com.dazo66.prompt.eventhandler.PromptEventhandler;
-import com.dazo66.prompt.subfunction.fishingprompt.FishingPrompt;
-import com.dazo66.prompt.subfunction.furnaceprompt.FurnacePrompt;
-import com.dazo66.prompt.subfunction.healthprompt.HealthPrompt;
+import com.dazo66.prompt.subfunction.healthprompt.eventhandler.HealthPromptEventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author Dazo66
  */
-public class Prompt extends AbstractFunction {
+public class HealthPrompt extends AbstractFunction {
 
-    public static final String MODID = "prompt";
-    public static final String VERSION = "2.0";
+    public static IConfigEntry<Float> warnHeal;
 
     @Override
     public String getID() {
-        return MODID;
+        return "healthprompt";
     }
 
     @Override
     public String getName() {
-        return I18n.format("prompt.name");
+        return I18n.format("healthprompt.name");
     }
 
     @Override
     public String getVersion() {
-        return VERSION;
+        return "1.0";
     }
 
     @Override
@@ -45,22 +41,19 @@ public class Prompt extends AbstractFunction {
 
     @Override
     public Class eventHandlerClass() {
-        return PromptEventhandler.class;
-    }
-
-    @Override
-    public List<IFunction> getSubFunctions(){
-        return Arrays.asList(new FishingPrompt(), new HealthPrompt(), new FurnacePrompt());
+        return HealthPromptEventHandler.class;
     }
 
     @Override
     public List<IConfigEntry> getConfigEntrys() {
-        return null;
+        ArrayList<IConfigEntry> list = new ArrayList<>();
+        list.add(warnHeal);
+        return list;
     }
 
     @Override
     public void preInit(FMLPreInitializationEvent event) {
-
+        warnHeal = new FloatConfigEntry("warnHeal", 0.45f, this, "", 0f, 1f);
     }
 
     @Override
@@ -70,5 +63,6 @@ public class Prompt extends AbstractFunction {
 
     @Override
     public void postInit(FMLPostInitializationEvent event) {
+
     }
 }

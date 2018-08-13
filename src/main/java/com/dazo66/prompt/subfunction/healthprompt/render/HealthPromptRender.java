@@ -1,4 +1,4 @@
-package com.dazo66.prompt.render;
+package com.dazo66.prompt.subfunction.healthprompt.render;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
@@ -11,7 +11,7 @@ import net.minecraft.util.ResourceLocation;
 /**
  * @author Dazo66
  */
-public class PromptRender {
+public class HealthPromptRender {
 
     private static Minecraft mc = Minecraft.getMinecraft();
 
@@ -22,7 +22,7 @@ public class PromptRender {
         GlStateManager.enableBlend();
         GlStateManager.depthMask(false);
         GlStateManager.tryBlendFuncSeparate(0, 769, 1, 0);
-        GlStateManager.color(0.0F, 0.94f, 0.94f, 1.0F);
+        GlStateManager.color(0.0F, 1f, 1f, 1.0F);
         mc.getTextureManager().bindTexture(new ResourceLocation("textures/misc/vignette.png"));
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder worldrenderer = tessellator.getBuffer();

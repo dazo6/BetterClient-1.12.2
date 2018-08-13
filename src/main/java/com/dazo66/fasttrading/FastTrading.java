@@ -4,12 +4,12 @@ import com.dazo66.betterclient.config.configentrys.BooleanConfigEntry;
 import com.dazo66.betterclient.config.configentrys.IConfigEntry;
 import com.dazo66.betterclient.config.configentrys.StringArrayConfigEntry;
 import com.dazo66.betterclient.coremod.IRegisterTransformer;
-import com.dazo66.betterclient.featuresbase.AbstractFeature;
+import com.dazo66.betterclient.functionsbase.AbstractFunction;
 import com.dazo66.fasttrading.config.ConfigLoader;
 import com.dazo66.fasttrading.event.FastTradingEventHandler;
 import com.dazo66.fasttrading.transformsclass.HookSetRecipeListEvent;
 import com.dazo66.fasttrading.util.KeyLoader;
-import net.minecraft.client.resources.I18n;
+import com.dazo66.betterclient.util.I18n;
 import net.minecraft.entity.NpcMerchant;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * @author Dazo66
  */
-public class FastTrading extends AbstractFeature {
+public class FastTrading extends AbstractFunction {
     public static final String MODID = "fasttrading";
     public static final String NAME = "FastTrading";
     public static final String VERSION = "2.0";

@@ -20,6 +20,8 @@ compileJava {
     sourceCompatibility = targetCompatibility = '1.8'
 }
 
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
 minecraft {
     version = "1.12.2-14.23.2.2654"
     runDir = "run"

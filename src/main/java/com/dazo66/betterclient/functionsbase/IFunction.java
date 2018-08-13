@@ -1,7 +1,8 @@
-package com.dazo66.betterclient.featuresbase;
+package com.dazo66.betterclient.functionsbase;
 
 import com.dazo66.betterclient.config.configentrys.IConfigEntry;
 import com.dazo66.betterclient.coremod.IRegisterTransformer;
+import com.dazo66.betterclient.util.I18n;
 import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -10,31 +11,31 @@ import java.util.List;
 /**
  * @author Dazo66
  */
-public interface IFeature {
+public interface IFunction {
 
     /**
-     * the feature id
+     * the function id
      *
      * @return id
      */
     String getID();
 
     /**
-     * the feature name return the local name{@link net.minecraft.client.resources.I18n} was best
+     * the function name return the local name{@link I18n} was best
      *
      * @return name
      */
     String getName();
 
     /**
-     * this feature version
+     * this function version
      *
      * @return version
      */
     String getVersion();
 
     /**
-     * the author of this feature
+     * the author of this function
      *
      * @return author
      */
@@ -62,6 +63,15 @@ public interface IFeature {
      * @return a list of {@link IConfigEntry}
      */
     List<IConfigEntry> getConfigEntrys();
+
+    /**
+     * if this function has subfunction
+     * please return at here
+     *
+     * @return a list of {@link IFunction}
+     */
+
+    List<IFunction> getSubFunctions();
 
     /**
      * on FMLPreInitializationEvent invoke

@@ -1,6 +1,6 @@
 package com.dazo66.betterclient.config.configentrys;
 
-import com.dazo66.betterclient.featuresbase.IFeature;
+import com.dazo66.betterclient.functionsbase.IFunction;
 import net.minecraftforge.common.config.Property;
 
 /**
@@ -8,7 +8,7 @@ import net.minecraftforge.common.config.Property;
  */
 public interface IConfigEntry<T> {
 
-    IFeature getOwner();
+    IFunction getOwner();
 
     String getKey();
 

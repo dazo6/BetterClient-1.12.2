@@ -2,9 +2,9 @@ package com.dazo66.shulkerboxshower;
 
 import com.dazo66.betterclient.config.configentrys.BooleanConfigEntry;
 import com.dazo66.betterclient.config.configentrys.IConfigEntry;
-import com.dazo66.betterclient.featuresbase.AbstractFeature;
+import com.dazo66.betterclient.functionsbase.AbstractFunction;
 import com.dazo66.shulkerboxshower.eventhandler.ShulkerBoxViewerEventHandler;
-import net.minecraft.client.resources.I18n;
+import com.dazo66.betterclient.util.I18n;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * @author Dazo66
  */
-public class ShulkerBoxViewer extends AbstractFeature {
+public class ShulkerBoxViewer extends AbstractFunction {
     public static final String VERSION = "1.5";
     private static final String ID = "shulkerboxviewer";
     public static IConfigEntry<Boolean> isOrganizing;

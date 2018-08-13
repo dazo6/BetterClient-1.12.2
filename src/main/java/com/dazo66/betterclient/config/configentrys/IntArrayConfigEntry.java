@@ -1,7 +1,7 @@
 package com.dazo66.betterclient.config.configentrys;
 
 import com.dazo66.betterclient.BetterClient;
-import com.dazo66.betterclient.featuresbase.IFeature;
+import com.dazo66.betterclient.functionsbase.IFunction;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 
@@ -15,11 +15,11 @@ public class IntArrayConfigEntry implements IConfigEntry<int[]> {
     private Configuration config;
     private String key;
     private int[] defultValue;
-    private IFeature owner;
+    private IFunction owner;
     private String comment;
     private Property property;
 
-    public IntArrayConfigEntry(String keyIn, int[] defultValueIn, IFeature ownerIn, @Nullable String commentIn) {
+    public IntArrayConfigEntry(String keyIn, int[] defultValueIn, IFunction ownerIn, @Nullable String commentIn) {
         config = BetterClient.config;
         key = keyIn;
         defultValue = defultValueIn;
@@ -28,7 +28,7 @@ public class IntArrayConfigEntry implements IConfigEntry<int[]> {
         property = getProperty();
     }
 
-    public IntArrayConfigEntry(String keyIn, int[] defultValueIn, IFeature ownerIn) {
+    public IntArrayConfigEntry(String keyIn, int[] defultValueIn, IFunction ownerIn) {
         this(keyIn, defultValueIn, ownerIn, null);
     }
 
@@ -43,7 +43,7 @@ public class IntArrayConfigEntry implements IConfigEntry<int[]> {
     }
 
     @Override
-    public IFeature getOwner() {
+    public IFunction getOwner() {
         return owner;
     }
 

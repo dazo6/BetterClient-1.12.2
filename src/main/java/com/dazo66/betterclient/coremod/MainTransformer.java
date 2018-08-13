@@ -33,7 +33,7 @@ public class MainTransformer implements IClassTransformer {
     public MainTransformer() {
         mainTransformer = this;
         register(new GuiCloseEventInject());
-        BetterClient.registerFeatures();
+        BetterClient.registerFunctions();
         BetterClient.registerTransformerClass(this);
     }
 

@@ -1,4 +1,4 @@
-package com.dazo66.betterclient.featuresbase;
+package com.dazo66.betterclient.functionsbase;
 
 import com.dazo66.betterclient.coremod.IRegisterTransformer;
 import com.google.common.base.Strings;
@@ -9,10 +9,15 @@ import java.util.List;
 /**
  * @author Dazo66
  */
-public abstract class AbstractFeature implements IFeature {
+public abstract class AbstractFunction implements IFunction {
 
     @Override
     public List<Class<? extends IRegisterTransformer>> transformerClass() {
+        return null;
+    }
+
+    @Override
+    public List<IFunction> getSubFunctions(){
         return null;
     }
 
@@ -40,7 +45,11 @@ public abstract class AbstractFeature implements IFeature {
     public void serverStoped(FMLServerStoppedEvent event) {
     }
 
-    //temp code.
+    public boolean hasSubFunction(){
+        List<IFunction> list = getSubFunctions();
+        return list != null && !list.isEmpty();
+    }
+
     @Override
     public String toString() {
         String nullString = "null";
@@ -52,7 +61,7 @@ public abstract class AbstractFeature implements IFeature {
         name = Strings.isNullOrEmpty(name) ? nullString : name;
         version = Strings.isNullOrEmpty(version) ? nullString : version;
         author = Strings.isNullOrEmpty(author) ? nullString : author;
-        return String.format("Feature -- ID - %s Name - %s Version - %s Author - %s", id, name, version, author);
+        return String.format("Function: {ID: %s, Name: %s, Version: %s, Author: %s}", id, name, version, author);
     }
 
 }

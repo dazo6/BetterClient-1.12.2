@@ -1,11 +1,11 @@
 package com.dazo66.shulkerboxshower.client.render;
 
 import com.dazo66.shulkerboxshower.ShulkerBoxViewer;
-import net.minecraft.block.BlockContainer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -141,7 +141,6 @@ public class DrawItemInShulkerbox {
     }
 
     public static void drawTexturedModalRect(int x, int y, double z, int textureX, int textureY, int width, int height) {
-        BlockContainer
         float f = 0.00390625F;
         float f1 = 0.00390625F;
         Tessellator tessellator = Tessellator.getInstance();

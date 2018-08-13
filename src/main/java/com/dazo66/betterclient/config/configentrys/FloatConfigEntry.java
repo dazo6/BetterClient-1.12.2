@@ -1,7 +1,7 @@
 package com.dazo66.betterclient.config.configentrys;
 
 import com.dazo66.betterclient.BetterClient;
-import com.dazo66.betterclient.featuresbase.IFeature;
+import com.dazo66.betterclient.functionsbase.IFunction;
 import com.google.common.primitives.Floats;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
@@ -17,13 +17,13 @@ public class FloatConfigEntry implements IConfigEntry<Float> {
     private Configuration config;
     private String key;
     private float defaultValue;
-    private IFeature owner;
+    private IFunction owner;
     private String comment;
     private Float min;
     private Float max;
     private Property property;
 
-    public FloatConfigEntry(String keyIn, float defultValueIn, IFeature ownerIn, @Nullable String commentIn, @Nullable Float minIn, @Nullable Float maxIn) {
+    public FloatConfigEntry(String keyIn, float defultValueIn, IFunction ownerIn, @Nullable String commentIn, @Nullable Float minIn, @Nullable Float maxIn) {
         config = BetterClient.config;
         key = keyIn;
         defaultValue = defultValueIn;
@@ -34,7 +34,7 @@ public class FloatConfigEntry implements IConfigEntry<Float> {
         property = getProperty();
     }
 
-    public FloatConfigEntry(String keyIn, float defultValueIn, IFeature ownerIn) {
+    public FloatConfigEntry(String keyIn, float defultValueIn, IFunction ownerIn) {
         this(keyIn, defultValueIn, ownerIn, null, null, null);
     }
 
@@ -49,7 +49,7 @@ public class FloatConfigEntry implements IConfigEntry<Float> {
     }
 
     @Override
-    public IFeature getOwner() {
+    public IFunction getOwner() {
         return owner;
     }
 

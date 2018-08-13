@@ -1,6 +1,6 @@
 package com.dazo66.fasttrading.util;
 
-import net.minecraft.client.resources.I18n;
+import com.dazo66.betterclient.util.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.*;
 
