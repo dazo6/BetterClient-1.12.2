@@ -4,7 +4,7 @@ import com.dazo66.shulkerboxshower.client.render.DrawItemInShulkerbox;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.gui.inventory.GuiContainer;
-import com.dazo66.betterclient.util.I18n;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemShulkerBox;
 import net.minecraft.item.ItemStack;

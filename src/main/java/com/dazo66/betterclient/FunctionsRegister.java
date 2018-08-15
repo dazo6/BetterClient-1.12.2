@@ -1,9 +1,9 @@
 package com.dazo66.betterclient;
 
-import com.dazo66.betterclient.functionsbase.AbstractFunction;
-import com.dazo66.betterclient.functionsbase.IFunction;
 import com.dazo66.betterclient.config.configentrys.BooleanConfigEntry;
 import com.dazo66.betterclient.config.configentrys.IConfigEntry;
+import com.dazo66.betterclient.functionsbase.AbstractFunction;
+import com.dazo66.betterclient.functionsbase.IFunction;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -61,6 +61,22 @@ public class FunctionsRegister {
         return true;
     }
 
+    public static boolean registerHandleClass(Class clazz) {
+        for (Method method : clazz.getMethods()) {
+            if (method.isAnnotationPresent(SubscribeEvent.class)) {
+                if (Modifier.isStatic(method.getModifiers())) {
+                    BetterClient.logger.error("Please don't use static in handler class. Method : %s will not register in event bus", method.getName());
+                }
+            }
+        }
+        try {
+            MinecraftForge.EVENT_BUS.register(clazz.newInstance());
+        } catch (InstantiationException | IllegalAccessException e) {
+            return false;
+        }
+        return true;
+    }
+
     public static void configEntryInit(IFunction function) {
         if (function.getConfigEntrys() == null) {
             return;
@@ -72,7 +88,7 @@ public class FunctionsRegister {
     }
 
     private static boolean canLoad(IFunction function) {
-        BooleanConfigEntry isEnable = new BooleanConfigEntry("enable", true, function, "This function is enable to load or not.");
+        BooleanConfigEntry isEnable = new BooleanConfigEntry("enable", "enable", true, function, "This function is enable to load or not.");
         return isEnable.getValue();
     }
 

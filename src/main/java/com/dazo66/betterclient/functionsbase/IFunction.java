@@ -2,7 +2,6 @@ package com.dazo66.betterclient.functionsbase;
 
 import com.dazo66.betterclient.config.configentrys.IConfigEntry;
 import com.dazo66.betterclient.coremod.IRegisterTransformer;
-import com.dazo66.betterclient.util.I18n;
 import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 

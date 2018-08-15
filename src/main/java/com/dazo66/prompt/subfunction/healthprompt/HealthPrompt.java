@@ -3,8 +3,8 @@ package com.dazo66.prompt.subfunction.healthprompt;
 import com.dazo66.betterclient.config.configentrys.FloatConfigEntry;
 import com.dazo66.betterclient.config.configentrys.IConfigEntry;
 import com.dazo66.betterclient.functionsbase.AbstractFunction;
-import com.dazo66.betterclient.util.I18n;
 import com.dazo66.prompt.subfunction.healthprompt.eventhandler.HealthPromptEventHandler;
+import net.minecraft.client.resources.I18n;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class HealthPrompt extends AbstractFunction {
 
-    public static IConfigEntry<Float> warnHeal;
+    public static IConfigEntry<Float> warnHealth;
 
     @Override
     public String getID() {
@@ -47,13 +47,13 @@ public class HealthPrompt extends AbstractFunction {
     @Override
     public List<IConfigEntry> getConfigEntrys() {
         ArrayList<IConfigEntry> list = new ArrayList<>();
-        list.add(warnHeal);
+        list.add(warnHealth);
         return list;
     }
 
     @Override
     public void preInit(FMLPreInitializationEvent event) {
-        warnHeal = new FloatConfigEntry("warnHeal", 0.45f, this, "", 0f, 1f);
+        warnHealth = new FloatConfigEntry("warnHealth", "prompt.warnhealth",  0.45f, this, "", 0f, 1f);
     }
 
     @Override

@@ -1,14 +1,28 @@
-
+#rule: contains(".");
+#rule: !contains("minecraft");
+#rule: !contains("forge");
 betterclient.config.enable=启用
 betterclient.name=更好的客户端
-
-shulkerboxviewer.name=潜影箱观察者
-shulkerboxviewer.config.organizing=重组物品
-
+enable.tooltip=To be translated
+fastcrafting.name=快速合成
+fasttrading.isAuto=是否自动交易
+fasttrading.isAuto.tooltip=开启后在打开村民Gui后自动交易
+fasttrading.name=快速交易
 fasttrading.subtitles.buttonswitching=按钮选择声
-fasttrading.tooltip.enablebutton=启用自动交易
-fasttrading.tooltip.disablebutton=停用自动交易
 fasttrading.tooltip.addbutton=添加此交易项到自动交易列表
-fasttrading.tooltip.removebutton=此交易项移出自动交易列表
+fasttrading.tooltip.disablebutton=停用自动交易
+fasttrading.tooltip.enablebutton=启用自动交易
 fasttrading.tooltip.lockbutton=锁定当前价格\n(只有当前价格自动交易)
+fasttrading.tooltip.removebutton=此交易项移出自动交易列表
 fasttrading.tooltip.unlockbutton=解除价格锁定
+fishingprompt.name=钓鱼提示
+furnaceprompt.name=熔炉提示
+healthprompt.name=健康提示
+healthprompt.tooltip=To be translated
+prompt.name=提示功能
+prompt.warnhealth=To be translated
+prompt.warnhealth.tooltip=To be translated
+shulkerboxviewer.config.organizing=重组物品
+shulkerboxviewer.isorganizing=To be translated
+shulkerboxviewer.isorganizing.tooltip=To be translated
+shulkerboxviewer.name=潜影箱观察者

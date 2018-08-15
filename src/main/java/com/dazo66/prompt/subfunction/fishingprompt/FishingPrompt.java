@@ -2,8 +2,8 @@ package com.dazo66.prompt.subfunction.fishingprompt;
 
 import com.dazo66.betterclient.config.configentrys.IConfigEntry;
 import com.dazo66.betterclient.functionsbase.AbstractFunction;
-import com.dazo66.betterclient.util.I18n;
 import com.dazo66.prompt.subfunction.fishingprompt.eventhandler.FishingPromptEventHandler;
+import net.minecraft.client.resources.I18n;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;

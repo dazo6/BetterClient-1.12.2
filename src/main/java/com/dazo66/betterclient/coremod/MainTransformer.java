@@ -2,9 +2,11 @@ package com.dazo66.betterclient.coremod;
 
 import com.dazo66.betterclient.BetterClient;
 import com.dazo66.betterclient.coremod.transformer.GuiCloseEventInject;
+import com.dazo66.betterclient.coremod.transformer.I18nEventInject;
 import com.google.common.base.Strings;
 import net.minecraft.launchwrapper.IClassTransformer;
 import net.minecraftforge.common.ForgeVersion;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.versioning.DefaultArtifactVersion;
@@ -33,6 +35,7 @@ public class MainTransformer implements IClassTransformer {
     public MainTransformer() {
         mainTransformer = this;
         register(new GuiCloseEventInject());
+        register(new I18nEventInject());
         BetterClient.registerFunctions();
         BetterClient.registerTransformerClass(this);
     }

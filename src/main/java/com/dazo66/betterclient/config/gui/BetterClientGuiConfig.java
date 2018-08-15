@@ -34,7 +34,7 @@ public class BetterClientGuiConfig extends GuiConfig {
     private static DummyConfigElement.DummyCategoryElement getConfigElements(IFunction function) {
 
         List<IConfigElement> list1 = new ArrayList<>();
-        BooleanConfigEntry isEnable = new BooleanConfigEntry("enable", true, function, "This function is enable to load or not.");
+        BooleanConfigEntry isEnable = new BooleanConfigEntry("enable", "enable", true, function, "This function is enable to load or not.");
         list1.add(new ConfigElement(isEnable.getProperty()));
         List<IFunction> functions = function.getSubFunctions();
         List<IConfigEntry> entries = function.getConfigEntrys();
@@ -48,7 +48,7 @@ public class BetterClientGuiConfig extends GuiConfig {
                 list1.add(new ConfigElement(configEntry.getProperty()));
             }
         }
-        return new DummyConfigElement.DummyCategoryElement(function.getName(), function.getName() + function.getVersion(), list1);
+        return new DummyConfigElement.DummyCategoryElement(function.getName(), function.getID(), list1);
 
     }
 

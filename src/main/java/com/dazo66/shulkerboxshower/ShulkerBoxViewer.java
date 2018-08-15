@@ -4,7 +4,7 @@ import com.dazo66.betterclient.config.configentrys.BooleanConfigEntry;
 import com.dazo66.betterclient.config.configentrys.IConfigEntry;
 import com.dazo66.betterclient.functionsbase.AbstractFunction;
 import com.dazo66.shulkerboxshower.eventhandler.ShulkerBoxViewerEventHandler;
-import com.dazo66.betterclient.util.I18n;
+import net.minecraft.client.resources.I18n;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -54,7 +54,7 @@ public class ShulkerBoxViewer extends AbstractFunction {
 
     @Override
     public void preInit(FMLPreInitializationEvent event) {
-        isOrganizing = new BooleanConfigEntry("Organized the items", false, this, "Organizing the items or not");
+        isOrganizing = new BooleanConfigEntry("isorganizing", "shulkerboxviewer.isorganizing", false, this, "Organizing the items or not");
     }
 
     @Override

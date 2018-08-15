@@ -2,6 +2,7 @@ package com.dazo66.betterclient;
 
 import com.dazo66.betterclient.coremod.IRegisterTransformer;
 import com.dazo66.betterclient.coremod.MainTransformer;
+import com.dazo66.betterclient.event.BetterClientEventHandler;
 import com.dazo66.betterclient.functionsbase.IFunction;
 import com.dazo66.fastcrafting.FastCrafting;
 import com.dazo66.fasttrading.FastTrading;
@@ -75,6 +76,7 @@ public class BetterClient {
 
     @EventHandler
     public void init(FMLInitializationEvent event) {
+        FunctionsRegister.registerHandleClass(BetterClientEventHandler.class);
         for (IFunction feature : enableFeatures) {
             boolean regResult = FunctionsRegister.registerHandleClass(feature);
             if (!regResult) {

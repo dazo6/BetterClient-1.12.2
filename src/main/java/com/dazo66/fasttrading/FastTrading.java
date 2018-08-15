@@ -9,7 +9,7 @@ import com.dazo66.fasttrading.config.ConfigLoader;
 import com.dazo66.fasttrading.event.FastTradingEventHandler;
 import com.dazo66.fasttrading.transformsclass.HookSetRecipeListEvent;
 import com.dazo66.fasttrading.util.KeyLoader;
-import com.dazo66.betterclient.util.I18n;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.NpcMerchant;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -83,8 +83,9 @@ public class FastTrading extends AbstractFunction {
 
     @Override
     public void preInit(FMLPreInitializationEvent event) {
-        isAuto = new BooleanConfigEntry("fasttrading.isAuto", true, this, "is auto to trade when merchant gui open.");
+        isAuto = new BooleanConfigEntry("isAuto", "fasttrading.isAuto", true, this, "is auto to trade when merchant gui open.");
         simpleRecipes = new StringArrayConfigEntry("fasttrading.autorecipelist", new String[0], this);
+        simpleRecipes.setShowInGui(false);
         configLoader = new ConfigLoader(simpleRecipes);
         logger = event.getModLog();
     }

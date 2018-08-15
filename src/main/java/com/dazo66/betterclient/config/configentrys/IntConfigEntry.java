@@ -1,8 +1,6 @@
 package com.dazo66.betterclient.config.configentrys;
 
-import com.dazo66.betterclient.BetterClient;
 import com.dazo66.betterclient.functionsbase.IFunction;
-import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 
 import javax.annotation.Nullable;
@@ -10,50 +8,19 @@ import javax.annotation.Nullable;
 /**
  * @author Dazo66
  */
-public class IntConfigEntry implements IConfigEntry<Integer> {
+public class IntConfigEntry extends AbstractConfigEntry<Integer> {
 
-    private Configuration config;
-    private String key;
-    private int defaultValue;
-    private IFunction owner;
-    private String comment;
     private Integer min;
     private Integer max;
-    private Property property;
 
-    public IntConfigEntry(String keyIn, int defultValueIn, IFunction ownerIn, @Nullable String commentIn, @Nullable Integer minIn, @Nullable Integer maxIn) {
-        config = BetterClient.config;
-        key = keyIn;
-        defaultValue = defultValueIn;
-        owner = ownerIn;
-        comment = commentIn;
-        min = minIn;
+    public IntConfigEntry(String keyIn, String langKeyIn, int defaultValueIn, IFunction ownerIn, @Nullable String commentIn, @Nullable Integer minIn, @Nullable Integer maxIn) {
+        super(keyIn, langKeyIn, defaultValueIn, ownerIn, commentIn);
         max = maxIn;
-        property = getProperty();
+        min = minIn;
     }
 
     public IntConfigEntry(String keyIn, int defultValueIn, IFunction ownerIn) {
-        this(keyIn, defultValueIn, ownerIn, null, null, null);
-    }
-
-    @Override
-    public String getKey() {
-        return key;
-    }
-
-    @Override
-    public Integer getDefaultValue() {
-        return defaultValue;
-    }
-
-    @Override
-    public IFunction getOwner() {
-        return owner;
-    }
-
-    @Override
-    public String getComment() {
-        return comment;
+        this(keyIn, keyIn, defultValueIn, ownerIn, null, null, null);
     }
 
     public int getMin() {
@@ -75,24 +42,17 @@ public class IntConfigEntry implements IConfigEntry<Integer> {
     }
 
     @Override
-    public void setValue(Integer i) {
-        property.setValue(i);
-        config.save();
-    }
-
-    @Override
     public Property getProperty() {
         if (property != null) {
             return property;
         }
-        Property prop = config.get(owner.getID(), key, defaultValue);
-        prop.setLanguageKey(key);
+        property = config.get(owner.getID(), key, defaultValue).setLanguageKey(langKey);
         if (min != null && max != null) {
-            prop.setComment(comment + " [range: " + min + " ~ " + max + ", default: " + defaultValue + "]");
-            prop.setMinValue(min);
-            prop.setMaxValue(max);
+            property.setComment(comment + " [range: " + min + " ~ " + max + ", default: " + defaultValue + "]");
+            property.setMinValue(min);
+            property.setMaxValue(max);
         }
-        return prop;
+        return property;
     }
 
 

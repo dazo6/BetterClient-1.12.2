@@ -1,14 +1,34 @@
-
+#rule: contains(".");
+#rule: !contains("minecraft");
+#rule: !contains("forge");
 betterclient.config.enable=enable
 betterclient.name=BetterClient
-
-shulkerboxviewer.name=ShulkerBoxViewer
-shulkerboxviewer.config.organizing=Organizing The Items
-
+enable.tooltip=To be translated
+fastcrafting.name=FastCrafting
+fastcrafting.tooltip=
+fasttrading.isAuto=To be translated
+fasttrading.isAuto.tooltip=To be translated
+fasttrading.name=FastTrading
 fasttrading.subtitles.buttonswitching=Switching button
-fasttrading.tooltip.enablebutton=Enable automatic trading
-fasttrading.tooltip.disablebutton=Disable automatic trading
+fasttrading.tooltip=
 fasttrading.tooltip.addbutton=Add this merchant to\nautomatic trading list
-fasttrading.tooltip.removebutton=Remove this merchant\nfrom automatic trading list
+fasttrading.tooltip.disablebutton=Disable automatic trading
+fasttrading.tooltip.enablebutton=Enable automatic trading
 fasttrading.tooltip.lockbutton=Only automatic trading at this price
+fasttrading.tooltip.removebutton=Remove this merchant\nfrom automatic trading list
 fasttrading.tooltip.unlockbutton=Unlock the price
+fishingprompt.name=FishingPrompt
+fishingprompt.tooltip=
+furnaceprompt.name=FurnacePrompt
+furnaceprompt.tooltip=
+healthprompt.name=
+healthprompt.tooltip=To be translated
+prompt.name=Prompt
+prompt.tooltip=
+prompt.warnhealth=To be translated
+prompt.warnhealth.tooltip=To be translated
+shulkerboxviewer.config.organizing=Organizing The Items
+shulkerboxviewer.isorganizing=To be translated
+shulkerboxviewer.isorganizing.tooltip=To be translated
+shulkerboxviewer.name=ShulkerBoxViewer
+shulkerboxviewer.tooltip=To be translated

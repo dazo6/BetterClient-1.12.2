@@ -7,7 +7,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
-import static com.dazo66.prompt.subfunction.healthprompt.HealthPrompt.warnHeal;
+import static com.dazo66.prompt.subfunction.healthprompt.HealthPrompt.warnHealth;
 
 /**
  * @author Dazo66
@@ -21,8 +21,8 @@ public class HealthPromptEventHandler {
         if (event.phase == TickEvent.Phase.END) {
             if (mc.world != null) {
                 EntityPlayer play = mc.player;
-                if (play != null && warnHeal != null) {
-                    if (play.getHealth() / play.getMaxHealth() < warnHeal.getValue()) {
+                if (play != null && warnHealth != null) {
+                    if (play.getHealth() / play.getMaxHealth() < warnHealth.getValue()) {
                         if (!mc.gameSettings.hideGUI && !(mc.currentScreen instanceof GuiChat)) {
                             HealthPromptRender.renderVignette();
                         }

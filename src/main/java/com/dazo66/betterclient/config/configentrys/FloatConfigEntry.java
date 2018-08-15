@@ -1,9 +1,7 @@
 package com.dazo66.betterclient.config.configentrys;
 
-import com.dazo66.betterclient.BetterClient;
 import com.dazo66.betterclient.functionsbase.IFunction;
 import com.google.common.primitives.Floats;
-import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 import net.minecraftforge.fml.common.FMLLog;
 
@@ -12,50 +10,19 @@ import javax.annotation.Nullable;
 /**
  * @author Dazo66
  */
-public class FloatConfigEntry implements IConfigEntry<Float> {
+public class FloatConfigEntry extends AbstractConfigEntry<Float> {
 
-    private Configuration config;
-    private String key;
-    private float defaultValue;
-    private IFunction owner;
-    private String comment;
-    private Float min;
-    private Float max;
-    private Property property;
+    protected Float min;
+    protected Float max;
 
-    public FloatConfigEntry(String keyIn, float defultValueIn, IFunction ownerIn, @Nullable String commentIn, @Nullable Float minIn, @Nullable Float maxIn) {
-        config = BetterClient.config;
-        key = keyIn;
-        defaultValue = defultValueIn;
-        owner = ownerIn;
-        comment = commentIn;
+    public FloatConfigEntry(String keyIn, String langKeyIn,float defaultValueIn, IFunction ownerIn, @Nullable String commentIn, @Nullable Float minIn, @Nullable Float maxIn) {
+        super(keyIn, langKeyIn, defaultValueIn, ownerIn, commentIn);
         min = minIn;
         max = maxIn;
-        property = getProperty();
     }
 
     public FloatConfigEntry(String keyIn, float defultValueIn, IFunction ownerIn) {
-        this(keyIn, defultValueIn, ownerIn, null, null, null);
-    }
-
-    @Override
-    public String getKey() {
-        return key;
-    }
-
-    @Override
-    public Float getDefaultValue() {
-        return defaultValue;
-    }
-
-    @Override
-    public IFunction getOwner() {
-        return owner;
-    }
-
-    @Override
-    public String getComment() {
-        return comment;
+        this(keyIn, keyIn, defultValueIn, ownerIn, null, null, null);
     }
 
     public Float getMin() {
@@ -71,7 +38,6 @@ public class FloatConfigEntry implements IConfigEntry<Float> {
     public Float getValue() {
         try
         {
-            String s = getProperty().getString();
             float parseFloat = Float.parseFloat(getProperty().getString());
             if (min != null && max != null) {
                 return Floats.constrainToRange(parseFloat, min, max);
@@ -93,9 +59,13 @@ public class FloatConfigEntry implements IConfigEntry<Float> {
 
     @Override
     public Property getProperty() {
-        Property prop = config.get(owner.getID(), key, Float.toString(defaultValue), key);
-        prop.setLanguageKey(key);
-        return prop;
+        if (property == null) {
+            property = config.get(owner.getID(), key, Float.toString(defaultValue), key);
+            property.setLanguageKey(langKey);
+            return property;
+        }else {
+            return property;
+        }
     }
 
 }

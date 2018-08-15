@@ -7,7 +7,7 @@ import com.dazo66.fastcrafting.eventhandler.FastCraftingingEventHandler;
 import com.dazo66.fastcrafting.transformerclass.MineRecipe;
 import com.dazo66.fastcrafting.transformerclass.SendRecipePacketHook0;
 import com.dazo66.fastcrafting.transformerclass.SendRecipePacketHook1;
-import com.dazo66.betterclient.util.I18n;
+import net.minecraft.client.resources.I18n;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;

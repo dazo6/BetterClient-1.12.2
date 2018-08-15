@@ -12,6 +12,8 @@ public interface IConfigEntry<T> {
 
     String getKey();
 
+    String getLangKey();
+
     T getDefaultValue();
 
     String getComment();
