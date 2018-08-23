@@ -20,5 +20,5 @@ public interface IRegisterTransformer extends IClassTransformer {
      * what class you want to transformer
      * @return a class name list
      */
-    List getClassName();
+    List<String> getClassName();
 }

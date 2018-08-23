@@ -43,7 +43,7 @@ public class ShulkerBoxViewerEventHandler {
             if (list.size() < 2) {
                 return;
             }
-            String[] strings = I18n.format("container.shulkerBox.more").split("%s");
+            String[] strings = I18n.format("container.shulkerBox.more", "%s").split("%s");
             if (list.get(1).contains(strings[0]) && list.get(1).contains(strings[1])) {
                 list.remove(1);
             }

@@ -17,8 +17,13 @@ public class SimpleRecipeList extends ArrayList<ConfigJson.SimpleRecipe> {
 
     @Override
     public boolean remove(Object recipe) {
-        ConfigJson.SimpleRecipe simpleRecipe = ConfigJson.getRecipe((ConfigJson.SimpleRecipe) recipe, this);
-        return simpleRecipe != null && super.remove(simpleRecipe);
+        if (recipe instanceof ConfigJson.SimpleRecipe) {
+            ConfigJson.SimpleRecipe simpleRecipe = ConfigJson.getRecipe((ConfigJson.SimpleRecipe) recipe, this);
+            return simpleRecipe != null && super.remove(simpleRecipe);
+        }else {
+            return false;
+        }
+
     }
 
 }

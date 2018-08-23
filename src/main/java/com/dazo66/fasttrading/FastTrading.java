@@ -9,8 +9,10 @@ import com.dazo66.fasttrading.config.ConfigLoader;
 import com.dazo66.fasttrading.event.FastTradingEventHandler;
 import com.dazo66.fasttrading.transformsclass.HookSetRecipeListEvent;
 import com.dazo66.fasttrading.util.KeyLoader;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.NpcMerchant;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -88,6 +90,16 @@ public class FastTrading extends AbstractFunction {
         simpleRecipes.setShowInGui(false);
         configLoader = new ConfigLoader(simpleRecipes);
         logger = event.getModLog();
+    }
+
+    public static void setAuto(boolean b) {
+        FastTrading.isAuto.setValue(b);
+        String msg = "FastTradingMod-" + (b ? "ON" : "OFF");
+        try {
+            Minecraft.getMinecraft().player.sendMessage(new TextComponentString(msg));
+        } catch (Exception e) {
+            FastTrading.logger.info(msg);
+        }
     }
 
 }

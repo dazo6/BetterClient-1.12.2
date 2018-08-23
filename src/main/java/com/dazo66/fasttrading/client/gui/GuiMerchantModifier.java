@@ -8,9 +8,11 @@ import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiMerchant;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.IMerchant;
-import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.ClickType;
+import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ContainerMerchant;
 import net.minecraft.inventory.Slot;
 import net.minecraft.network.PacketBuffer;
@@ -18,59 +20,72 @@ import net.minecraft.network.play.client.CPacketCustomPayload;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.village.MerchantRecipe;
 import net.minecraft.village.MerchantRecipeList;
-import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
-import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import static com.dazo66.fasttrading.FastTrading.configLoader;
+import static net.minecraft.client.gui.GuiScreen.isShiftKeyDown;
 
 /**
  * @author Dazo66
  */
-public class GuiMerchantOverride extends GuiMerchant {
+public class GuiMerchantModifier {
 
+    private Minecraft mc = Minecraft.getMinecraft();
+    private GuiMerchant gui;
     public TradingHelper helper;
     public MerchantRecipeList merchantRecipeList;
+    private Container inventoryPlayer;
+    private Method clickMethod;
     private IMerchant iMerchant;
-    private Minecraft mc = Minecraft.getMinecraft();
+    private List<GuiButton> buttonList;
     private int lastClickTime;
     private GuiButton lastClickButton;
     private ArrayList<GuiRecipeButton> recipeButtonList = new ArrayList<>();
     private HashMap<String, GuiIconButton> buttonMap = new HashMap<>();
 
-    public GuiMerchantOverride(InventoryPlayer inventoryPlayer, IMerchant iMerchant, World worldIn) {
-        super(inventoryPlayer, iMerchant, worldIn);
+    public GuiMerchantModifier(GuiMerchant guiMerchant) {
+//        super(inventoryPlayer, iMerchant, worldIn);
+        gui = guiMerchant;
         helper = new TradingHelper(this);
-        this.iMerchant = iMerchant;
+        buttonList = getButtonList();
+        inventoryPlayer = guiMerchant.inventorySlots;
+        iMerchant = guiMerchant.getMerchant();
+        clickMethod = getClickMethod();
         configLoader.load();
         resetButton();
     }
 
-    @Override
     public void initGui() {
-        super.initGui();
         resetButton();
     }
 
     private void resetButton(){
+        buttonList = getButtonList();
         recipeButtonList.clear();
         buttonMap.clear();
         addMerchantButton(merchantRecipeList);
         addFunctionButton();
     }
 
+
+    //reflect method
     public void click(Slot slot, int mouseButton, ClickType type) {
-        this.handleMouseClick(slot, slot.slotNumber, mouseButton, type);
+        try {
+            clickMethod.invoke(gui, slot, slot.slotNumber, mouseButton, type);
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
     }
 
-
-    @Override
     public void drawScreen(int mouseX, int mouseY, float p) {
-        super.drawScreen(mouseX, mouseY, p);
         GuiButton button0 = getFirstButton();
-        if (null != button0 && button0 instanceof GuiRecipeButton) {
+        if (button0 instanceof GuiRecipeButton) {
             ((GuiRecipeButton) button0).tryProminent(mc, mouseX, mouseY, p, true);
             ((GuiRecipeButton) button0).tryRenderItemTooltip(mouseX, mouseY);
         }
@@ -88,19 +103,17 @@ public class GuiMerchantOverride extends GuiMerchant {
 
     }
 
-    @Override
-    protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+    public void mouseClicked(int mouseX, int mouseY, int mouseButton) {
         if (isShiftKeyDown()) {
             Slot slot = this.getSlotAtPosition(mouseX, mouseY);
             if (null != slot && slot.getHasStack() && slot.slotNumber != 0 && slot.slotNumber != 1 && slot.slotNumber != 2) {
-                if (!inventorySlots.getSlot(0).getHasStack()) {
-                    moveItem(slot, inventorySlots.getSlot(0));
-                } else if (!inventorySlots.getSlot(1).getHasStack()) {
-                    moveItem(slot, inventorySlots.getSlot(1));
+                if (!inventoryPlayer.getSlot(0).getHasStack()) {
+                    moveItem(slot, inventoryPlayer.getSlot(0));
+                } else if (!inventoryPlayer.getSlot(1).getHasStack()) {
+                    moveItem(slot, inventoryPlayer.getSlot(1));
                 }
             }
         }
-        super.mouseClicked(mouseX, mouseY, mouseButton);
     }
 
     private void moveItem(Slot from, Slot to) {
@@ -111,11 +124,12 @@ public class GuiMerchantOverride extends GuiMerchant {
         }
     }
 
-    private Slot getSlotAtPosition(int x, int y) {
-        for (int i = 0; i < this.inventorySlots.inventorySlots.size(); ++i) {
-            Slot slot = this.inventorySlots.inventorySlots.get(i);
 
-            if (super.isPointInRegion(slot.xPos, slot.yPos, 16, 16, x, y) && slot.isEnabled()) {
+    private Slot getSlotAtPosition(int x, int y) {
+        for (int i = 0; i < inventoryPlayer.inventorySlots.size(); ++i) {
+            Slot slot = inventoryPlayer.inventorySlots.get(i);
+
+            if (isPointInRegion(slot.xPos, slot.yPos, 16, 16, x, y) && slot.isEnabled()) {
                 return slot;
             }
         }
@@ -141,28 +155,22 @@ public class GuiMerchantOverride extends GuiMerchant {
         return null;
     }
 
-    @Override
     public void onGuiClosed() {
-        super.onGuiClosed();
         configLoader.onSave();
     }
 
-    @Override
     public void updateScreen() {
-        super.updateScreen();
         functionButtonUpdate();
     }
 
-    @Override
-    protected void actionPerformed(GuiButton button) throws IOException {
+    public void actionPerformed(GuiButton button) {
         int currentTime = (int) System.currentTimeMillis() % Integer.MAX_VALUE;
-        super.actionPerformed(button);
         if (merchantRecipeList == null) {
             merchantRecipeList = iMerchant.getRecipes(mc.player);
         }
         GuiButton button1 = getFirstButton();
         if (button == button1) {
-            MerchantRecipe recipe = merchantRecipeList.get(selectedMerchantRecipe);
+            MerchantRecipe recipe = merchantRecipeList.get(gui.selectedMerchantRecipe);
             ConfigJson.SimpleRecipe currentRecipe = helper.map.get(recipe);
 
             if (!button.enabled || !button.visible) {
@@ -184,9 +192,9 @@ public class GuiMerchantOverride extends GuiMerchant {
                     lastClickTime = currentTime;
                 }
             } else if (button.id == 250) {
-                FastTrading.isAuto.setValue(true);
+                FastTrading.setAuto(true);
             } else if (button.id == 251) {
-                FastTrading.isAuto.setValue(false);
+                FastTrading.setAuto(false);
             } else if (button.id == 252) {
                 ConfigJson.SimpleRecipe recipe1 = new ConfigJson.SimpleRecipe(false, recipe);
                 configLoader.recipeList.add(recipe1);
@@ -208,7 +216,11 @@ public class GuiMerchantOverride extends GuiMerchant {
 
     }
 
+
+    //guiLeft && guiTop
     private void addFunctionButton() {
+        int guiLeft = gui.getGuiLeft();
+        int guiTop = gui.getGuiTop();
         GuiIconButton onButton = null;
         GuiIconButton offButton = null;
         GuiIconButton addButton = null;
@@ -227,12 +239,12 @@ public class GuiMerchantOverride extends GuiMerchant {
         subtractButton = new GuiIconButton(253, guiLeft + 14, guiTop + 3, 10, 10, ItemStackUtils.tooltipI18n("fasttrading.tooltip.removebutton"), SUBTRACT);
         lockButton = new GuiIconButton(254, guiLeft + 25, guiTop + 3, 10, 10, ItemStackUtils.tooltipI18n("fasttrading.tooltip.lockbutton"), LOCK);
         unlockButton = new GuiIconButton(255, guiLeft + 25, guiTop + 3, 10, 10, ItemStackUtils.tooltipI18n("fasttrading.tooltip.unlockbutton"), UNLOCK);
-        addButton(onButton);
-        addButton(offButton);
-        addButton(addButton);
-        addButton(subtractButton);
-        addButton(lockButton);
-        addButton(unlockButton);
+        buttonList.add(onButton);
+        buttonList.add(offButton);
+        buttonList.add(addButton);
+        buttonList.add(subtractButton);
+        buttonList.add(lockButton);
+        buttonList.add(unlockButton);
         buttonMap.put("onButton", onButton);
         buttonMap.put("offButton", offButton);
         buttonMap.put("addButton", addButton);
@@ -253,7 +265,7 @@ public class GuiMerchantOverride extends GuiMerchant {
         if (null == merchantRecipeList || merchantRecipeList.isEmpty()) {
             return;
         }
-        MerchantRecipe recipe = merchantRecipeList.get(selectedMerchantRecipe);
+        MerchantRecipe recipe = merchantRecipeList.get(gui.selectedMerchantRecipe);
         ConfigJson.SimpleRecipe simpleRecipe = helper.map.get(recipe);
         if (null == simpleRecipe) {
             buttonMap.get("addButton").visible = true;
@@ -287,7 +299,7 @@ public class GuiMerchantOverride extends GuiMerchant {
         }
         int i = 0;
         int spacing = 25;
-        int top = guiTop;
+        int top = gui.getGuiTop();
         if (list.size() * 25 > 166 && list.size() * 15 < 166) {
             spacing = 166 / list.size();
         } else if (list.size() * 15 >= 166) {
@@ -295,7 +307,7 @@ public class GuiMerchantOverride extends GuiMerchant {
             top = top - (list.size() * 15 - 166) / 2;
         }
         for (MerchantRecipe merchantRecipe : list) {
-            GuiRecipeButton button = new GuiRecipeButton(300 + i++, guiLeft - 89 - 1, top - spacing + i * spacing, this, merchantRecipe);
+            GuiRecipeButton button = new GuiRecipeButton(300 + i++, gui.getGuiLeft() - 89 - 1, top - spacing + i * spacing, this, merchantRecipe);
             for (GuiButton button1 : buttonList) {
                 if (button1.id == button.id) {
                     return;
@@ -307,11 +319,13 @@ public class GuiMerchantOverride extends GuiMerchant {
     }
 
     public void setCurrentRecipe(int index) {
+        int selectedMerchantRecipe = gui.selectedMerchantRecipe;
         if (index != selectedMerchantRecipe) {
             selectedMerchantRecipe = index;
-            ((ContainerMerchant) this.inventorySlots).setCurrentRecipeIndex(this.selectedMerchantRecipe);
+            gui.selectedMerchantRecipe = index;
+            ((ContainerMerchant) inventoryPlayer).setCurrentRecipeIndex(selectedMerchantRecipe);
             PacketBuffer packetbuffer = new PacketBuffer(Unpooled.buffer());
-            packetbuffer.writeInt(this.selectedMerchantRecipe);
+            packetbuffer.writeInt(selectedMerchantRecipe);
             this.mc.getConnection().sendPacket(new CPacketCustomPayload("MC|TrSel", packetbuffer));
         }
     }
@@ -322,4 +336,31 @@ public class GuiMerchantOverride extends GuiMerchant {
         helper.init(merchantRecipeList);
     }
 
+    private List<GuiButton> getButtonList() {
+        return ReflectionHelper.getPrivateValue(GuiScreen.class, gui, "field_146292_n", "buttonList", "n");
+    }
+
+    private Method getClickMethod(){
+        Method m1 = null;
+        Method m2 = null;
+        try {
+            m1 = ReflectionHelper.findMethod(GuiContainer.class, "handleMouseClick", "func_184098_a", Slot.class, int.class, int.class, ClickType.class);
+            m2 = ReflectionHelper.findMethod(GuiContainer.class, "handleMouseClick", "a", Slot.class, int.class, int.class, ClickType.class);
+        }catch (ReflectionHelper.UnableToFindMethodException e) {
+            e.printStackTrace();
+        }
+        return m1 == null ? m2 : m1;
+    }
+
+    private boolean isPointInRegion(int rectX, int rectY, int rectWidth, int rectHeight, int pointX, int pointY) {
+        int i = gui.getGuiLeft();
+        int j = gui.getGuiTop();
+        pointX = pointX - i;
+        pointY = pointY - j;
+        return pointX >= rectX - 1 && pointX < rectX + rectWidth + 1 && pointY >= rectY - 1 && pointY < rectY + rectHeight + 1;
+    }
+
+    public GuiMerchant getGui() {
+        return gui;
+    }
 }

@@ -1,6 +1,7 @@
 package com.dazo66.betterclient.coremod;
 
 import com.dazo66.betterclient.BetterClient;
+import com.dazo66.betterclient.coremod.transformer.EntityAddWorldInject;
 import com.dazo66.betterclient.coremod.transformer.GuiCloseEventInject;
 import com.dazo66.betterclient.coremod.transformer.I18nEventInject;
 import com.google.common.base.Strings;
@@ -19,6 +20,7 @@ import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.InsnNode;
 import org.objectweb.asm.tree.MethodNode;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -29,13 +31,14 @@ public class MainTransformer implements IClassTransformer {
 
     public static MainTransformer mainTransformer;
 
-    private HashMap<String, IRegisterTransformer> map = new HashMap<>();
+    private HashMap<String, List<IRegisterTransformer>> map = new HashMap<>();
     private String MCVERSION = getMCVERSION();
 
     public MainTransformer() {
         mainTransformer = this;
         register(new GuiCloseEventInject());
         register(new I18nEventInject());
+        register(new EntityAddWorldInject());
         BetterClient.registerFunctions();
         BetterClient.registerTransformerClass(this);
     }
@@ -67,7 +70,9 @@ public class MainTransformer implements IClassTransformer {
         List<String> name = iRegisterTransformer.getClassName();
         if (isVersionAllow(iRegisterTransformer.getMcVersion())) {
             for (String s : name) {
-                map.put(s, iRegisterTransformer);
+                map.computeIfAbsent(s, k -> new ArrayList<>());
+                map.get(s).add(iRegisterTransformer);
+
             }
             FMLLog.log.info("{} Register SUCCESS", iRegisterTransformer.getClass().getSimpleName());
         } else {
@@ -77,15 +82,20 @@ public class MainTransformer implements IClassTransformer {
 
     @Override
     public byte[] transform(String name, String transformedName, byte[] basicClass) {
-        IRegisterTransformer irtf = null;
         if (map.containsKey(transformedName)) {
-            irtf = map.get(transformedName);
-            FMLLog.log.info("CLASS: " + irtf.getClass().getSimpleName() + " Transformer SUCCESS");
-            return irtf.transform(name, transformedName, basicClass);
+            List<IRegisterTransformer> list = map.get(transformedName);
+            for (IRegisterTransformer irtf1 : list) {
+                basicClass = irtf1.transform(name, transformedName, basicClass);
+                FMLLog.log.info("CLASS: " + irtf1.getClass().getSimpleName() + " Transformer SUCCESS");
+            }
+            return basicClass;
         } else if (map.containsKey(name)) {
-            irtf = map.get(name);
-            FMLLog.log.info("CLASS: " + irtf.getClass().getSimpleName() + " Transformer SUCCESS");
-            return irtf.transform(name, transformedName, basicClass);
+            List<IRegisterTransformer> list = map.get(transformedName);
+            for (IRegisterTransformer irtf1 : list) {
+                basicClass = irtf1.transform(name, transformedName, basicClass);
+                FMLLog.log.info("CLASS: " + irtf1.getClass().getSimpleName() + " Transformer SUCCESS");
+            }
+            return basicClass;
         } else {
             return basicClass;
         }

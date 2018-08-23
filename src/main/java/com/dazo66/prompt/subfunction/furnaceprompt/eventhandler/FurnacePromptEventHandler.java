@@ -23,11 +23,15 @@ public class FurnacePromptEventHandler {
 
     @SubscribeEvent
     public void onClientTick(TickEvent.ClientTickEvent event) {
-        String state;
+        String state = null;
         if (furnacePos != null && !checkList.contains(furnacePos)) {
-            state = mc.world.getBlockState(furnacePos).toString();
-            if (state.contains("lit_furnace")) {
+            try {
+                state = mc.world.getBlockState(furnacePos).toString();
+            }catch (Exception ignore) {
+            }
+            if (state != null && state.contains("lit_furnace")) {
                 checkList.add(furnacePos);
+                furnacePos = null;
             }
         }
         Iterator<BlockPos> iterable = checkList.iterator();

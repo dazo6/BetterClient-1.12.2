@@ -3,7 +3,7 @@ package com.dazo66.prompt;
 import com.dazo66.betterclient.config.configentrys.IConfigEntry;
 import com.dazo66.betterclient.functionsbase.AbstractFunction;
 import com.dazo66.betterclient.functionsbase.IFunction;
-import com.dazo66.prompt.eventhandler.PromptEventhandler;
+import com.dazo66.prompt.event.eventhandler.PromptEventhandler;
 import com.dazo66.prompt.subfunction.fishingprompt.FishingPrompt;
 import com.dazo66.prompt.subfunction.furnaceprompt.FurnacePrompt;
 import com.dazo66.prompt.subfunction.healthprompt.HealthPrompt;

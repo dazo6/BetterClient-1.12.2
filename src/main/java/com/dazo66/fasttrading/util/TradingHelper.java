@@ -1,10 +1,11 @@
 package com.dazo66.fasttrading.util;
 
 import com.dazo66.fasttrading.FastTrading;
-import com.dazo66.fasttrading.client.gui.GuiMerchantOverride;
+import com.dazo66.fasttrading.client.gui.GuiMerchantModifier;
 import com.dazo66.fasttrading.config.ConfigJson;
 import com.google.common.collect.Lists;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiMerchant;
 import net.minecraft.inventory.ClickType;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
@@ -24,13 +25,15 @@ public class TradingHelper {
     public HashMap<MerchantRecipe, ConfigJson.SimpleRecipe> map = new HashMap<>();
     private Minecraft mc;
     private Container inventorySlots;
-    private GuiMerchantOverride gui;
+    private GuiMerchantModifier modifier;
+    private GuiMerchant gui;
     private Slot buy1;
     private Slot buy2;
     private Slot sell;
 
-    public TradingHelper(GuiMerchantOverride guiIn) {
-        gui = guiIn;
+    public TradingHelper(GuiMerchantModifier modifierIn) {
+        modifier = modifierIn;
+        gui = modifierIn.getGui();
         inventorySlots = gui.inventorySlots;
         buy1 = inventorySlots.getSlot(0);
         buy2 = inventorySlots.getSlot(1);
@@ -73,9 +76,9 @@ public class TradingHelper {
             }
         }
         if (null != lastHave) {
-            gui.click(lastHave, 0, ClickType.PICKUP);
-            gui.click(lastHave, 0, ClickType.PICKUP_ALL);
-            gui.click(lastHave, 0, ClickType.PICKUP);
+            modifier.click(lastHave, 0, ClickType.PICKUP);
+            modifier.click(lastHave, 0, ClickType.PICKUP_ALL);
+            modifier.click(lastHave, 0, ClickType.PICKUP);
             if (lastHave.getStack().getCount() >= itemStack.getCount()) {
                 return lastHave;
             }
@@ -115,7 +118,7 @@ public class TradingHelper {
             if (recipe.hasSecondItemToBuy() && null == buy2Slot) {
                 return;
             }
-            gui.setCurrentRecipe(index);
+            modifier.setCurrentRecipe(index);
             tradingStack(recipe, buy1Slot, buy2Slot);
             if (!recipe.isRecipeDisabled()) {
                 buy1Slot = findItem(buy1Item, buy1Slot);
@@ -136,7 +139,7 @@ public class TradingHelper {
             if (recipe.hasSecondItemToBuy() && null == buy2Slot) {
                 return;
             }
-            gui.setCurrentRecipe(index);
+            modifier.setCurrentRecipe(index);
             tradingOne(recipe, buy1Slot, buy2Slot);
         }
     }
@@ -153,9 +156,9 @@ public class TradingHelper {
             moveItem(buy2Slot, buy2);
         }
         ItemStack stack = recipe.getItemToSell();
-        gui.click(sell, 0, ClickType.PICKUP);
+        modifier.click(sell, 0, ClickType.PICKUP);
         for (Slot slot : clientQuickMoveSlot(stack)) {
-            gui.click(slot, 0, ClickType.PICKUP);
+            modifier.click(slot, 0, ClickType.PICKUP);
         }
         clearSlot(buy1, buy2);
     }
@@ -171,14 +174,14 @@ public class TradingHelper {
         if (recipe.hasSecondItemToBuy()) {
             moveItem(buy2Slot, buy2);
         }
-        gui.click(sell, 0, ClickType.QUICK_MOVE);
+        modifier.click(sell, 0, ClickType.QUICK_MOVE);
         clearSlot(buy1, buy2);
     }
 
     private void clearSlot(Slot... slots) {
         for (Slot slot : slots) {
             if (slot.getHasStack()) {
-                gui.click(slot, 0, ClickType.QUICK_MOVE);
+                modifier.click(slot, 0, ClickType.QUICK_MOVE);
             }
         }
     }
@@ -214,10 +217,10 @@ public class TradingHelper {
     }
 
     private void moveItem(Slot from, Slot to) {
-        gui.click(from, 0, ClickType.PICKUP);
-        gui.click(to, 0, ClickType.PICKUP);
+        modifier.click(from, 0, ClickType.PICKUP);
+        modifier.click(to, 0, ClickType.PICKUP);
         if (!mc.player.inventory.getItemStack().isEmpty()) {
-            gui.click(from, 0, ClickType.PICKUP);
+            modifier.click(from, 0, ClickType.PICKUP);
         }
     }
 }

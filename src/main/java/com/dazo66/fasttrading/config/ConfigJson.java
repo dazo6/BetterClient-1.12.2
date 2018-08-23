@@ -91,20 +91,24 @@ public class ConfigJson {
     }
 
     public static boolean isRecipeEqualIgnoreCount(SimpleRecipe recipe, SimpleRecipe simpleRecipe) {
-        ItemStack buy11 = simpleRecipe.buy1.getItemStack();
-        ItemStack buy22 = simpleRecipe.buy2.getItemStack();
-        ItemStack sell1 = simpleRecipe.sell.getItemStack();
-        if (!ItemStackUtils.areItemEqualIgnoreCount(buy11, recipe.buy1.getItemStack())) {
-            return false;
-        } else if (!ItemStackUtils.areItemEqualIgnoreCount(sell1, recipe.sell.getItemStack())) {
-            return false;
-        }
-        if (recipe.hasSecondItemToBuy()) {
-            if (!ItemStackUtils.areItemEqualIgnoreCount(buy22, recipe.buy2.getItemStack())) {
+        try {
+            ItemStack buy11 = simpleRecipe.buy1.getItemStack();
+            ItemStack buy22 = simpleRecipe.buy2.getItemStack();
+            ItemStack sell1 = simpleRecipe.sell.getItemStack();
+            if (!ItemStackUtils.areItemEqualIgnoreCount(buy11, recipe.buy1.getItemStack())) {
+                return false;
+            } else if (!ItemStackUtils.areItemEqualIgnoreCount(sell1, recipe.sell.getItemStack())) {
                 return false;
             }
+            if (recipe.hasSecondItemToBuy()) {
+                if (!ItemStackUtils.areItemEqualIgnoreCount(buy22, recipe.buy2.getItemStack())) {
+                    return false;
+                }
+            }
+            return true;
+        }catch (NullPointerException e) {
+            return false;
         }
-        return true;
     }
 
     public static boolean isRecipeEqual(MerchantRecipe recipe, SimpleRecipe simpleRecipe) {

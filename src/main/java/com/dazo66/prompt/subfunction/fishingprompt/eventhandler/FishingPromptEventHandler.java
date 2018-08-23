@@ -1,6 +1,7 @@
 package com.dazo66.prompt.subfunction.fishingprompt.eventhandler;
 
-import net.minecraftforge.client.event.sound.PlaySoundEvent;
+import com.dazo66.betterclient.event.FishingEvent;
+import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import static com.dazo66.prompt.util.PromptUtils.playDingSound;
@@ -10,10 +11,12 @@ import static com.dazo66.prompt.util.PromptUtils.playDingSound;
  */
 public class FishingPromptEventHandler {
 
+    private Minecraft mc = Minecraft.getMinecraft();
+
     @SubscribeEvent
-    public void onSoundPlay(PlaySoundEvent event) {
-        if (event.getName().equals("entity.bobber.splash")) {
-            playDingSound();
-        }
+    public void onFishBite(FishingEvent.FishCatchedEvent event){
+
+        playDingSound();
+
     }
 }

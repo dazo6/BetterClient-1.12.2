@@ -4,13 +4,19 @@ import com.dazo66.fasttrading.client.audio.FakeSubtitleSound;
 import com.dazo66.fasttrading.config.ConfigJson;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiMerchant;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.RenderItem;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.village.MerchantRecipe;
+import net.minecraftforge.fml.client.config.GuiUtils;
+
+import java.util.List;
 
 /**
  * @author Dazo66
@@ -19,13 +25,16 @@ public class GuiRecipeButton extends GuiButton {
 
     private static final ResourceLocation MERCHANT_GUI_TEXTURE = new ResourceLocation("minecraft", "textures/gui/container/villager.png");
     public boolean hasBeenMove = false;
-    private GuiMerchantOverride gui;
+    private Minecraft mc = Minecraft.getMinecraft();
+    private GuiMerchantModifier modifier;
+    private GuiMerchant gui;
     private MerchantRecipe recipe;
 
-    public GuiRecipeButton(int buttonId, int x, int y, GuiMerchantOverride gui, MerchantRecipe recipe) {
+    public GuiRecipeButton(int buttonId, int x, int y, GuiMerchantModifier modifier, MerchantRecipe recipe) {
         super(buttonId, x, y, 89, 25, "");
         this.recipe = recipe;
-        this.gui = gui;
+        this.modifier = modifier;
+        gui = modifier.getGui();
     }
 
     @Override
@@ -43,7 +52,7 @@ public class GuiRecipeButton extends GuiButton {
         GlStateManager.disableLighting();
         GlStateManager.disableDepth();
         GlStateManager.enableAlpha();
-        ConfigJson.SimpleRecipe simpleRecipe = gui.helper.map.get(recipe);
+        ConfigJson.SimpleRecipe simpleRecipe = modifier.helper.map.get(recipe);
         if (null != simpleRecipe) {
             if (simpleRecipe.lockPrice) {
                 if (ConfigJson.isRecipeEqual(recipe, simpleRecipe)) {
@@ -97,7 +106,7 @@ public class GuiRecipeButton extends GuiButton {
         if (itemStack.isEmpty()) {
             return;
         }
-        gui.drawHoveringText(gui.getItemToolTip(itemStack), mouseX, mouseY);
+        GuiUtils.drawHoveringText(getItemToolTip(itemStack), mouseX, mouseY, gui.width, gui.height, 250, mc.fontRenderer);
     }
 
     public void tryRenderItemTooltip(int mouseX, int mouseY) {
@@ -133,6 +142,25 @@ public class GuiRecipeButton extends GuiButton {
                 mc.getRenderItem().zLevel = 100;
             }
         }
+    }
+
+    public List<String> getItemToolTip(ItemStack stack)
+    {
+        List<String> list = stack.getTooltip(this.mc.player, this.mc.gameSettings.advancedItemTooltips ? ITooltipFlag.TooltipFlags.ADVANCED : ITooltipFlag.TooltipFlags.NORMAL);
+
+        for (int i = 0; i < list.size(); ++i)
+        {
+            if (i == 0)
+            {
+                list.set(i, stack.getRarity().rarityColor + (String)list.get(i));
+            }
+            else
+            {
+                list.set(i, TextFormatting.GRAY + (String)list.get(i));
+            }
+        }
+
+        return list;
     }
 
 }
