@@ -24,7 +24,7 @@ public abstract class AbstractConfigEntry<T> implements IConfigEntry<T> {
         defaultValue = defultValueIn;
         owner = ownerIn;
         comment = commentIn;
-        property = getProperty();
+        property = createProperty();
     }
 
     @Override
@@ -56,7 +56,12 @@ public abstract class AbstractConfigEntry<T> implements IConfigEntry<T> {
     public abstract T getValue();
 
     @Override
-    public abstract Property getProperty();
+    public Property getProperty() {
+        return property;
+    }
+
+    abstract Property createProperty();
+
 
     @Override
     public void setValue(T valueIn) {

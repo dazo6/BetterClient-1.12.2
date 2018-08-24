@@ -6,7 +6,6 @@ import com.dazo66.betterclient.config.configentrys.BooleanConfigEntry;
 import com.dazo66.betterclient.config.configentrys.IConfigEntry;
 import com.dazo66.betterclient.functionsbase.IFunction;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraftforge.common.config.ConfigElement;
 import net.minecraftforge.fml.client.config.DummyConfigElement;
 import net.minecraftforge.fml.client.config.GuiConfig;
 import net.minecraftforge.fml.client.config.IConfigElement;
@@ -24,7 +23,7 @@ public class BetterClientGuiConfig extends GuiConfig {
     }
 
     public static List<IConfigElement> getConfigElements() {
-        List<IConfigElement> list = new ArrayList<IConfigElement>();
+        List<IConfigElement> list = new ArrayList<>();
         for (IFunction function : FunctionsRegister.primaryFunctions) {
             list.add(getConfigElements(function));
         }
@@ -35,7 +34,7 @@ public class BetterClientGuiConfig extends GuiConfig {
 
         List<IConfigElement> list1 = new ArrayList<>();
         BooleanConfigEntry isEnable = new BooleanConfigEntry("enable", "enable", true, function, "This function is enable to load or not.");
-        list1.add(new ConfigElement(isEnable.getProperty()));
+        list1.add(new BetterClientConfigElement(isEnable));
         List<IFunction> functions = function.getSubFunctions();
         List<IConfigEntry> entries = function.getConfigEntrys();
         if (functions != null) {
@@ -45,7 +44,7 @@ public class BetterClientGuiConfig extends GuiConfig {
         }
         if (entries != null) {
             for (IConfigEntry configEntry : entries) {
-                list1.add(new ConfigElement(configEntry.getProperty()));
+                list1.add(new BetterClientConfigElement(configEntry));
             }
         }
         return new DummyConfigElement.DummyCategoryElement(function.getName(), function.getID(), list1);
@@ -55,6 +54,7 @@ public class BetterClientGuiConfig extends GuiConfig {
     @Override
     public void onGuiClosed() {
         super.onGuiClosed();
+        CustomizeCategoryEntry.clearMap();
         BetterClient.config.save();
     }
 }

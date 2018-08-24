@@ -3,7 +3,7 @@
 #rule: !contains("forge");
 betterclient.config.enable=启用
 betterclient.name=更好的客户端
-enable.tooltip=To be translated
+enable.tooltip=是否启用这个功能(在下次启动游戏生效)
 fastcrafting.name=快速合成
 fasttrading.isAuto=是否自动交易
 fasttrading.isAuto.tooltip=开启后在打开村民Gui后自动交易
@@ -17,12 +17,12 @@ fasttrading.tooltip.removebutton=此交易项移出自动交易列表
 fasttrading.tooltip.unlockbutton=解除价格锁定
 fishingprompt.name=钓鱼提示
 furnaceprompt.name=熔炉提示
-healthprompt.name=健康提示
-healthprompt.tooltip=To be translated
+healthprompt.name=血量提示
+healthprompt.tooltip=当你残血的时候进行提示
 prompt.name=提示功能
-prompt.warnhealth=To be translated
-prompt.warnhealth.tooltip=To be translated
+prompt.warnhealth=血量报警值
+prompt.warnhealth.tooltip=触发残血提示的剩余血量百分比
 shulkerboxviewer.config.organizing=重组物品
-shulkerboxviewer.isorganizing=To be translated
-shulkerboxviewer.isorganizing.tooltip=To be translated
+shulkerboxviewer.isorganizing=重组物品
+shulkerboxviewer.isorganizing.tooltip=把可以堆叠在一起的重组起来
 shulkerboxviewer.name=潜影箱观察者

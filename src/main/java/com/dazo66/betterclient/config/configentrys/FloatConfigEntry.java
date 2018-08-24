@@ -58,14 +58,11 @@ public class FloatConfigEntry extends AbstractConfigEntry<Float> {
     }
 
     @Override
-    public Property getProperty() {
-        if (property == null) {
-            property = config.get(owner.getID(), key, Float.toString(defaultValue), key);
-            property.setLanguageKey(langKey);
-            return property;
-        }else {
-            return property;
-        }
+    Property createProperty() {
+        Property property;
+        property = config.get(owner.getID(), key, Float.toString(defaultValue), key);
+        property.setLanguageKey(langKey);
+        return property;
     }
 
 }

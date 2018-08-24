@@ -24,12 +24,8 @@ public class BooleanConfigEntry extends AbstractConfigEntry<Boolean> {
     }
 
     @Override
-    public Property getProperty() {
-        if (property == null) {
-            return property = config.get(owner.getID(), key, defaultValue, comment).setLanguageKey(langKey);
-        }else {
-            return property;
-        }
+    Property createProperty() {
+        return config.get(owner.getID(), key, defaultValue, comment).setLanguageKey(langKey);
     }
 
 }

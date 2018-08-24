@@ -23,4 +23,5 @@ public interface IConfigEntry<T> {
     void setValue(T valueIn);
 
     Property getProperty();
+
 }

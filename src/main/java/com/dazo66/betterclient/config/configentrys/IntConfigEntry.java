@@ -42,10 +42,8 @@ public class IntConfigEntry extends AbstractConfigEntry<Integer> {
     }
 
     @Override
-    public Property getProperty() {
-        if (property != null) {
-            return property;
-        }
+    Property createProperty() {
+        Property property;
         property = config.get(owner.getID(), key, defaultValue).setLanguageKey(langKey);
         if (min != null && max != null) {
             property.setComment(comment + " [range: " + min + " ~ " + max + ", default: " + defaultValue + "]");

@@ -27,11 +27,8 @@ public class StringArrayConfigEntry extends AbstractConfigEntry<String[]> {
     }
 
     @Override
-    public Property getProperty() {
-        if (property != null) {
-            return property;
-        }
-        property = config.get(owner.getID(), key, defaultValue, comment).setLanguageKey(langKey);
+    Property createProperty() {
+        Property property = config.get(owner.getID(), key, defaultValue, comment).setLanguageKey(langKey);
         if (validValues != null) {
             property.setValidValues(validValues);
         }
