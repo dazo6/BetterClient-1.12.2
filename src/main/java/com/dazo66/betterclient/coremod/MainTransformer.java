@@ -82,22 +82,28 @@ public class MainTransformer implements IClassTransformer {
 
     @Override
     public byte[] transform(String name, String transformedName, byte[] basicClass) {
-        if (map.containsKey(transformedName)) {
-            List<IRegisterTransformer> list = map.get(transformedName);
-            for (IRegisterTransformer irtf1 : list) {
-                basicClass = irtf1.transform(name, transformedName, basicClass);
-                FMLLog.log.info("CLASS: " + irtf1.getClass().getSimpleName() + " Transformer SUCCESS");
+        byte[] clone = basicClass.clone();
+        try {
+            if (map.containsKey(transformedName)) {
+                List<IRegisterTransformer> list = map.get(transformedName);
+                for (IRegisterTransformer irtf1 : list) {
+                    basicClass = irtf1.transform(name, transformedName, basicClass);
+                    FMLLog.log.info("CLASS: " + irtf1.getClass().getSimpleName() + " Transformer SUCCESS");
+                }
+                return basicClass;
+            } else if (map.containsKey(name)) {
+                List<IRegisterTransformer> list = map.get(transformedName);
+                for (IRegisterTransformer irtf1 : list) {
+                    basicClass = irtf1.transform(name, transformedName, basicClass);
+                    FMLLog.log.info("CLASS: " + irtf1.getClass().getSimpleName() + " Transformer SUCCESS");
+                }
+                return basicClass;
+            } else {
+                return basicClass;
             }
-            return basicClass;
-        } else if (map.containsKey(name)) {
-            List<IRegisterTransformer> list = map.get(transformedName);
-            for (IRegisterTransformer irtf1 : list) {
-                basicClass = irtf1.transform(name, transformedName, basicClass);
-                FMLLog.log.info("CLASS: " + irtf1.getClass().getSimpleName() + " Transformer SUCCESS");
-            }
-            return basicClass;
-        } else {
-            return basicClass;
+        }catch (Exception e) {
+            e.printStackTrace();
+            return clone;
         }
 
     }

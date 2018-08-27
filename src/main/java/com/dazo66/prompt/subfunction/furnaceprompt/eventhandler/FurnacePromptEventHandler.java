@@ -42,7 +42,7 @@ public class FurnacePromptEventHandler {
             } else {
                 if (!state.contains("lit")) {
                     iterable.remove();
-                    playDingSound();
+                    playDingSound("prompt.furnaceprompt.subtitles.furnacefinished");
                 }
             }
         }

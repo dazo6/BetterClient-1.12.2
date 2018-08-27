@@ -2,6 +2,7 @@ package com.dazo66.betterclient.event;
 
 import com.dazo66.betterclient.BetterClient;
 import com.dazo66.betterclient.util.langfileutil.LangFileUpdater;
+import net.minecraft.block.BlockLiquid;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.client.multiplayer.WorldClient;
@@ -11,6 +12,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityFishHook;
 import net.minecraft.launchwrapper.Launch;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.client.event.sound.PlaySoundEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -38,6 +40,7 @@ public class BetterClientEventHandler {
             try {
                 EntityPlayer player = (EntityPlayer) angler.get(entity);
                 if (player.getUniqueID() == mc.player.getUniqueID()) {
+                    startInWaterTick = -1;
                     MinecraftForge.EVENT_BUS.post(new FishingEvent.FishHookCreate(player, (EntityFishHook) entity));
                 }
             } catch (IllegalAccessException e) {
@@ -46,6 +49,7 @@ public class BetterClientEventHandler {
         }
     }
 
+    private long startInWaterTick = -1;
     private EntityFishHook hook;
     private double hookPrevPosY;
     private Field currentHookState = ReflectionHelper.findField(EntityFishHook.class, "field_190627_av", "currentState", "av");
@@ -55,10 +59,14 @@ public class BetterClientEventHandler {
         if (hook != null && !hook.isDead) {
             try {
                 String state = currentHookState.get(hook).toString();
-                if ("BOBBING".equals(state)) {
-                    if (hookPrevPosY - hook.posY > 0.06d) {
-//                        System.out.println("posY find : " + (hook.posY - hookPrevPosY));
-                        tryPostFishBiteHookEvent();
+                if ("BOBBING".equals(state) && mc.world.getBlockState(new BlockPos(hook.posX, hook.posY, hook.posZ)).getBlock() instanceof BlockLiquid) {
+                    if (startInWaterTick == -1) {
+                        startInWaterTick = mc.world.getWorldInfo().getWorldTime();
+                    }
+                    if (mc.world.getWorldInfo().getWorldTime() - startInWaterTick > 40) {
+                        if (hookPrevPosY - hook.posY > 0.08d) {
+                            tryPostFishBiteHookEvent();
+                        }
                     }
                 }
             } catch (IllegalAccessException e) {
@@ -112,7 +120,7 @@ public class BetterClientEventHandler {
         long time = mc.world.getWorldInfo().getWorldTime();
         if (time - lastPostTime > 80) {
             lastPostTime = time;
-            MinecraftForge.EVENT_BUS.post(new FishingEvent.FishCatchedEvent(mc.player, hook));
+            MinecraftForge.EVENT_BUS.post(new FishingEvent.FishCaughtEvent(mc.player, hook));
         }
     }
 }

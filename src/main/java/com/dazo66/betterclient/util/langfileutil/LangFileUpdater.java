@@ -20,7 +20,7 @@ public class LangFileUpdater {
 
     public void put(String key, String value) {
         if (null == value) {
-            value = "To be translated";
+            value = key;
         }
         for (LangEntryList entryList : list) {
             entryList.put(key, value);

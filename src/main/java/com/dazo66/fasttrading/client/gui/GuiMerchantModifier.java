@@ -39,7 +39,7 @@ public class GuiMerchantModifier {
     private Minecraft mc = Minecraft.getMinecraft();
     private GuiMerchant gui;
     public TradingHelper helper;
-    public MerchantRecipeList merchantRecipeList;
+    private MerchantRecipeList merchantRecipeList;
     private Container inventoryPlayer;
     private Method clickMethod;
     private IMerchant iMerchant;
@@ -216,8 +216,6 @@ public class GuiMerchantModifier {
 
     }
 
-
-    //guiLeft && guiTop
     private void addFunctionButton() {
         int guiLeft = gui.getGuiLeft();
         int guiTop = gui.getGuiTop();
@@ -346,8 +344,7 @@ public class GuiMerchantModifier {
         try {
             m1 = ReflectionHelper.findMethod(GuiContainer.class, "handleMouseClick", "func_184098_a", Slot.class, int.class, int.class, ClickType.class);
             m2 = ReflectionHelper.findMethod(GuiContainer.class, "handleMouseClick", "a", Slot.class, int.class, int.class, ClickType.class);
-        }catch (ReflectionHelper.UnableToFindMethodException e) {
-            e.printStackTrace();
+        }catch (ReflectionHelper.UnableToFindMethodException ignore) {
         }
         return m1 == null ? m2 : m1;
     }
@@ -358,6 +355,10 @@ public class GuiMerchantModifier {
         pointX = pointX - i;
         pointY = pointY - j;
         return pointX >= rectX - 1 && pointX < rectX + rectWidth + 1 && pointY >= rectY - 1 && pointY < rectY + rectHeight + 1;
+    }
+
+    public MerchantRecipeList getMerchantRecipeList() {
+        return merchantRecipeList;
     }
 
     public GuiMerchant getGui() {

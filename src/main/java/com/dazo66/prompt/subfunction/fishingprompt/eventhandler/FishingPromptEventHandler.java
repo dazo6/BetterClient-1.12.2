@@ -14,9 +14,9 @@ public class FishingPromptEventHandler {
     private Minecraft mc = Minecraft.getMinecraft();
 
     @SubscribeEvent
-    public void onFishBite(FishingEvent.FishCatchedEvent event){
+    public void onFishCaught(FishingEvent.FishCaughtEvent event){
 
-        playDingSound();
+        playDingSound("prompt.fishprompt.subtitles.fishcaught");
 
     }
 }

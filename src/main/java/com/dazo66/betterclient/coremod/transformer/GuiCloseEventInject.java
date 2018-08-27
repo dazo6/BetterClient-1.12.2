@@ -5,8 +5,8 @@ import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.*;
-import scala.actors.threadpool.Arrays;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -31,8 +31,8 @@ public class GuiCloseEventInject implements IRegisterTransformer {
     public byte[] transform(String name, String transformedName, byte[] basicClass) {
         ClassReader classReader = new ClassReader(basicClass);
         ClassNode classNode = new ClassNode();
-
         classReader.accept(classNode, 0);
+        out:
         for (MethodNode method : classNode.methods) {
             if (methodInfo.contains(method.name) && methodInfo.contains(method.desc)) {
                 ListIterator<AbstractInsnNode> iterable = method.instructions.iterator();
@@ -40,17 +40,18 @@ public class GuiCloseEventInject implements IRegisterTransformer {
                 while (iterable.hasNext()) {
                     node = iterable.next();
                     if (node.getOpcode() == Opcodes.ALOAD && node.getNext().getOpcode() == Opcodes.INVOKEVIRTUAL) {
-                        InsnList list = new InsnList();
-                        list.add(new VarInsnNode(Opcodes.ALOAD, 2));
-                        list.add(new MethodInsnNode(Opcodes.INVOKESTATIC, "com/dazo66/betterclient/event/GuiCloseEvent", "post", "(Lnet/minecraft/client/gui/GuiScreen;)V", false));
-                        method.instructions.insert(node.getPrevious(), list);
-                        break;
+                        if (((VarInsnNode) node).var == 2) {
+                            InsnList list = new InsnList();
+                            list.add(new VarInsnNode(Opcodes.ALOAD, 2));
+                            list.add(new MethodInsnNode(Opcodes.INVOKESTATIC, "com/dazo66/betterclient/event/GuiCloseEvent", "post", "(Lnet/minecraft/client/gui/GuiScreen;)V", false));
+                            method.instructions.insert(node.getPrevious(), list);
+                            break out;
+                        }
                     }
                 }
-
             }
         }
-        ClassWriter classWriter = new ClassWriter(ClassWriter.COMPUTE_FRAMES);
+        ClassWriter classWriter = new ClassWriter(0);
         classNode.accept(classWriter);
         return classWriter.toByteArray();
     }

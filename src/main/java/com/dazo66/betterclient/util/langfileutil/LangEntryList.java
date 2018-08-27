@@ -92,7 +92,7 @@ public class LangEntryList {
                     strings = PATTERN1.split(s, 2);
                     if (strings.length == 2) {
                         if (strings[1].isEmpty()) {
-                            strings[1] = "To be translated";
+                            strings[1] = strings[0];
                         }
                         map.put(strings[0], strings[1]);
                     }
@@ -147,7 +147,7 @@ public class LangEntryList {
             for (Map.Entry<String, String> entrySet : map.entrySet()) {
                 String value = reference.get(entrySet.getKey());
                 if (value.isEmpty()) {
-                    value = "To be translated";
+                    value = entrySet.getKey();
                 }
                 if (!entrySet.getValue().equals(value)) {
                     entrySet.setValue(value);

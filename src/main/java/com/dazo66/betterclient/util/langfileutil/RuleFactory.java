@@ -1,8 +1,5 @@
 package com.dazo66.betterclient.util.langfileutil;
 
-import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
-import jdk.nashorn.internal.runtime.ParserException;
-
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 
@@ -35,7 +32,7 @@ public class RuleFactory {
                 }
             }
         }
-        throw new ParserException(rawRule);
+        throw new RuntimeException(rawRule);
     }
 
 

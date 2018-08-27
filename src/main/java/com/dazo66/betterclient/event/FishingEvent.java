@@ -32,14 +32,14 @@ public class FishingEvent extends Event {
         }
     }
 
-    public static class FishCatchedEvent extends FishingEvent{
+    public static class FishCaughtEvent extends FishingEvent{
 
-        public FishCatchedEvent(EntityPlayer anglerIn, EntityFishHook hookIn) {
+        public FishCaughtEvent(EntityPlayer anglerIn, EntityFishHook hookIn) {
             super(anglerIn, hookIn);
         }
 
         public static void post(EntityPlayer anglerIn, EntityFishHook hookIn) {
-            MinecraftForge.EVENT_BUS.post(new FishCatchedEvent(anglerIn, hookIn));
+            MinecraftForge.EVENT_BUS.post(new FishCaughtEvent(anglerIn, hookIn));
         }
     }
 

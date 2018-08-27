@@ -80,7 +80,7 @@ public class GuiIconButton extends GuiButtonPlus {
             textureWidth = bufferedimage.getWidth();
             textureHeight = bufferedimage.getHeight();
         } catch (IOException e) {
-            System.out.println(e.toString());
+            e.printStackTrace();
         } finally {
             IOUtils.closeQuietly(iresource);
         }

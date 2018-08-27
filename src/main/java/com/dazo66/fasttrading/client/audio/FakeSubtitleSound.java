@@ -40,6 +40,10 @@ public class FakeSubtitleSound extends PositionedSound {
         return new FakeSubtitleSound(soundIn.getSoundName(), SoundCategory.MASTER, volumeIn, pitchIn, false, 0, AttenuationType.NONE, 0.0F, 0.0F, 0.0F, subtitle);
     }
 
+    public static FakeSubtitleSound getRecord(SoundEvent soundIn, float pitchIn, float volumeIn, AttenuationType attenuationType, float x, float y, float z, String subtitle) {
+        return new FakeSubtitleSound(soundIn.getSoundName(), SoundCategory.MASTER, volumeIn, pitchIn, false, 0, attenuationType, x, y, z, subtitle);
+    }
+
     @Override
     public SoundEventAccessor createAccessor(SoundHandler handler) {
         return new SoundEventAccessor(super.createAccessor(handler).getLocation(), subtitle);

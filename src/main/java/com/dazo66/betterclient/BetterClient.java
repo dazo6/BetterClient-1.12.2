@@ -24,7 +24,7 @@ import java.util.Set;
 public class BetterClient {
     public static final String MODID = "betterclient";
     public static final String NAME = "BetterClient";
-    public static final String VERSION = "1.0";
+    public static final String VERSION = "beta-1.0";
     public static final String MCVersion = MainTransformer.getMCVERSION();
 
     @Mod.Instance

@@ -20,6 +20,14 @@ compileJava {
     sourceCompatibility = targetCompatibility = '1.8'
 }
 
+jar {
+    manifest {
+        attributes 'FMLCorePlugin': 'com.dazo66.betterclient.coremod.CoreModBase'
+        attributes 'FMLCorePluginContainsFMLMod': 'true'
+//        attributes 'FMLAT': 'betterclient_at.cfg'
+    }
+}
+
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
 minecraft {

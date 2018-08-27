@@ -1,6 +1,5 @@
 package com.dazo66.betterclient.coremod;
 
-import com.dazo66.betterclient.BetterClient;
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
 
 import javax.annotation.Nullable;

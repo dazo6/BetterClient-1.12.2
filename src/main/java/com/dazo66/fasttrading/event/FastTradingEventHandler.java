@@ -6,6 +6,7 @@ import com.dazo66.fasttrading.client.gui.GuiMerchantModifier;
 import com.dazo66.fasttrading.util.KeyLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiMerchant;
+import net.minecraft.village.MerchantRecipeList;
 import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -29,7 +30,7 @@ public class FastTradingEventHandler {
     }
 
     @SubscribeEvent
-    public void onActionPerformedEvent(GuiScreenEvent.ActionPerformedEvent event) {
+    public void onActionPerformedEvent(GuiScreenEvent.ActionPerformedEvent.Post event) {
         if (event.getGui() instanceof GuiMerchant) {
             if (modifier != null) {
                 modifier.actionPerformed(event.getButton());
@@ -59,6 +60,10 @@ public class FastTradingEventHandler {
     public void onDrawScreen(GuiScreenEvent.DrawScreenEvent.Post event) {
         if (event.getGui() instanceof GuiMerchant) {
             if (modifier != null) {
+                MerchantRecipeList list = gui.getMerchant().getRecipes(mc.player);
+                if (modifier.getMerchantRecipeList() != list && list != null) {
+                    modifier.setMerchantRecipeList(list);
+                }
                 modifier.drawScreen(event.getMouseX(), event.getMouseY(), event.getRenderPartialTicks());
             }
         }
@@ -85,15 +90,15 @@ public class FastTradingEventHandler {
         }
     }
 
-    @SubscribeEvent
-    public void onSetMerchantList(SetMerchantListEvent event) {
-        if (mc.currentScreen instanceof GuiMerchant) {
-            if (modifier == null) {
-                modifier = new GuiMerchantModifier((GuiMerchant) mc.currentScreen);
-            }
-            modifier.setMerchantRecipeList(event.list);
-        }
-    }
+//    @SubscribeEvent
+//    public void onSetMerchantList(SetMerchantListEvent event) {
+//        if (mc.currentScreen instanceof GuiMerchant) {
+//            if (modifier == null) {
+//                modifier = new GuiMerchantModifier((GuiMerchant) mc.currentScreen);
+//            }
+//            modifier.setMerchantRecipeList(event.list);
+//        }
+//    }
 
     @SubscribeEvent
     public void guiOpenEvent(GuiOpenEvent event) {

@@ -1,0 +1,30 @@
+#rule: contains(".");
+#rule: !contains("minecraft");
+#rule: !contains("forge");
+betterclient.config.enable=啟用
+betterclient.name=更好的客戶端
+enable.tooltip=是否啟用這個功能(在下次啟動遊戲生效)
+fastcrafting.name=快速合成
+fasttrading.isAuto=是否自動交易
+fasttrading.isAuto.tooltip=開啟後在打開村民Gui後自動交易
+fasttrading.name=快速交易
+fasttrading.subtitles.buttonswitching=按鈕選擇聲
+fasttrading.tooltip.addbutton=添加此交易項到自動交易列表
+fasttrading.tooltip.disablebutton=停用自動交易
+fasttrading.tooltip.enablebutton=啟用自動交易
+fasttrading.tooltip.lockbutton=鎖定當前價格\n(只有當前價格自動交易)
+fasttrading.tooltip.removebutton=此交易項移出自動交易列表
+fasttrading.tooltip.unlockbutton=解除價格鎖定
+fishingprompt.name=釣魚提示
+furnaceprompt.name=熔爐提示
+healthprompt.name=血量提示
+healthprompt.tooltip=當妳殘血的時候進行提示
+prompt.name=提示功能
+prompt.warnhealth=血量報警值
+prompt.warnhealth.tooltip=觸發殘血提示的剩余血量百分比
+shulkerboxviewer.config.organizing=重組物品
+shulkerboxviewer.isorganizing=重組物品
+shulkerboxviewer.isorganizing.tooltip=把可以堆疊在壹起的重組起來
+shulkerboxviewer.name=潛影箱觀察者
+prompt.furnaceprompt.subtitles.furnacefinished=熔爐燒制完成
+prompt.fishprompt.subtitles.fishcaught=魚上鉤
