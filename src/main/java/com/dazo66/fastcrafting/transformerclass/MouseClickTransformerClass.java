@@ -19,6 +19,8 @@ public class MouseClickTransformerClass implements IRegisterTransformer {
     private String fieldName = "guiModifier";
     private String fieldOwner;
     private String modifierClassName = "com/dazo66/fastcrafting/gui/GuiInventoryModifier";
+    private String initDesc1 = "(Lnet/minecraft/entity/player/InventoryPlayer;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V";
+    private String initDesc2 = "(Lnet/minecraft/entity/player/EntityPlayer;)V";
 
     @Override
     public String getMcVersion() {
@@ -40,12 +42,8 @@ public class MouseClickTransformerClass implements IRegisterTransformer {
         for (MethodNode method : classNode.methods) {
             if (methodInfo.contains(method.name) && methodInfo.contains(method.desc)) {
                 InsnList insnList = method.instructions;
-                LabelNode label0 = null;
                 AbstractInsnNode returnNode = null;
                 for (AbstractInsnNode insnNode : insnList.toArray()) {
-                    if (insnNode.getOpcode() == 180 && insnNode.getNext().getOpcode() == 182 && insnNode.getNext().getNext().getOpcode() == 154) {
-//                        label0 = (LabelNode) insnNode.getNext().getNext().getNext().getNext();
-                    }
                     if (insnNode.getOpcode() == Opcodes.RETURN) {
                         returnNode = insnNode;
                         break;
@@ -60,8 +58,8 @@ public class MouseClickTransformerClass implements IRegisterTransformer {
                 }
 
             }
-
-            if ("<init>".equals(method.name) && ("(Lnet/minecraft/entity/player/InventoryPlayer;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V".equals(method.desc) || "(Lnet/minecraft/entity/player/EntityPlayer;)V".equals(method.desc))) {
+            boolean isInit = initDesc1.equals(method.desc) || initDesc2.equals(method.desc);
+            if ("<init>".equals(method.name) && isInit) {
                 InsnList insnList = method.instructions;
                 AbstractInsnNode returnNode = null;
                 for (AbstractInsnNode insnNode : insnList.toArray()) {
