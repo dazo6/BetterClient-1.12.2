@@ -1,10 +1,10 @@
 package com.dazo66.fastcrafting.crafting;
 
-import com.dazo66.fastcrafting.gui.GuiCraftingOverride;
-import com.dazo66.fastcrafting.gui.GuiInventoryOverride;
+import com.dazo66.fastcrafting.gui.GuiInventoryModifier;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.inventory.GuiCrafting;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.ClickType;
 import net.minecraft.inventory.Container;
@@ -15,7 +15,11 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.network.play.client.CPacketClickWindow;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.common.crafting.IShapedRecipe;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,23 +35,19 @@ public class CraftingHelper {
     private IRecipe iRecipe;
     private NonNullList<Ingredient> list;
     private GuiInventoryEnum type;
+    private Method clickMethod;
+    private GuiInventoryModifier modifier;
     private int[] invSlot;
     private int[] tabSlot;
 
-    public CraftingHelper(Gui guiIn) {
+    public CraftingHelper(Gui guiIn, GuiInventoryModifier modifierIn) {
         gui = guiIn;
-        init();
-    }
-
-    private void init() {
-        if (gui instanceof GuiCraftingOverride) {
-            type = GuiInventoryEnum.CRAFTING_TABLE;
-        } else {
-            type = GuiInventoryEnum.INVENTORY;
-        }
+        modifier = modifierIn;
+        inventorySlots = modifier.getInventorySlots();
+        type = modifier.getGuiType();
         invSlot = invSlotIndex();
         tabSlot = tabSlotIndex();
-
+        clickMethod = ReflectionHelper.findMethod(gui.getClass(), "mouseClicked", "func_73864_a", Integer.TYPE, Integer.TYPE, Integer.TYPE);
     }
 
     private void craft(int count) {
@@ -101,14 +101,23 @@ public class CraftingHelper {
             Slot slot = getFirstEmptySlot();
             if (null == slot) {
                 if (type == GuiInventoryEnum.CRAFTING_TABLE) {
-                    ((GuiCraftingOverride) gui).click(1, 1);
+                    click(1, 1);
                 } else if (type == GuiInventoryEnum.INVENTORY) {
-                    ((GuiInventoryOverride) gui).click(1, 1);
+                    click(1, 1);
                 }
             } else {
                 slotClick(getFirstEmptySlot(), 0, ClickType.PICKUP);
             }
         }
+    }
+
+    private void click(int x, int y) {
+        try {
+            clickMethod.invoke(gui, x, y, 0);
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private int getToSlotID(int index) {
@@ -420,10 +429,6 @@ public class CraftingHelper {
     }
 
     /***SetMethod****/
-
-    public void setInventorySlots(Container c) {
-        inventorySlots = c;
-    }
 
     public void setIRecipe(IRecipe iRecipeIn) {
         iRecipe = iRecipeIn;

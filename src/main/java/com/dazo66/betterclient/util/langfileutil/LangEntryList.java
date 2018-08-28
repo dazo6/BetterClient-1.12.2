@@ -138,7 +138,7 @@ public class LangEntryList {
     boolean save() {
         TreeMap<String, String> reference = serialization();
         try {
-            PrintWriter writer = new PrintWriter(file);
+            PrintWriter writer = new PrintWriter(file, "utf-8");
             String s;
             for (IRule rule : rules) {
                 s = rule.toString();

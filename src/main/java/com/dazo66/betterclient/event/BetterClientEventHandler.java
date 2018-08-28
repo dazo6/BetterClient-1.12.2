@@ -30,7 +30,7 @@ public class BetterClientEventHandler {
 
     private Minecraft mc = Minecraft.getMinecraft();
     private long lastPostTime = 0;
-    private LangFileUpdater updater = new LangFileUpdater(new File("F:\\ModWorkSpace\\Mod\\BettterClient\\BettterClient-1.12.2\\src\\main\\resources\\assets\\betterclient\\lang\\en_us.lang"), new File("F:\\ModWorkSpace\\Mod\\BettterClient\\BettterClient-1.12.2\\src\\main\\resources\\assets\\betterclient\\lang\\zh_cn.lang"));
+    private LangFileUpdater updater = new LangFileUpdater(new File("F:\\ModWorkSpace\\Mod\\BettterClient\\BettterClient-1.12.2\\src\\main\\resources\\assets\\betterclient\\lang").listFiles());
     private Field angler = ReflectionHelper.findField(EntityFishHook.class, "field_146042_b", "angler", "b");
 
     @SubscribeEvent

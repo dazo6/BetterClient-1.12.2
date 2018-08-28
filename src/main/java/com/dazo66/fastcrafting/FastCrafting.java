@@ -3,8 +3,9 @@ package com.dazo66.fastcrafting;
 import com.dazo66.betterclient.config.configentrys.IConfigEntry;
 import com.dazo66.betterclient.coremod.IRegisterTransformer;
 import com.dazo66.betterclient.functionsbase.AbstractFunction;
-import com.dazo66.fastcrafting.eventhandler.FastCraftingingEventHandler;
+import com.dazo66.fastcrafting.eventhandler.FastCraftingEventHandler;
 import com.dazo66.fastcrafting.transformerclass.MineRecipe;
+import com.dazo66.fastcrafting.transformerclass.MouseClickTransformerClass;
 import com.dazo66.fastcrafting.transformerclass.SendRecipePacketHook0;
 import com.dazo66.fastcrafting.transformerclass.SendRecipePacketHook1;
 import net.minecraft.client.resources.I18n;
@@ -47,7 +48,7 @@ public class FastCrafting extends AbstractFunction {
 
     @Override
     public Class eventHandlerClass() {
-        return FastCraftingingEventHandler.class;
+        return FastCraftingEventHandler.class;
     }
 
     @Override
@@ -72,6 +73,6 @@ public class FastCrafting extends AbstractFunction {
 
     @Override
     public List<Class<? extends IRegisterTransformer>> transformerClass() {
-        return Arrays.asList(MineRecipe.class, SendRecipePacketHook0.class, SendRecipePacketHook1.class);
+        return Arrays.asList(MineRecipe.class, SendRecipePacketHook0.class, SendRecipePacketHook1.class, MouseClickTransformerClass.class);
     }
 }
