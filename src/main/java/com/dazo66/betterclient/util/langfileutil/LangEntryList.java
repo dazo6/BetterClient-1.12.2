@@ -146,7 +146,7 @@ public class LangEntryList {
             }
             for (Map.Entry<String, String> entrySet : map.entrySet()) {
                 String value = reference.get(entrySet.getKey());
-                if (value.isEmpty()) {
+                if (value == null || value.isEmpty()) {
                     value = entrySet.getKey();
                 }
                 if (!entrySet.getValue().equals(value)) {

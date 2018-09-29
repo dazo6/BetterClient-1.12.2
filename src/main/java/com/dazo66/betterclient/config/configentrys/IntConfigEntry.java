@@ -34,7 +34,7 @@ public class IntConfigEntry extends AbstractConfigEntry<Integer> {
 
     @Override
     public Integer getValue() {
-        if (comment == null && (min == null || max == null)) {
+        if (comment == null || (min == null || max == null)) {
             return property.getInt(defaultValue);
         }
         int i = property.getInt(defaultValue);
@@ -49,6 +49,9 @@ public class IntConfigEntry extends AbstractConfigEntry<Integer> {
             property.setComment(comment + " [range: " + min + " ~ " + max + ", default: " + defaultValue + "]");
             property.setMinValue(min);
             property.setMaxValue(max);
+        }
+        if (comment != null) {
+            property.setComment(comment);
         }
         return property;
     }

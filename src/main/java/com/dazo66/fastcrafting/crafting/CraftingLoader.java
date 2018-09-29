@@ -19,7 +19,6 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.crafting.IRecipeFactory;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
 import javax.annotation.Nullable;
 import java.util.*;
@@ -76,12 +75,6 @@ public class CraftingLoader {
 
     public static boolean canCraft(IRecipe iRecipe, int i) {
         return new RecipeItemHelper().canCraft(iRecipe, null) && iRecipe.canFit(i, i);
-    }
-
-    private static void bitSetClear(int id) {
-        BitSet bitSet = ReflectionHelper.getPrivateValue(RecipeBook.class, Minecraft.getMinecraft().player.getRecipeBook(), 1);
-        bitSet.clear(id);
-        ReflectionHelper.setPrivateValue(RecipeBook.class, Minecraft.getMinecraft().player.getRecipeBook(), bitSet, 1);
     }
 
     public static IRecipe getIRecipeForName(String s) {

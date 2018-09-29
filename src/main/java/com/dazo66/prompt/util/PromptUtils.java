@@ -1,12 +1,9 @@
 package com.dazo66.prompt.util;
 
-import com.dazo66.fasttrading.client.audio.FakeSubtitleSound;
+import com.dazo66.betterclient.client.audio.FakeSubtitleSound;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.ISound;
-import net.minecraft.client.audio.PositionedSound;
-import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.util.SoundCategory;
 
 /**
  * @author Dazo66

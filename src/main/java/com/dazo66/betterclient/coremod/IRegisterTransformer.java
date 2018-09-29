@@ -12,12 +12,14 @@ public interface IRegisterTransformer extends IClassTransformer {
     /**
      * the mc version of this class transformer can use
      * version format {@link net.minecraftforge.fml.common.versioning.VersionRange})
+     *
      * @return a String of version
      **/
     String getMcVersion();
 
     /**
      * what class you want to transformer
+     *
      * @return a class name list
      */
     List<String> getClassName();

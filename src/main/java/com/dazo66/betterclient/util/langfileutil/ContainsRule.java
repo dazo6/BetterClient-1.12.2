@@ -45,7 +45,7 @@ public class ContainsRule extends AbstractRule {
             if (c == '!') {
                 queue.poll();
                 c = peekNotSpace(queue);
-            }else {
+            } else {
                 reverse = false;
             }
             if (isAlphabet(c)) {

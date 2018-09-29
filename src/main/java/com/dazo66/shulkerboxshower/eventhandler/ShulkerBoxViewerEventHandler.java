@@ -1,5 +1,6 @@
 package com.dazo66.shulkerboxshower.eventhandler;
 
+import com.dazo66.shulkerboxshower.ShulkerBoxViewer;
 import com.dazo66.shulkerboxshower.client.render.DrawItemInShulkerbox;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
@@ -26,6 +27,8 @@ public class ShulkerBoxViewerEventHandler {
     public static ShulkerBoxViewerEventHandler instance = new ShulkerBoxViewerEventHandler();
     private DrawItemInShulkerbox drawer = new DrawItemInShulkerbox();
     private Minecraft mc = Minecraft.getMinecraft();
+    private int mouxeX, mouseY = 0;
+    private long time = System.currentTimeMillis();
 
     @SubscribeEvent
     public void onTooltipGen(ItemTooltipEvent event) {
@@ -54,33 +57,45 @@ public class ShulkerBoxViewerEventHandler {
     @SubscribeEvent
     public void afterDrawGui(GuiScreenEvent.DrawScreenEvent.Post event) {
         if (event.getGui() instanceof GuiContainer) {
-            GuiContainer gui = (GuiContainer) event.getGui();
-            Slot slotUnderMouse = gui.getSlotUnderMouse();
-            ItemStack itemInHand = mc.player.inventory.getItemStack();
-            if (null == slotUnderMouse) {
-                if (!itemInHand.isEmpty() && itemInHand.getItem() instanceof ItemShulkerBox) {
-                    //空格子手里有物品
-                    drawer.draw(itemInHand, ItemStack.EMPTY, event.getMouseX() + 10, event.getMouseY());
+            boolean isCooldown = false;
+            if (mouxeX != event.getMouseX() || mouseY != event.getMouseY()) {
+                mouxeX = event.getMouseX();
+                mouseY = event.getMouseY();
+                time = System.currentTimeMillis();
+            }else {
+                if (System.currentTimeMillis() - time > 300) {
+                    isCooldown = true;
                 }
-            } else {
-                if (slotUnderMouse.getHasStack()) {
-                    ItemStack itemUnderMouse = slotUnderMouse.getStack();
-                    if (itemUnderMouse.getItem() instanceof ItemShulkerBox) {
-                        boolean flag = !itemInHand.isEmpty() && itemInHand.getItem() instanceof ItemShulkerBox;
-                        if (flag) {
-                            //鼠标下是潜影盒，同时手里拿着的情况
-                            drawer.draw( itemInHand, itemUnderMouse, event.getMouseX() + 10, event.getMouseY());
-                        } else {
-                            //鼠标下是潜影盒，手里没有拿着的情况
-                            drawer.draw(gui, itemUnderMouse);
-                        }
-                    } else if (itemInHand.getItem() instanceof ItemShulkerBox) {
-                        //光手里拿着的情况下，格子里有其他物品
+            }
+            if (isCooldown) {
+                GuiContainer gui = (GuiContainer) event.getGui();
+                Slot slotUnderMouse = gui.getSlotUnderMouse();
+                ItemStack itemInHand = mc.player.inventory.getItemStack();
+                if (null == slotUnderMouse) {
+                    if (!itemInHand.isEmpty() && itemInHand.getItem() instanceof ItemShulkerBox) {
+                        //手里有物品, 指针不在格子上
                         drawer.draw(itemInHand, ItemStack.EMPTY, event.getMouseX() + 10, event.getMouseY());
                     }
-                } else if (itemInHand.getItem() instanceof ItemShulkerBox) {
-                    //光手里拿着的情况下，格子没其他物品
-                    drawer.draw(itemInHand, ItemStack.EMPTY, event.getMouseX() + 10, event.getMouseY());
+                } else {
+                    if (slotUnderMouse.getHasStack()) {
+                        ItemStack itemUnderMouse = slotUnderMouse.getStack();
+                        if (itemUnderMouse.getItem() instanceof ItemShulkerBox) {
+                            boolean flag = !itemInHand.isEmpty() && itemInHand.getItem() instanceof ItemShulkerBox;
+                            if (flag) {
+                                //鼠标下是潜影盒，同时手里拿着的情况
+                                drawer.draw(itemInHand, itemUnderMouse, event.getMouseX() + 10, event.getMouseY());
+                            } else {
+                                //鼠标下是潜影盒，手里没有拿着的情况
+                                drawer.draw(gui, itemUnderMouse);
+                            }
+                        } else if (itemInHand.getItem() instanceof ItemShulkerBox) {
+                            //光手里拿着的情况下，格子里有其他物品
+                            drawer.draw(itemInHand, ItemStack.EMPTY, event.getMouseX() + 10, event.getMouseY());
+                        }
+                    } else if (itemInHand.getItem() instanceof ItemShulkerBox) {
+                        //光手里拿着的情况下，格子没其他物品
+                        drawer.draw(itemInHand, ItemStack.EMPTY, event.getMouseX() + 10, event.getMouseY());
+                    }
                 }
             }
         }
@@ -108,10 +123,14 @@ public class ShulkerBoxViewerEventHandler {
                 if (mc.currentScreen == null && !mc.gameSettings.hideGUI) {
                     ScaledResolution scaled = new ScaledResolution(mc);
                     if (holdMainItem.getItem() instanceof ItemShulkerBox) {
-                        drawer.draw(ItemStack.EMPTY, holdMainItem, scaled.getScaledWidth() - 176, scaled.getScaledHeight() + 4);
+                        int x = scaled.getScaledWidth() - 176 + ShulkerBoxViewer.offsetX.getValue();
+                        int y = scaled.getScaledHeight() + 4 + ShulkerBoxViewer.offsetY.getValue();
+                        drawer.draw(ItemStack.EMPTY, holdMainItem, x, y);
                     }
                     if (holdOffItem.getItem() instanceof ItemShulkerBox) {
-                        drawer.draw(ItemStack.EMPTY, holdOffItem, scaled.getScaledWidth()  - 478, scaled.getScaledHeight() + 4);
+                        int x = scaled.getScaledWidth()  - 478 + ShulkerBoxViewer.offsetX.getValue();
+                        int y = scaled.getScaledHeight() + 4 + ShulkerBoxViewer.offsetY.getValue();
+                        drawer.draw(ItemStack.EMPTY, holdOffItem, x, y);
                     }
                 }
             }

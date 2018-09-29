@@ -1,6 +1,6 @@
 package com.dazo66.betterclient.coremod;
 
-import net.minecraftforge.classloading.FMLForgePlugin;
+import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.fml.relauncher.IFMLLoadingPlugin;
 
 import javax.annotation.Nullable;
@@ -15,7 +15,7 @@ import java.util.Map;
 @IFMLLoadingPlugin.SortingIndex(10000)
 public class CoreModBase implements IFMLLoadingPlugin {
 
-    public static boolean RUNTIME_DEOBF = FMLForgePlugin.RUNTIME_DEOBF;
+    public static boolean RUNTIME_DEOBF;
     public static File COREMOD_LOCATION;
 
     @Override
@@ -39,12 +39,14 @@ public class CoreModBase implements IFMLLoadingPlugin {
      * data.put("coremodList", loadPlugins);
      * data.put("runtimeDeobfuscationEnabled", !deobfuscatedEnvironment);
      * data.put("coremodLocation", location);
+     *
      * @param data has "mcLocation", "coremodList", "runtimeDeofuscationEnable", "coremodLocation"
      */
 
     @Override
     public void injectData(Map<String, Object> data) {
-        COREMOD_LOCATION = (File)data.get("coremodLocation");
+        COREMOD_LOCATION = (File) data.get("coremodLocation");
+        RUNTIME_DEOBF = (Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");
     }
 
     @Override

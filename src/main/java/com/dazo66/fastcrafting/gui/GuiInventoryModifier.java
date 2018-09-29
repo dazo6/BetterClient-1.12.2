@@ -3,13 +3,11 @@ package com.dazo66.fastcrafting.gui;
 import com.dazo66.fastcrafting.crafting.CraftingHelper;
 import com.dazo66.fastcrafting.crafting.GuiInventoryEnum;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.gui.inventory.GuiCrafting;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.gui.recipebook.GuiRecipeBook;
 import net.minecraft.client.gui.recipebook.RecipeBookPage;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
@@ -22,17 +20,21 @@ import net.minecraft.util.NonNullList;
  */
 public class GuiInventoryModifier {
 
-    private final GuiInventoryEnum guiType;
+    private GuiInventoryEnum guiType = null;
     private final RecipeBookPage bookPage;
     private Minecraft mc = Minecraft.getMinecraft();
-    private GuiContainer gui;
+    private GuiContainer gui ;
     private GuiRecipeBook guiRecipeBook;
     private CraftingHelper helper;
     private Container inventorySlots;
 
     public GuiInventoryModifier(GuiContainer guiIn) {
         gui = guiIn;
-        guiType = getGuiType();
+        if (gui instanceof GuiCrafting) {
+            guiType = GuiInventoryEnum.CRAFTING_TABLE;
+        } else if (gui instanceof GuiInventory) {
+            guiType = GuiInventoryEnum.INVENTORY;
+        }
         if (guiType == GuiInventoryEnum.CRAFTING_TABLE) {
             guiRecipeBook = ((GuiCrafting) gui).recipeBookGui;
         } else if (guiType == GuiInventoryEnum.INVENTORY) {
@@ -70,11 +72,6 @@ public class GuiInventoryModifier {
     }
 
     public GuiInventoryEnum getGuiType() {
-        if (gui instanceof GuiCrafting) {
-            return GuiInventoryEnum.CRAFTING_TABLE;
-        } else if (gui instanceof GuiInventory) {
-            return GuiInventoryEnum.INVENTORY;
-        }
-        return null;
+        return guiType;
     }
 }

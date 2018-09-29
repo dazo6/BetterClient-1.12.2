@@ -1,13 +1,13 @@
 package com.dazo66.fastcrafting;
 
-import com.dazo66.betterclient.config.configentrys.IConfigEntry;
+import com.dazo66.betterclient.config.configentrys.AbstractConfigEntry;
 import com.dazo66.betterclient.coremod.IRegisterTransformer;
 import com.dazo66.betterclient.functionsbase.AbstractFunction;
 import com.dazo66.fastcrafting.eventhandler.FastCraftingEventHandler;
-import com.dazo66.fastcrafting.transformerclass.MineRecipe;
-import com.dazo66.fastcrafting.transformerclass.MouseClickTransformerClass;
-import com.dazo66.fastcrafting.transformerclass.SendRecipePacketHook0;
-import com.dazo66.fastcrafting.transformerclass.SendRecipePacketHook1;
+import com.dazo66.fastcrafting.transformer.MineRecipe;
+import com.dazo66.fastcrafting.transformer.MouseClickTransformerClass;
+import com.dazo66.fastcrafting.transformer.SendRecipePacketHook0;
+import com.dazo66.fastcrafting.transformer.SendRecipePacketHook1;
 import net.minecraft.client.resources.I18n;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -52,7 +52,7 @@ public class FastCrafting extends AbstractFunction {
     }
 
     @Override
-    public List<IConfigEntry> getConfigEntrys() {
+    public List<AbstractConfigEntry> getConfigEntrys() {
         return null;
     }
 

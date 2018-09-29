@@ -15,7 +15,7 @@ public class FloatConfigEntry extends AbstractConfigEntry<Float> {
     protected Float min;
     protected Float max;
 
-    public FloatConfigEntry(String keyIn, String langKeyIn,float defaultValueIn, IFunction ownerIn, @Nullable String commentIn, @Nullable Float minIn, @Nullable Float maxIn) {
+    public FloatConfigEntry(String keyIn, String langKeyIn, float defaultValueIn, IFunction ownerIn, @Nullable String commentIn, @Nullable Float minIn, @Nullable Float maxIn) {
         super(keyIn, langKeyIn, defaultValueIn, ownerIn, commentIn);
         min = minIn;
         max = maxIn;
@@ -36,16 +36,13 @@ public class FloatConfigEntry extends AbstractConfigEntry<Float> {
 
     @Override
     public Float getValue() {
-        try
-        {
+        try {
             float parseFloat = Float.parseFloat(getProperty().getString());
             if (min != null && max != null) {
                 return Floats.constrainToRange(parseFloat, min, max);
             }
             return parseFloat;
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             FMLLog.log.error("Failed to get float for {}/{}", key, owner.getID(), e);
         }
         return defaultValue;

@@ -1,6 +1,6 @@
 package com.dazo66.prompt.subfunction.furnaceprompt;
 
-import com.dazo66.betterclient.config.configentrys.IConfigEntry;
+import com.dazo66.betterclient.config.configentrys.AbstractConfigEntry;
 import com.dazo66.betterclient.functionsbase.AbstractFunction;
 import com.dazo66.prompt.subfunction.furnaceprompt.eventhandler.FurnacePromptEventHandler;
 import net.minecraft.client.resources.I18n;
@@ -42,7 +42,7 @@ public class FurnacePrompt extends AbstractFunction {
     }
 
     @Override
-    public List<IConfigEntry> getConfigEntrys() {
+    public List<AbstractConfigEntry> getConfigEntrys() {
         return null;
     }
 

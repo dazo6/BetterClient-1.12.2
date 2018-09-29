@@ -3,6 +3,10 @@
 #rule: !contains("forge");
 betterclient.config.enable=啟用
 betterclient.name=更好的客戶端
+bugfix.name=bugfix.name
+bugfix.tooltip=bugfix.tooltip
+elytrafix.name=elytrafix.name
+elytrafix.tooltip=elytrafix.tooltip
 enable.tooltip=是否啟用這個功能(在下次啟動遊戲生效)
 fastcrafting.name=快速合成
 fasttrading.isAuto=是否自動交易
@@ -19,6 +23,8 @@ fishingprompt.name=釣魚提示
 furnaceprompt.name=熔爐提示
 healthprompt.name=血量提示
 healthprompt.tooltip=當妳殘血的時候進行提示
+projectileprompt.name=projectileprompt.name
+projectileprompt.tooltip=projectileprompt.tooltip
 prompt.fishprompt.subtitles.fishcaught=魚上鉤
 prompt.furnaceprompt.subtitles.furnacefinished=熔爐燒制完成
 prompt.name=提示功能
@@ -28,3 +34,7 @@ shulkerboxviewer.config.organizing=重組物品
 shulkerboxviewer.isorganizing=重組物品
 shulkerboxviewer.isorganizing.tooltip=把可以堆疊在壹起的重組起來
 shulkerboxviewer.name=潛影箱觀察者
+shulkerboxviewer.offsetx=shulkerboxviewer.offsetx
+shulkerboxviewer.offsetx.tooltip=shulkerboxviewer.offsetx.tooltip
+shulkerboxviewer.offsety=shulkerboxviewer.offsety
+shulkerboxviewer.offsety.tooltip=shulkerboxviewer.offsety.tooltip

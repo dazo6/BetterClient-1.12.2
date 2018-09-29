@@ -2,7 +2,6 @@ package com.dazo66.betterclient.util;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
-import net.minecraftforge.client.event.sound.SoundLoadEvent;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -17,20 +16,19 @@ public class BetterClientUtils {
 
         if (soundevent == null) {
             throw new IllegalStateException("Invalid Sound requested: " + id);
-        }
-        else {
+        } else {
             return soundevent;
         }
     }
 
-    public static<T> boolean setFinalField(Class<T> clazz, T object, String fieldName, Object newFieldValue){
+    public static <T> boolean setFinalField(Class<T> clazz, T object, String fieldName, Object newFieldValue) {
         Field field = null;
         try {
             field = clazz.getDeclaredField(fieldName);
             Field modifiersField = Field.class.getDeclaredField("modifiers");
             modifiersField.setAccessible(true);
             modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
-            if(!field.isAccessible()) {
+            if (!field.isAccessible()) {
                 field.setAccessible(true);
             }
             field.set(object, newFieldValue);

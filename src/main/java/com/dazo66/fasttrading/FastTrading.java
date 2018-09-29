@@ -1,7 +1,7 @@
 package com.dazo66.fasttrading;
 
+import com.dazo66.betterclient.config.configentrys.AbstractConfigEntry;
 import com.dazo66.betterclient.config.configentrys.BooleanConfigEntry;
-import com.dazo66.betterclient.config.configentrys.IConfigEntry;
 import com.dazo66.betterclient.config.configentrys.StringArrayConfigEntry;
 import com.dazo66.betterclient.coremod.IRegisterTransformer;
 import com.dazo66.betterclient.functionsbase.AbstractFunction;
@@ -71,8 +71,8 @@ public class FastTrading extends AbstractFunction {
     }
 
     @Override
-    public List<IConfigEntry> getConfigEntrys() {
-        ArrayList<IConfigEntry> list = new ArrayList<>();
+    public List<AbstractConfigEntry> getConfigEntrys() {
+        ArrayList<AbstractConfigEntry> list = new ArrayList<>();
         list.add(isAuto);
         list.add(simpleRecipes);
         return list;

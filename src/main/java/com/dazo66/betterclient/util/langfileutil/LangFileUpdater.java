@@ -1,6 +1,6 @@
 package com.dazo66.betterclient.util.langfileutil;
 
-import java.io.*;
+import java.io.File;
 
 /**
  * @author Dazo66

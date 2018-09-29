@@ -1,12 +1,13 @@
 package com.dazo66.prompt;
 
-import com.dazo66.betterclient.config.configentrys.IConfigEntry;
+import com.dazo66.betterclient.config.configentrys.AbstractConfigEntry;
 import com.dazo66.betterclient.functionsbase.AbstractFunction;
 import com.dazo66.betterclient.functionsbase.IFunction;
 import com.dazo66.prompt.event.eventhandler.PromptEventhandler;
 import com.dazo66.prompt.subfunction.fishingprompt.FishingPrompt;
 import com.dazo66.prompt.subfunction.furnaceprompt.FurnacePrompt;
 import com.dazo66.prompt.subfunction.healthprompt.HealthPrompt;
+import com.dazo66.prompt.subfunction.projectileprompt.ProjectilePrompt;
 import net.minecraft.client.resources.I18n;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -50,11 +51,11 @@ public class Prompt extends AbstractFunction {
 
     @Override
     public List<IFunction> getSubFunctions(){
-        return Arrays.asList(new FishingPrompt(), new HealthPrompt(), new FurnacePrompt());
+        return Arrays.asList(new FishingPrompt(), new HealthPrompt(), new FurnacePrompt(), new ProjectilePrompt());
     }
 
     @Override
-    public List<IConfigEntry> getConfigEntrys() {
+    public List<AbstractConfigEntry> getConfigEntrys() {
         return null;
     }
 

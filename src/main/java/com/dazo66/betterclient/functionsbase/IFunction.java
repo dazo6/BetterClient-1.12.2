@@ -1,7 +1,9 @@
 package com.dazo66.betterclient.functionsbase;
 
+import com.dazo66.betterclient.config.configentrys.AbstractConfigEntry;
 import com.dazo66.betterclient.config.configentrys.IConfigEntry;
 import com.dazo66.betterclient.coremod.IRegisterTransformer;
+import net.minecraft.client.resources.I18n;
 import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -10,7 +12,7 @@ import java.util.List;
 /**
  * @author Dazo66
  */
-public interface IFunction {
+public interface IFunction extends Comparable<IFunction> {
 
     /**
      * the function id
@@ -61,7 +63,7 @@ public interface IFunction {
      *
      * @return a list of {@link IConfigEntry}
      */
-    List<IConfigEntry> getConfigEntrys();
+    List<AbstractConfigEntry> getConfigEntrys();
 
     /**
      * if this function has subfunction
@@ -73,63 +75,63 @@ public interface IFunction {
     List<IFunction> getSubFunctions();
 
     /**
-     * on FMLPreInitializationEvent invoke
+     * on FMLPreInitializationEvent tryInvoke
      *
      * @param event FMLPreInitializationEvent
      */
     void preInit(FMLPreInitializationEvent event);
 
     /**
-     * on FMLInitializationEvent invoke
+     * on FMLInitializationEvent tryInvoke
      *
      * @param event FMLInitializationEvent
      */
     void init(FMLInitializationEvent event);
 
     /**
-     * on FMLPostInitializationEvent invoke
+     * on FMLPostInitializationEvent tryInvoke
      *
      * @param event FMLPostInitializationEvent
      */
     void postInit(FMLPostInitializationEvent event);
 
     /**
-     * on FMLLoadCompleteEvent invoke
+     * on FMLLoadCompleteEvent tryInvoke
      *
      * @param event FMLLoadCompleteEvent
      */
     void loadComplete(FMLLoadCompleteEvent event);
 
     /**
-     * on FMLServerStartedEvent invoke
+     * on FMLServerStartedEvent tryInvoke
      *
      * @param event FMLServerStartedEvent
      */
     void serverStarted(FMLServerStartedEvent event);
 
     /**
-     * on FMLServerStartingEvent invoke
+     * on FMLServerStartingEvent tryInvoke
      *
      * @param event FMLServerStartingEvent
      */
     void serverStarting(FMLServerStartingEvent event);
 
     /**
-     * on FMLServerAboutToStartEvent invoke
+     * on FMLServerAboutToStartEvent tryInvoke
      *
      * @param event FMLServerAboutToStartEvent
      */
     void serverAboutToStart(FMLServerAboutToStartEvent event);
 
     /**
-     * on FMLServerStoppingEvent invoke
+     * on FMLServerStoppingEvent tryInvoke
      *
      * @param event FMLServerStoppingEvent
      */
     void serverStoping(FMLServerStoppingEvent event);
 
     /**
-     * on FMLServerStoppedEvent invoke
+     * on FMLServerStoppedEvent tryInvoke
      *
      * @param event FMLServerStoppedEvent
      */

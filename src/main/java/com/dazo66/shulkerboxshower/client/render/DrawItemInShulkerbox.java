@@ -5,7 +5,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -20,7 +19,7 @@ import java.util.List;
  */
 public class DrawItemInShulkerbox {
 
-    private static final ResourceLocation GUI_TEXTURE = new ResourceLocation("textures/gui/container/shulker_box.png");
+    private static final ResourceLocation GUI_TEXTURE = new ResourceLocation("minecraft","textures/gui/container/shulker_box.png");
     public int x = 0;
     public int y = 0;
     private Minecraft mc = Minecraft.getMinecraft();
@@ -36,6 +35,10 @@ public class DrawItemInShulkerbox {
 
     public void draw(ItemStack itemStack, ItemStack itemStack1, int x, int y) {
         List<ItemStack> list = arrangementItem(itemStack);
+        List<ItemStack> list1 = arrangementItem(itemStack1);
+        if (!list1.isEmpty()) {
+            drawItemStack(list1, x + 7, y - 100);
+        }
         if (!list.isEmpty()) {
             int size = list.size();
             int i = (size / 9) + (size % 9 == 0 ? 0 : 1);
@@ -44,12 +47,6 @@ public class DrawItemInShulkerbox {
             }
             drawItemStack(list, x + 7, y - 110 - 18 + 42 + i * 18);
         }
-        List<ItemStack> list1 = arrangementItem(itemStack1);
-        if (!list1.isEmpty()) {
-            drawItemStack(list1, x + 7, y - 100);
-        }
-
-
     }
 
     private List<ItemStack> arrangementItem(ItemStack itemStack) {
@@ -86,8 +83,7 @@ public class DrawItemInShulkerbox {
 
     private void drawItemStack(List<ItemStack> list, int x, int y) {
 
-        GlStateManager.color(1F, 1F, 1F, 1f);
-        GlStateManager.disableBlend();
+        GlStateManager.color(1F, 1F, 1F, 1F);
         int i = (list.size() / 9) + (list.size() % 9 == 0 ? 0 : 1);
         int i1 = i;
         if (i1 == 3) {
@@ -137,6 +133,7 @@ public class DrawItemInShulkerbox {
         String more = stack.getCount() % stack.getMaxStackSize() == 0 ? "" : "+" + stack.getCount() % stack.getMaxStackSize();
         String count1 = stack.getCount() == 1 ? "" : stack.getCount() / stack.getMaxStackSize() + "S" + more;
         itemRender.renderItemOverlayIntoGUI(font, stack, x, y, count);
+        RenderHelper.disableStandardItemLighting();
         itemRender.zLevel = 0.0F;
     }
 

@@ -18,16 +18,16 @@ public class CustomizeCategoryEntry extends GuiConfigEntries.CategoryEntry {
         super(owningScreen, owningEntryList, configElement);
     }
 
-    @Override
-    protected GuiScreen buildChildScreen(){
-        return screenMap.get(configElement.getName());
-    }
-
-    public static void putScreen(String configKey, GuiScreen gui){
+    public static void putScreen(String configKey, GuiScreen gui) {
         screenMap.put(configKey, gui);
     }
 
-    public static void clearMap(){
+    public static void clearMap() {
         screenMap.clear();
+    }
+
+    @Override
+    protected GuiScreen buildChildScreen() {
+        return screenMap.get(configElement.getName());
     }
 }

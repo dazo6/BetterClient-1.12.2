@@ -1,5 +1,6 @@
 package com.dazo66.fasttrading.client.gui;
 
+import com.dazo66.betterclient.util.reflection.ReflectionHelper;
 import com.dazo66.fasttrading.FastTrading;
 import com.dazo66.fasttrading.config.ConfigJson;
 import com.dazo66.fasttrading.util.ItemStackUtils;
@@ -8,7 +9,6 @@ import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiMerchant;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.IMerchant;
 import net.minecraft.inventory.ClickType;
@@ -20,7 +20,6 @@ import net.minecraft.network.play.client.CPacketCustomPayload;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.village.MerchantRecipe;
 import net.minecraft.village.MerchantRecipeList;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -53,9 +52,10 @@ public class GuiMerchantModifier {
 //        super(inventoryPlayer, iMerchant, worldIn);
         gui = guiMerchant;
         helper = new TradingHelper(this);
-        buttonList = getButtonList();
+        buttonList = guiMerchant.buttonList;
         inventoryPlayer = guiMerchant.inventorySlots;
         iMerchant = guiMerchant.getMerchant();
+        //handleClick
         clickMethod = getClickMethod();
         configLoader.load();
         resetButton();
@@ -66,7 +66,7 @@ public class GuiMerchantModifier {
     }
 
     private void resetButton(){
-        buttonList = getButtonList();
+        buttonList = gui.buttonList;
         recipeButtonList.clear();
         buttonMap.clear();
         addMerchantButton(merchantRecipeList);
@@ -334,27 +334,16 @@ public class GuiMerchantModifier {
         helper.init(merchantRecipeList);
     }
 
-    private List<GuiButton> getButtonList() {
-        return ReflectionHelper.getPrivateValue(GuiScreen.class, gui, "field_146292_n", "buttonList", "n");
-    }
-
-    private Method getClickMethod(){
-        Method m1 = null;
-        Method m2 = null;
-        try {
-            m1 = ReflectionHelper.findMethod(GuiContainer.class, "handleMouseClick", "func_184098_a", Slot.class, int.class, int.class, ClickType.class);
-            m2 = ReflectionHelper.findMethod(GuiContainer.class, "handleMouseClick", "a", Slot.class, int.class, int.class, ClickType.class);
-        }catch (ReflectionHelper.UnableToFindMethodException ignore) {
-        }
-        return m1 == null ? m2 : m1;
-    }
-
     private boolean isPointInRegion(int rectX, int rectY, int rectWidth, int rectHeight, int pointX, int pointY) {
         int i = gui.getGuiLeft();
         int j = gui.getGuiTop();
         pointX = pointX - i;
         pointY = pointY - j;
         return pointX >= rectX - 1 && pointX < rectX + rectWidth + 1 && pointY >= rectY - 1 && pointY < rectY + rectHeight + 1;
+    }
+
+    private Method getClickMethod(){
+        return ReflectionHelper.getInstance().getMethod(GuiContainer.class, "handleMouseClick");
     }
 
     public MerchantRecipeList getMerchantRecipeList() {

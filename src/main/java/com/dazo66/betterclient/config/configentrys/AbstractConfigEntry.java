@@ -18,7 +18,7 @@ public abstract class AbstractConfigEntry<T> implements IConfigEntry<T> {
     protected String comment;
     protected Property property;
 
-    public AbstractConfigEntry(String keyIn, String langKeyIn, T defultValueIn, IFunction ownerIn, String commentIn){
+    public AbstractConfigEntry(String keyIn, String langKeyIn, T defultValueIn, IFunction ownerIn, String commentIn) {
         key = keyIn;
         langKey = langKeyIn;
         defaultValue = defultValueIn;
@@ -33,7 +33,7 @@ public abstract class AbstractConfigEntry<T> implements IConfigEntry<T> {
     }
 
     @Override
-    public final String getLangKey(){
+    public final String getLangKey() {
         return langKey;
     }
 
@@ -56,44 +56,43 @@ public abstract class AbstractConfigEntry<T> implements IConfigEntry<T> {
     public abstract T getValue();
 
     @Override
+    public void setValue(T valueIn) {
+        if (valueIn instanceof Integer) {
+            property.set((Integer) valueIn);
+        } else if (valueIn instanceof int[]) {
+            property.set((int[]) valueIn);
+        } else if (valueIn instanceof String) {
+            property.set((String) valueIn);
+        } else if (valueIn instanceof String[]) {
+            property.set((String[]) valueIn);
+        } else if (valueIn instanceof Double) {
+            property.set((Double) valueIn);
+        } else if (valueIn instanceof double[]) {
+            property.set((double[]) valueIn);
+        } else if (valueIn instanceof Boolean) {
+            property.set((Boolean) valueIn);
+        }
+        config.save();
+    }
+
+    @Override
     public Property getProperty() {
         return property;
     }
 
     abstract Property createProperty();
 
-
-    @Override
-    public void setValue(T valueIn) {
-        if (valueIn instanceof Integer) {
-            property.set((Integer) valueIn);
-        }else if (valueIn instanceof int[]) {
-            property.set((int[])valueIn);
-        }else if (valueIn instanceof String) {
-            property.set((String) valueIn);
-        }else if (valueIn instanceof String[]) {
-            property.set((String[])valueIn);
-        }else if (valueIn instanceof Double) {
-            property.set((Double)valueIn);
-        }else if (valueIn instanceof double[]) {
-            property.set((double[])valueIn);
-        }else if (valueIn instanceof Boolean) {
-            property.set((Boolean)valueIn);
-        }
-        config.save();
-    }
-
-    public final void setShowInGui(boolean b){
+    public final void setShowInGui(boolean b) {
         if (property == null) {
             property = getProperty();
             property.setShowInGui(b);
-        }else {
+        } else {
             property.setShowInGui(b);
         }
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return String.format("Name: %s, Key: %s, CurrentValue: %s", this.getClass().getName(), key, getValue());
     }
 }

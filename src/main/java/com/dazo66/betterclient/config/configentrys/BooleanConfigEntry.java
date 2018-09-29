@@ -10,12 +10,12 @@ import javax.annotation.Nullable;
  */
 public class BooleanConfigEntry extends AbstractConfigEntry<Boolean> {
 
-    public BooleanConfigEntry(String keyIn, String langKeyIn,boolean defaultValueIn, IFunction ownerIn, @Nullable String commentIn) {
+    public BooleanConfigEntry(String keyIn, String langKeyIn, boolean defaultValueIn, IFunction ownerIn, @Nullable String commentIn) {
         super(keyIn, langKeyIn, defaultValueIn, ownerIn, commentIn);
     }
 
     public BooleanConfigEntry(String keyIn, boolean defultValueIn, IFunction ownerIn) {
-        this(keyIn, keyIn,defultValueIn, ownerIn, null);
+        this(keyIn, keyIn, defultValueIn, ownerIn, null);
     }
 
     @Override

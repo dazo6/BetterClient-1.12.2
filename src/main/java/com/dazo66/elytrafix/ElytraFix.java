@@ -1,8 +1,9 @@
-package com.dazo66.customf3;
+package com.dazo66.elytrafix;
 
-import com.dazo66.betterclient.config.configentrys.IConfigEntry;
+import com.dazo66.betterclient.config.configentrys.AbstractConfigEntry;
 import com.dazo66.betterclient.functionsbase.AbstractFunction;
-import com.dazo66.betterclient.functionsbase.IFunction;
+import com.dazo66.elytrafix.event.ElytraFixEventHandler;
+import net.minecraft.client.resources.I18n;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -12,35 +13,36 @@ import java.util.List;
 /**
  * @author Dazo66
  */
-public class CustomF3 extends AbstractFunction {
+public class ElytraFix extends AbstractFunction {
+
 
     @Override
     public String getID() {
-        return null;
+        return "elytrafix";
     }
 
     @Override
     public String getName() {
-        return null;
+        return I18n.format("elytrafix.name");
     }
 
     @Override
     public String getVersion() {
-        return null;
+        return "1.0";
     }
 
     @Override
     public String getAuthor() {
-        return null;
+        return "Dazo66";
     }
 
     @Override
     public Class eventHandlerClass() {
-        return null;
+        return ElytraFixEventHandler.class;
     }
 
     @Override
-    public List<IConfigEntry> getConfigEntrys() {
+    public List<AbstractConfigEntry> getConfigEntrys() {
         return null;
     }
 

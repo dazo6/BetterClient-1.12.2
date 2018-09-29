@@ -12,13 +12,13 @@ public class StringArrayConfigEntry extends AbstractConfigEntry<String[]> {
 
     protected String[] validValues;
 
-    public StringArrayConfigEntry(String keyIn, String langKeyIn,String[] defaultValueIn, IFunction ownerIn, @Nullable String commentIn, String[] validValuesIn) {
+    public StringArrayConfigEntry(String keyIn, String langKeyIn, String[] defaultValueIn, IFunction ownerIn, @Nullable String commentIn, String[] validValuesIn) {
         super(keyIn, langKeyIn, defaultValueIn, ownerIn, commentIn);
         validValues = validValuesIn;
     }
 
     public StringArrayConfigEntry(String keyIn, String[] defultValueIn, IFunction ownerIn) {
-        this(keyIn, keyIn,defultValueIn, ownerIn, null, null);
+        this(keyIn, keyIn, defultValueIn, ownerIn, null, null);
     }
 
     @Override

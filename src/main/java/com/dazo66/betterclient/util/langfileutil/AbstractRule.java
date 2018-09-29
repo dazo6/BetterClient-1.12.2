@@ -22,19 +22,19 @@ public abstract class AbstractRule implements IRule {
     public abstract void compile(String rawRule);
 
     @Override
-    public boolean equals(Object o){
+    public boolean equals(Object o) {
         if (o instanceof AbstractRule || o instanceof String) {
             return getRawRule().equals(o.toString());
         }
         return false;
     }
 
-    public String saveToString(){
+    public String saveToString() {
         return toString();
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return getRawRule();
     }
 }

@@ -1,5 +1,6 @@
 package com.dazo66.prompt.subfunction.healthprompt;
 
+import com.dazo66.betterclient.config.configentrys.AbstractConfigEntry;
 import com.dazo66.betterclient.config.configentrys.FloatConfigEntry;
 import com.dazo66.betterclient.config.configentrys.IConfigEntry;
 import com.dazo66.betterclient.functionsbase.AbstractFunction;
@@ -17,7 +18,7 @@ import java.util.List;
  */
 public class HealthPrompt extends AbstractFunction {
 
-    public static IConfigEntry<Float> warnHealth;
+    public static AbstractConfigEntry<Float> warnHealth;
 
     @Override
     public String getID() {
@@ -45,8 +46,8 @@ public class HealthPrompt extends AbstractFunction {
     }
 
     @Override
-    public List<IConfigEntry> getConfigEntrys() {
-        ArrayList<IConfigEntry> list = new ArrayList<>();
+    public List<AbstractConfigEntry> getConfigEntrys() {
+        ArrayList<AbstractConfigEntry> list = new ArrayList<>();
         list.add(warnHealth);
         return list;
     }

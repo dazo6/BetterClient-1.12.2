@@ -1,10 +1,10 @@
 package com.dazo66.fastcrafting.crafting;
 
+import com.dazo66.betterclient.util.reflection.ReflectionHelper;
 import com.dazo66.fastcrafting.gui.GuiInventoryModifier;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.inventory.GuiCrafting;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.ClickType;
 import net.minecraft.inventory.Container;
@@ -15,9 +15,7 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.network.play.client.CPacketClickWindow;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.common.crafting.IShapedRecipe;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -47,7 +45,7 @@ public class CraftingHelper {
         type = modifier.getGuiType();
         invSlot = invSlotIndex();
         tabSlot = tabSlotIndex();
-        clickMethod = ReflectionHelper.findMethod(gui.getClass(), "mouseClicked", "func_73864_a", Integer.TYPE, Integer.TYPE, Integer.TYPE);
+        clickMethod = ReflectionHelper.getInstance().getMethod(gui.getClass(), "mouseClicked");
     }
 
     private void craft(int count) {
@@ -114,6 +112,7 @@ public class CraftingHelper {
     private void click(int x, int y) {
         try {
             clickMethod.invoke(gui, x, y, 0);
+            System.out.println(clickMethod);
         } catch (IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }

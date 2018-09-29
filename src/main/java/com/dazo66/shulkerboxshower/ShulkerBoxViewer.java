@@ -1,7 +1,9 @@
 package com.dazo66.shulkerboxshower;
 
+import com.dazo66.betterclient.config.configentrys.AbstractConfigEntry;
 import com.dazo66.betterclient.config.configentrys.BooleanConfigEntry;
 import com.dazo66.betterclient.config.configentrys.IConfigEntry;
+import com.dazo66.betterclient.config.configentrys.IntConfigEntry;
 import com.dazo66.betterclient.functionsbase.AbstractFunction;
 import com.dazo66.shulkerboxshower.eventhandler.ShulkerBoxViewerEventHandler;
 import net.minecraft.client.resources.I18n;
@@ -18,7 +20,9 @@ import java.util.List;
 public class ShulkerBoxViewer extends AbstractFunction {
     public static final String VERSION = "1.5";
     private static final String ID = "shulkerboxviewer";
-    public static IConfigEntry<Boolean> isOrganizing;
+    public static AbstractConfigEntry<Boolean> isOrganizing;
+    public static AbstractConfigEntry<Integer> offsetX;
+    public static AbstractConfigEntry<Integer> offsetY;
 
     @Override
     public String getID() {
@@ -46,14 +50,18 @@ public class ShulkerBoxViewer extends AbstractFunction {
     }
 
     @Override
-    public List<IConfigEntry> getConfigEntrys() {
-        ArrayList<IConfigEntry> list = new ArrayList<>();
+    public List<AbstractConfigEntry> getConfigEntrys() {
+        ArrayList<AbstractConfigEntry> list = new ArrayList<>();
         list.add(isOrganizing);
+        list.add(offsetX);
+        list.add(offsetY);
         return list;
     }
 
     @Override
     public void preInit(FMLPreInitializationEvent event) {
+        offsetX = new IntConfigEntry("offsetx", "shulkerboxviewer.offsetx", 0, this, "offset X in game gui", null, null);
+        offsetY = new IntConfigEntry("offsety", "shulkerboxviewer.offsety", 0, this, "offset Y in game gui", null, null);
         isOrganizing = new BooleanConfigEntry("isorganizing", "shulkerboxviewer.isorganizing", false, this, "Organizing the items or not");
     }
 

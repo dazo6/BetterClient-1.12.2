@@ -15,7 +15,7 @@ public class IntArrayConfigEntry extends AbstractConfigEntry<int[]> {
     }
 
     public IntArrayConfigEntry(String keyIn, int[] defultValueIn, IFunction ownerIn) {
-        this(keyIn, keyIn,defultValueIn, ownerIn, null);
+        this(keyIn, keyIn, defultValueIn, ownerIn, null);
     }
 
     @Override

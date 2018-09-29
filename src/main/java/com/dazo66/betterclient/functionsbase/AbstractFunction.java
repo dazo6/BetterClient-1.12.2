@@ -17,7 +17,7 @@ public abstract class AbstractFunction implements IFunction {
     }
 
     @Override
-    public List<IFunction> getSubFunctions(){
+    public List<IFunction> getSubFunctions() {
         return null;
     }
 
@@ -45,9 +45,14 @@ public abstract class AbstractFunction implements IFunction {
     public void serverStoped(FMLServerStoppedEvent event) {
     }
 
-    public boolean hasSubFunction(){
+    public boolean hasSubFunction() {
         List<IFunction> list = getSubFunctions();
         return list != null && !list.isEmpty();
+    }
+
+    @Override
+    public int compareTo(IFunction function) {
+        return this.getID().compareTo(function.getID());
     }
 
     @Override

@@ -13,7 +13,7 @@ public class FishingEvent extends Event {
     private EntityFishHook hook;
     private EntityPlayer angler;
 
-    public FishingEvent(EntityPlayer anglerIn, EntityFishHook hookIn){
+    public FishingEvent(EntityPlayer anglerIn, EntityFishHook hookIn) {
         hook = hookIn;
         angler = anglerIn;
     }
@@ -26,13 +26,13 @@ public class FishingEvent extends Event {
         return angler;
     }
 
-    public static class FishHookCreate extends FishingEvent{
-        public FishHookCreate(EntityPlayer anglerIn, EntityFishHook hookIn){
+    public static class FishHookCreate extends FishingEvent {
+        public FishHookCreate(EntityPlayer anglerIn, EntityFishHook hookIn) {
             super(anglerIn, hookIn);
         }
     }
 
-    public static class FishCaughtEvent extends FishingEvent{
+    public static class FishCaughtEvent extends FishingEvent {
 
         public FishCaughtEvent(EntityPlayer anglerIn, EntityFishHook hookIn) {
             super(anglerIn, hookIn);

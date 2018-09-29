@@ -10,12 +10,12 @@ import javax.annotation.Nullable;
  */
 public class DoubleArrayConfigEntry extends AbstractConfigEntry<double[]> {
 
-    public DoubleArrayConfigEntry(String keyIn, String langKeyIn,double[] defaultValueIn, IFunction ownerIn, @Nullable String commentIn) {
+    public DoubleArrayConfigEntry(String keyIn, String langKeyIn, double[] defaultValueIn, IFunction ownerIn, @Nullable String commentIn) {
         super(keyIn, langKeyIn, defaultValueIn, ownerIn, commentIn);
     }
 
     public DoubleArrayConfigEntry(String keyIn, double[] defultValueIn, IFunction ownerIn) {
-        this(keyIn, keyIn,defultValueIn, ownerIn, null);
+        this(keyIn, keyIn, defultValueIn, ownerIn, null);
     }
 
     @Override

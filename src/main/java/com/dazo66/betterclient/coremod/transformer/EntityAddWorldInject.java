@@ -16,7 +16,7 @@ import static org.objectweb.asm.Opcodes.ALOAD;
  */
 public class EntityAddWorldInject implements IRegisterTransformer {
 
-    private List<String> methodInfo = Arrays.asList(new String[]{"onEntityAdded", "func_72923_a", "(Lnet/minecraft/entity/Entity;)V", "b","(Lvg;)V"});
+    private List<String> methodInfo = Arrays.asList(new String[]{"onEntityAdded", "func_72923_a", "(Lnet/minecraft/entity/Entity;)V", "b", "(Lvg;)V"});
 
     @Override
     public String getMcVersion() {

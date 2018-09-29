@@ -19,10 +19,10 @@ public class BetterClientConfigElement extends net.minecraftforge.common.config.
     @Override
     public Class<? extends GuiConfigEntries.IConfigEntry> getConfigEntryClass() {
         if (configEntry instanceof CustomizeGuiConfigEntry) {
-            CustomizeGuiConfigEntry guiEntry = (CustomizeGuiConfigEntry)configEntry;
+            CustomizeGuiConfigEntry guiEntry = (CustomizeGuiConfigEntry) configEntry;
             CustomizeCategoryEntry.putScreen(guiEntry.getKey(), guiEntry.getGuiScreen());
             return CustomizeCategoryEntry.class;
-        }else {
+        } else {
             return super.getConfigEntryClass();
         }
     }

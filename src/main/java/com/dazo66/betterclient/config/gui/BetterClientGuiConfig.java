@@ -2,6 +2,7 @@ package com.dazo66.betterclient.config.gui;
 
 import com.dazo66.betterclient.BetterClient;
 import com.dazo66.betterclient.FunctionsRegister;
+import com.dazo66.betterclient.config.configentrys.AbstractConfigEntry;
 import com.dazo66.betterclient.config.configentrys.BooleanConfigEntry;
 import com.dazo66.betterclient.config.configentrys.IConfigEntry;
 import com.dazo66.betterclient.functionsbase.IFunction;
@@ -36,7 +37,7 @@ public class BetterClientGuiConfig extends GuiConfig {
         BooleanConfigEntry isEnable = new BooleanConfigEntry("enable", "enable", true, function, "This function is enable to load or not.");
         list1.add(new BetterClientConfigElement(isEnable));
         List<IFunction> functions = function.getSubFunctions();
-        List<IConfigEntry> entries = function.getConfigEntrys();
+        List<AbstractConfigEntry> entries = function.getConfigEntrys();
         if (functions != null) {
             for (IFunction function1 : functions) {
                 list1.add(getConfigElements(function1));

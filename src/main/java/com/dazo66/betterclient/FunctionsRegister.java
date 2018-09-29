@@ -9,18 +9,18 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * @author Dazo66
  */
 public class FunctionsRegister {
 
-    public static Set<IFunction> allFunctions = new HashSet<>();
-    public static Set<IFunction> primaryFunctions = new HashSet<>();
-    public static Set<IFunction> enableFunctions = new HashSet<>();
-    public static Set<IFunction> disableFunctions = new HashSet<>();
+    public static Set<IFunction> allFunctions = new TreeSet<>();
+    public static Set<IFunction> primaryFunctions = new TreeSet<>();
+    public static Set<IFunction> enableFunctions = new TreeSet<>();
+    public static Set<IFunction> disableFunctions = new TreeSet<>();
 
     public static void register(IFunction functionIn) {
         primaryFunctions.add(functionIn);

@@ -1,4 +1,4 @@
-package com.dazo66.fastcrafting.transformerclass;
+package com.dazo66.fastcrafting.transformer;
 
 import com.dazo66.betterclient.coremod.IRegisterTransformer;
 import org.objectweb.asm.ClassReader;

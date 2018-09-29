@@ -26,12 +26,12 @@ public class EntityEvent extends Event {
         return world;
     }
 
-    public static class EntityAddEvent extends EntityEvent{
+    public static class EntityAddEvent extends EntityEvent {
         public EntityAddEvent(World worldIn, Entity entityIn) {
             super(worldIn, entityIn);
         }
 
-        public static void post(World worldIn, Entity entityIn){
+        public static void post(World worldIn, Entity entityIn) {
             MinecraftForge.EVENT_BUS.post(new EntityAddEvent(worldIn, entityIn));
         }
     }

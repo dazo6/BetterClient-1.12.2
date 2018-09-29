@@ -1,13 +1,11 @@
 package com.dazo66.betterclient.coremod;
 
 import com.dazo66.betterclient.BetterClient;
-import com.dazo66.betterclient.coremod.transformer.EntityAddWorldInject;
-import com.dazo66.betterclient.coremod.transformer.GuiCloseEventInject;
-import com.dazo66.betterclient.coremod.transformer.I18nEventInject;
+import com.dazo66.betterclient.coremod.transformer.*;
 import com.google.common.base.Strings;
 import net.minecraft.launchwrapper.IClassTransformer;
+import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.common.ForgeVersion;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.versioning.DefaultArtifactVersion;
@@ -20,6 +18,9 @@ import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.InsnNode;
 import org.objectweb.asm.tree.MethodNode;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -39,6 +40,9 @@ public class MainTransformer implements IClassTransformer {
         register(new GuiCloseEventInject());
         register(new I18nEventInject());
         register(new EntityAddWorldInject());
+        register(new SectionEventInject());
+        register(new PacketProcessInject());
+        register(new PlayerDestroyBlockInject());
         BetterClient.registerFunctions();
         BetterClient.registerTransformerClass(this);
     }
@@ -63,6 +67,18 @@ public class MainTransformer implements IClassTransformer {
             return (String) (ForgeVersion.class.getField("mcVersion")).get("");
         } catch (Exception e) {
             return "";
+        }
+    }
+
+    public static void saveClassToFile(byte[] bytes, File outPutFile) throws IOException {
+        if (!outPutFile.exists()) {
+            outPutFile.createNewFile();
+        }
+        if (outPutFile.isFile()) {
+            FileOutputStream writer = new FileOutputStream(outPutFile);
+            writer.write(bytes);
+            writer.flush();
+            writer.close();
         }
     }
 
@@ -101,11 +117,24 @@ public class MainTransformer implements IClassTransformer {
             } else {
                 return basicClass;
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return clone;
         }
 
+    }
+
+    public void transformerDebug() {
+        if (BetterClient.DEBUG) {
+            map.forEach((className, transformers) -> {
+                try {
+                    Launch.classLoader.findClass(className);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+            });
+            map.clear();
+        }
     }
 
     private boolean isVersionAllow(String transMcVersion) {

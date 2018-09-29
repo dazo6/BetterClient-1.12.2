@@ -3,6 +3,10 @@
 #rule: !contains("forge");
 betterclient.config.enable=启用
 betterclient.name=更好的客户端
+bugfix.name=Bug修复
+bugfix.tooltip=一些原版的bug修复
+elytrafix.name=鞘翅修复
+elytrafix.tooltip=鞘翅平地起飞会更加容易
 enable.tooltip=是否启用这个功能(在下次启动游戏生效)
 fastcrafting.name=快速合成
 fasttrading.isAuto=是否自动交易
@@ -19,6 +23,8 @@ fishingprompt.name=钓鱼提示
 furnaceprompt.name=熔炉提示
 healthprompt.name=血量提示
 healthprompt.tooltip=当你残血的时候进行提示
+projectileprompt.name=弹射物命中提示
+projectileprompt.tooltip=会把可命中的生物高亮
 prompt.fishprompt.subtitles.fishcaught=鱼上钩
 prompt.furnaceprompt.subtitles.furnacefinished=熔炉烧制完成
 prompt.name=提示功能
@@ -28,3 +34,7 @@ shulkerboxviewer.config.organizing=重组物品
 shulkerboxviewer.isorganizing=重组物品
 shulkerboxviewer.isorganizing.tooltip=把可以堆叠在一起的重组起来
 shulkerboxviewer.name=潜影箱观察者
+shulkerboxviewer.offsetx=横向偏移距离
+shulkerboxviewer.offsetx.tooltip=手拿着潜影箱显示在屏幕上的横向偏移
+shulkerboxviewer.offsety=纵向偏移距离
+shulkerboxviewer.offsety.tooltip=手拿着潜影箱显示在屏幕上的纵向偏移

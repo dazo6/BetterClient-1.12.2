@@ -2,6 +2,7 @@ package com.dazo66.betterclient.event;
 
 import com.dazo66.betterclient.BetterClient;
 import com.dazo66.betterclient.util.langfileutil.LangFileUpdater;
+import com.dazo66.betterclient.util.reflection.ReflectionHelper;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.ISound;
@@ -17,7 +18,6 @@ import net.minecraftforge.client.event.sound.PlaySoundEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
 import java.io.File;
 import java.lang.reflect.Field;
@@ -30,29 +30,28 @@ public class BetterClientEventHandler {
 
     private Minecraft mc = Minecraft.getMinecraft();
     private long lastPostTime = 0;
-    private LangFileUpdater updater = new LangFileUpdater(new File("F:\\ModWorkSpace\\Mod\\BettterClient\\BettterClient-1.12.2\\src\\main\\resources\\assets\\betterclient\\lang").listFiles());
-    private Field angler = ReflectionHelper.findField(EntityFishHook.class, "field_146042_b", "angler", "b");
+    private LangFileUpdater updater;
+    private long startInWaterTick = -1;
+    private EntityFishHook hook;
+    private double hookPrevPosY;
+    private Field currentHookState = ReflectionHelper.getInstance().getField(EntityFishHook.class, "currentState");
+    public BetterClientEventHandler() {
+        if ((Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment")) {
+            updater = new LangFileUpdater(new File("F:\\ModWorkSpace\\Mod\\BettterClient\\BettterClient-1.12.2\\src\\main\\resources\\assets\\betterclient\\lang").listFiles());
+        }
+    }
 
     @SubscribeEvent
     public void onEntityAddEvent(EntityEvent.EntityAddEvent event) {
         Entity entity = event.getEntity();
         if (entity instanceof EntityFishHook) {
-            try {
-                EntityPlayer player = (EntityPlayer) angler.get(entity);
-                if (player.getUniqueID() == mc.player.getUniqueID()) {
-                    startInWaterTick = -1;
-                    MinecraftForge.EVENT_BUS.post(new FishingEvent.FishHookCreate(player, (EntityFishHook) entity));
-                }
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
+            EntityPlayer player = ((EntityFishHook) entity).getAngler();
+            if (player.getUniqueID() == mc.player.getUniqueID()) {
+                startInWaterTick = -1;
+                MinecraftForge.EVENT_BUS.post(new FishingEvent.FishHookCreate(player, (EntityFishHook) entity));
             }
         }
     }
-
-    private long startInWaterTick = -1;
-    private EntityFishHook hook;
-    private double hookPrevPosY;
-    private Field currentHookState = ReflectionHelper.findField(EntityFishHook.class, "field_190627_av", "currentState", "av");
 
     @SubscribeEvent
     public void clientTick(TickEvent.ClientTickEvent event) {
@@ -91,7 +90,7 @@ public class BetterClientEventHandler {
                 if (isFloatInRange(sound.getXPosF(), (float) hook.posX, 1.0f)) {
                     if (isFloatInRange(sound.getYPosF(), (float) hook.posY, 1.0f)) {
                         if (isFloatInRange(sound.getZPosF(), (float) hook.posZ, 1.0f)) {
-//                            System.out.println("sound find");
+                            //                            System.out.println("sound find");
                             tryPostFishBiteHookEvent();
                         }
                     }

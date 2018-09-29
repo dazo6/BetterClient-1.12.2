@@ -1,4 +1,4 @@
-package com.dazo66.fasttrading.client.audio;
+package com.dazo66.betterclient.client.audio;
 
 import net.minecraft.client.audio.PositionedSound;
 import net.minecraft.client.audio.SoundEventAccessor;

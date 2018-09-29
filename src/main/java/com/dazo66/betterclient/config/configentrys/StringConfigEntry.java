@@ -15,7 +15,7 @@ public class StringConfigEntry extends AbstractConfigEntry<String> {
     }
 
     public StringConfigEntry(String keyIn, String defultValueIn, IFunction ownerIn) {
-        this(keyIn, keyIn,defultValueIn, ownerIn, null);
+        this(keyIn, keyIn, defultValueIn, ownerIn, null);
     }
 
     @Override
