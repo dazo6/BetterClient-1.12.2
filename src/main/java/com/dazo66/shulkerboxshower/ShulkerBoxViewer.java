@@ -2,7 +2,6 @@ package com.dazo66.shulkerboxshower;
 
 import com.dazo66.betterclient.config.configentrys.AbstractConfigEntry;
 import com.dazo66.betterclient.config.configentrys.BooleanConfigEntry;
-import com.dazo66.betterclient.config.configentrys.IConfigEntry;
 import com.dazo66.betterclient.config.configentrys.IntConfigEntry;
 import com.dazo66.betterclient.functionsbase.AbstractFunction;
 import com.dazo66.shulkerboxshower.eventhandler.ShulkerBoxViewerEventHandler;

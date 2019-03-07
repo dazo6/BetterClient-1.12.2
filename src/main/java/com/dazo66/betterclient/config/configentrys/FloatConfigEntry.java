@@ -1,9 +1,9 @@
 package com.dazo66.betterclient.config.configentrys;
 
+import com.dazo66.betterclient.BetterClient;
 import com.dazo66.betterclient.functionsbase.IFunction;
 import com.google.common.primitives.Floats;
 import net.minecraftforge.common.config.Property;
-import net.minecraftforge.fml.common.FMLLog;
 
 import javax.annotation.Nullable;
 
@@ -43,7 +43,7 @@ public class FloatConfigEntry extends AbstractConfigEntry<Float> {
             }
             return parseFloat;
         } catch (Exception e) {
-            FMLLog.log.error("Failed to get float for {}/{}", key, owner.getID(), e);
+            BetterClient.logger.error("Failed to get float for {}/{}", key, owner.getID(), e);
         }
         return defaultValue;
     }

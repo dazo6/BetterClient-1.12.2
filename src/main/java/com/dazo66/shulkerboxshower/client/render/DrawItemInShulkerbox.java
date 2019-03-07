@@ -19,10 +19,23 @@ import java.util.List;
  */
 public class DrawItemInShulkerbox {
 
-    private static final ResourceLocation GUI_TEXTURE = new ResourceLocation("minecraft","textures/gui/container/shulker_box.png");
+    private static final ResourceLocation GUI_TEXTURE = new ResourceLocation("minecraft", "textures/gui/container/shulker_box.png");
     public int x = 0;
     public int y = 0;
     private Minecraft mc = Minecraft.getMinecraft();
+
+    public static void drawTexturedModalRect(int x, int y, double z, int textureX, int textureY, int width, int height) {
+        float f = 0.00390625F;
+        float f1 = 0.00390625F;
+        Tessellator tessellator = Tessellator.getInstance();
+        BufferBuilder bufferbuilder = tessellator.getBuffer();
+        bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
+        bufferbuilder.pos((double) (x + 0), (double) (y + height), z).tex((double) ((float) (textureX + 0) * 0.00390625F), (double) ((float) (textureY + height) * 0.00390625F)).endVertex();
+        bufferbuilder.pos((double) (x + width), (double) (y + height), z).tex((double) ((float) (textureX + width) * 0.00390625F), (double) ((float) (textureY + height) * 0.00390625F)).endVertex();
+        bufferbuilder.pos((double) (x + width), (double) (y + 0), z).tex((double) ((float) (textureX + width) * 0.00390625F), (double) ((float) (textureY + 0) * 0.00390625F)).endVertex();
+        bufferbuilder.pos((double) (x + 0), (double) (y + 0), z).tex((double) ((float) (textureX + 0) * 0.00390625F), (double) ((float) (textureY + 0) * 0.00390625F)).endVertex();
+        tessellator.draw();
+    }
 
     public void draw(GuiScreen gui, ItemStack itemStack) {
         List<ItemStack> list = arrangementItem(itemStack);
@@ -135,18 +148,5 @@ public class DrawItemInShulkerbox {
         itemRender.renderItemOverlayIntoGUI(font, stack, x, y, count);
         RenderHelper.disableStandardItemLighting();
         itemRender.zLevel = 0.0F;
-    }
-
-    public static void drawTexturedModalRect(int x, int y, double z, int textureX, int textureY, int width, int height) {
-        float f = 0.00390625F;
-        float f1 = 0.00390625F;
-        Tessellator tessellator = Tessellator.getInstance();
-        BufferBuilder bufferbuilder = tessellator.getBuffer();
-        bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
-        bufferbuilder.pos((double)(x + 0), (double)(y + height), z).tex((double)((float)(textureX + 0) * 0.00390625F), (double)((float)(textureY + height) * 0.00390625F)).endVertex();
-        bufferbuilder.pos((double)(x + width), (double)(y + height), z).tex((double)((float)(textureX + width) * 0.00390625F), (double)((float)(textureY + height) * 0.00390625F)).endVertex();
-        bufferbuilder.pos((double)(x + width), (double)(y + 0), z).tex((double)((float)(textureX + width) * 0.00390625F), (double)((float)(textureY + 0) * 0.00390625F)).endVertex();
-        bufferbuilder.pos((double)(x + 0), (double)(y + 0), z).tex((double)((float)(textureX + 0) * 0.00390625F), (double)((float)(textureY + 0) * 0.00390625F)).endVertex();
-        tessellator.draw();
     }
 }

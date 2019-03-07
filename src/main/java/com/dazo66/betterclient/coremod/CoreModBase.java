@@ -47,6 +47,7 @@ public class CoreModBase implements IFMLLoadingPlugin {
     public void injectData(Map<String, Object> data) {
         COREMOD_LOCATION = (File) data.get("coremodLocation");
         RUNTIME_DEOBF = (Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");
+        MainTransformer.mainTransformer.transformerDebug();
     }
 
     @Override

@@ -6,7 +6,6 @@ import com.google.common.base.Strings;
 import net.minecraft.launchwrapper.IClassTransformer;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.common.ForgeVersion;
-import net.minecraftforge.fml.common.FMLLog;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.versioning.DefaultArtifactVersion;
 import net.minecraftforge.fml.common.versioning.VersionParser;
@@ -37,6 +36,9 @@ public class MainTransformer implements IClassTransformer {
 
     public MainTransformer() {
         mainTransformer = this;
+        if (BetterClient.DEBUG) {
+            BetterClient.logger.info("BetterClient Class Transformer Test Start");
+        }
         register(new GuiCloseEventInject());
         register(new I18nEventInject());
         register(new EntityAddWorldInject());
@@ -90,9 +92,9 @@ public class MainTransformer implements IClassTransformer {
                 map.get(s).add(iRegisterTransformer);
 
             }
-            FMLLog.log.info("{} Register SUCCESS", iRegisterTransformer.getClass().getSimpleName());
+            BetterClient.logger.info("{} Register SUCCESS", iRegisterTransformer.getClass().getSimpleName());
         } else {
-            FMLLog.log.warn("This MCVersion is {} but Transformer {} accept MCVersion is {} that ignore this Transformer", MCVERSION, iRegisterTransformer.getClass().getSimpleName(), iRegisterTransformer.getMcVersion());
+            BetterClient.logger.warn("This MCVersion is {} but Transformer {} accept MCVersion is {} that ignore this Transformer", MCVERSION, iRegisterTransformer.getClass().getSimpleName(), iRegisterTransformer.getMcVersion());
         }
     }
 
@@ -104,14 +106,14 @@ public class MainTransformer implements IClassTransformer {
                 List<IRegisterTransformer> list = map.get(transformedName);
                 for (IRegisterTransformer irtf1 : list) {
                     basicClass = irtf1.transform(name, transformedName, basicClass);
-                    FMLLog.log.info("CLASS: " + irtf1.getClass().getSimpleName() + " Transformer SUCCESS");
+                    BetterClient.logger.info("CLASS: " + irtf1.getClass().getSimpleName() + " Transformer SUCCESS");
                 }
                 return basicClass;
             } else if (map.containsKey(name)) {
                 List<IRegisterTransformer> list = map.get(transformedName);
                 for (IRegisterTransformer irtf1 : list) {
                     basicClass = irtf1.transform(name, transformedName, basicClass);
-                    FMLLog.log.info("CLASS: " + irtf1.getClass().getSimpleName() + " Transformer SUCCESS");
+                    BetterClient.logger.info("CLASS: " + irtf1.getClass().getSimpleName() + " Transformer SUCCESS");
                 }
                 return basicClass;
             } else {

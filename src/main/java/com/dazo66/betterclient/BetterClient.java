@@ -16,8 +16,9 @@ import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.*;
+import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.Logger;
 
 import java.io.File;
 import java.util.List;
@@ -36,7 +37,7 @@ public class BetterClient {
 
     @Mod.Instance
     public static BetterClient betterClient = new BetterClient();
-    public static Logger logger = LogManager.getLogger(MODID);
+    public static Logger logger;
     public static boolean DEBUG = isDEBUG();
     public static Configuration config = new Configuration(new File("config\\" + MODID + ".cfg"));
     public static Set<IFunction> enableFeatures = FunctionsRegister.enableFunctions;
@@ -44,6 +45,12 @@ public class BetterClient {
 
     static {
         config.load();
+        logger = (org.apache.logging.log4j.core.Logger) LogManager.getLogger(MODID);
+        if (DEBUG) {
+            logger.setLevel(Level.ALL);
+        } else {
+            logger.setLevel(Level.WARN);
+        }
     }
 
     public BetterClient() {
@@ -83,16 +90,11 @@ public class BetterClient {
     private static boolean isDEBUG() {
         Map<String, String> map = (Map<String, String>) Launch.blackboard.get("launchArgs");
         String s = map.get("--betterclient_debug");
-        boolean b = Boolean.valueOf(s);
-        if (b) {
-            logger.info("BetterClient DEBUG ON");
-        }
-        return b;
+        return Boolean.valueOf(s);
     }
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-        MainTransformer.mainTransformer.transformerDebug();
         ReflectionHelper.getInstance().addDefineFile("betterclient_rh.cfg");
         for (IFunction feature : enableFeatures) {
             feature.preInit(event);

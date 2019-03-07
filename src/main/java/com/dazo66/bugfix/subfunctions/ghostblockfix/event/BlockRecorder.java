@@ -1,4 +1,4 @@
-package com.dazo66.bugfix.event;
+package com.dazo66.bugfix.subfunctions.ghostblockfix.event;
 
 import com.google.common.collect.Maps;
 import net.minecraft.block.state.IBlockState;

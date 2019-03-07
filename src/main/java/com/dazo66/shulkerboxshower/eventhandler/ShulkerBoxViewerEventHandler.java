@@ -3,6 +3,7 @@ package com.dazo66.shulkerboxshower.eventhandler;
 import com.dazo66.shulkerboxshower.ShulkerBoxViewer;
 import com.dazo66.shulkerboxshower.client.render.DrawItemInShulkerbox;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
@@ -62,10 +63,9 @@ public class ShulkerBoxViewerEventHandler {
                 mouxeX = event.getMouseX();
                 mouseY = event.getMouseY();
                 time = System.currentTimeMillis();
-            }else {
-                if (System.currentTimeMillis() - time > 300) {
-                    isCooldown = true;
-                }
+            }
+            if (System.currentTimeMillis() - time > 10 || GuiScreen.isCtrlKeyDown()) {
+                isCooldown = true;
             }
             if (isCooldown) {
                 GuiContainer gui = (GuiContainer) event.getGui();
@@ -128,7 +128,7 @@ public class ShulkerBoxViewerEventHandler {
                         drawer.draw(ItemStack.EMPTY, holdMainItem, x, y);
                     }
                     if (holdOffItem.getItem() instanceof ItemShulkerBox) {
-                        int x = scaled.getScaledWidth()  - 478 + ShulkerBoxViewer.offsetX.getValue();
+                        int x = scaled.getScaledWidth() - 478 + ShulkerBoxViewer.offsetX.getValue();
                         int y = scaled.getScaledHeight() + 4 + ShulkerBoxViewer.offsetY.getValue();
                         drawer.draw(ItemStack.EMPTY, holdOffItem, x, y);
                     }
